@@ -1,0 +1,188 @@
+@import "tailwindcss";
+
+@plugin "tailwindcss-animate";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  /* Border Radius */
+  --radius: 0.625rem;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  /* Typography - Font Families */
+  --font-family-sans: "Vazirmatn", sans-serif;
+  --font-family-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+
+  /* Typography - Font Sizes */
+  --font-size-xs: 0.75rem; /* 12px */
+  --font-size-sm: 0.875rem; /* 14px */
+  --font-size-base: 1rem; /* 16px */
+  --font-size-lg: 1.125rem; /* 18px */
+  --font-size-xl: 1.25rem; /* 20px */
+  --font-size-2xl: 1.5rem; /* 24px */
+  --font-size-3xl: 1.875rem; /* 30px */
+  --font-size-4xl: 2.25rem; /* 36px */
+  --font-size-5xl: 3rem; /* 48px */
+
+  /* Typography - Font Weights */
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Typography - Line Heights */
+  --line-height-none: 1;
+  --line-height-tight: 1.2;
+  --line-height-snug: 1.4;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.6;
+  --line-height-loose: 2;
+
+  /* Typography - Letter Spacing */
+  --letter-spacing-tighter: -0.02em;
+  --letter-spacing-tight: -0.01em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.02em;
+  --letter-spacing-wider: 0.05em;
+  --letter-spacing-widest: 0.1em;
+
+  /* ============================================
+	   Light Theme Colors - Hambazi Palette
+	   ============================================ */
+
+  /* Base Palette */
+  --color-primary: #e87722; /* Orange */
+  --color-primary-foreground: #ffffff;
+  --color-secondary: #1c3c5a; /* Navy Blue */
+  --color-secondary-foreground: #ffffff;
+  --color-accent: #fff4e6; /* Warm Cream */
+  --color-accent-foreground: #111827; /* Text Primary */
+
+  /* Semantic Colors */
+  --color-background: #f9fafb; /* Background */
+  --color-foreground: #111827; /* Text Primary */
+  --color-card: #f3f4f6; /* Surface / Card */
+  --color-card-foreground: #111827; /* Text Primary */
+  --color-popover: #f3f4f6; /* Surface / Card */
+  --color-popover-foreground: #111827; /* Text Primary */
+  --color-muted: #f3f4f6; /* Surface / Card */
+  --color-muted-foreground: #374151; /* Text Secondary */
+  --color-border: #e5e7eb; /* Border */
+  --color-input: #e5e7eb; /* Border */
+  --color-ring: #2563eb; /* Link / Hover Blue */
+
+  /* State Colors */
+  --color-destructive: oklch(0.577 0.245 27.325);
+  --color-success: oklch(0.6 0.15 150);
+  --color-warning: oklch(0.75 0.15 80);
+  --color-info: oklch(0.6 0.15 220);
+
+  /* Chart Colors */
+  --color-chart-1: oklch(0.646 0.222 41.116);
+  --color-chart-2: oklch(0.6 0.118 184.704);
+  --color-chart-3: oklch(0.398 0.07 227.392);
+  --color-chart-4: oklch(0.828 0.189 84.429);
+  --color-chart-5: oklch(0.769 0.188 70.08);
+
+  /* Sidebar Colors */
+  --color-sidebar: #f3f4f6; /* Surface / Card */
+  --color-sidebar-foreground: #111827; /* Text Primary */
+  --color-sidebar-primary: #e87722; /* Orange */
+  --color-sidebar-primary-foreground: #ffffff;
+  --color-sidebar-accent: #f3f4f6; /* Surface / Card */
+  --color-sidebar-accent-foreground: #111827; /* Text Primary */
+  --color-sidebar-border: #e5e7eb; /* Border */
+  --color-sidebar-ring: #2563eb; /* Link / Hover Blue */
+
+  /* Gradient */
+  --gradient-primary: linear-gradient(135deg, #e87722, #1c3c5a);
+}
+
+.dark {
+  /* ============================================
+	   Dark Theme Colors - Hambazi Palette
+	   ============================================ */
+
+  /* Base Palette */
+  --color-primary: #f59e4a; /* Lighter orange for dark mode */
+  --color-primary-foreground: #111827; /* Text Primary */
+  --color-secondary: #2d5a7e; /* Lighter navy for dark mode */
+  --color-secondary-foreground: #f9fafb; /* Background */
+  --color-accent: #4a5568; /* Darker accent for dark mode */
+  --color-accent-foreground: #f9fafb; /* Background */
+
+  /* Semantic Colors */
+  --color-background: #111827; /* Text Primary (inverted) */
+  --color-foreground: #f9fafb; /* Background (inverted) */
+  --color-card: #1f2937; /* Darker surface for dark mode */
+  --color-card-foreground: #f9fafb; /* Background (inverted) */
+  --color-popover: #1f2937; /* Darker surface for dark mode */
+  --color-popover-foreground: #f9fafb; /* Background (inverted) */
+  --color-muted: #374151; /* Text Secondary */
+  --color-muted-foreground: #9ca3af; /* Muted Gray */
+  --color-border: #374151; /* Text Secondary */
+  --color-input: #374151; /* Text Secondary */
+  --color-ring: #3b82f6; /* Lighter blue for dark mode */
+
+  /* State Colors */
+  --color-destructive: oklch(0.704 0.191 22.216);
+  --color-success: oklch(0.7 0.15 150);
+  --color-warning: oklch(0.8 0.15 80);
+  --color-info: oklch(0.7 0.15 220);
+
+  /* Chart Colors */
+  --color-chart-1: oklch(0.488 0.243 264.376);
+  --color-chart-2: oklch(0.696 0.17 162.48);
+  --color-chart-3: oklch(0.769 0.188 70.08);
+  --color-chart-4: oklch(0.627 0.265 303.9);
+  --color-chart-5: oklch(0.645 0.246 16.439);
+
+  /* Sidebar Colors */
+  --color-sidebar: #1f2937; /* Darker surface for dark mode */
+  --color-sidebar-foreground: #f9fafb; /* Background */
+  --color-sidebar-primary: #f59e4a; /* Lighter orange for dark mode */
+  --color-sidebar-primary-foreground: #111827; /* Text Primary */
+  --color-sidebar-accent: #374151; /* Text Secondary */
+  --color-sidebar-accent-foreground: #f9fafb; /* Background */
+  --color-sidebar-border: #374151; /* Text Secondary */
+  --color-sidebar-ring: #3b82f6; /* Lighter blue for dark mode */
+
+  /* Gradient */
+  --gradient-primary: linear-gradient(135deg, #f59e4a, #2d5a7e);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-family-sans);
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-relaxed);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  #root {
+    @apply min-h-screen;
+  }
+
+  /* RTL Support */
+  [dir="rtl"] {
+    direction: rtl;
+    text-align: right;
+  }
+
+  [dir="ltr"] {
+    direction: ltr;
+    text-align: left;
+  }
+}

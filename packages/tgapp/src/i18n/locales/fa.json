@@ -1,0 +1,23 @@
+{
+  "common": {
+    "home": "خانه",
+    "shop": "فروشگاه",
+    "events": "رویدادها",
+    "network": "شبکه‌سازی",
+    "comingSoon": "به زودی",
+    "welcome": "خوش آمدید",
+    "navigate": "ناوبری",
+    "appName": "همبازی"
+  },
+  "home": {
+    "title": "خانه",
+    "description": "به مینی اپ تلگرام خوش آمدید",
+    "content": "حضور طراحی گرافیک Graphic Design در تبلیغات به قدری"
+  },
+  "events": {
+    "futureEvents": "رویدادهای آینده",
+    "previousEvents": "رویدادهای گذشته",
+    "noFutureEvents": "رویداد آینده‌ای وجود ندارد",
+    "noPreviousEvents": "رویداد گذشته‌ای وجود ندارد"
+  }
+}
