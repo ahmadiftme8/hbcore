@@ -1,26 +1,234 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  /* Custom brand color scale */
+  --color-brand-50: var(--brand-50);
+  --color-brand-100: var(--brand-100);
+  --color-brand-200: var(--brand-200);
+  --color-brand-300: var(--brand-300);
+  --color-brand-400: var(--brand-400);
+  --color-brand-500: var(--brand-500);
+  --color-brand-600: var(--brand-600);
+  --color-brand-700: var(--brand-700);
+  --color-brand-800: var(--brand-800);
+  --color-brand-900: var(--brand-900);
+  --color-brand-950: var(--brand-950);
+  /* Custom accent color scale */
+  --color-accent-50: var(--accent-50);
+  --color-accent-100: var(--accent-100);
+  --color-accent-200: var(--accent-200);
+  --color-accent-300: var(--accent-300);
+  --color-accent-400: var(--accent-400);
+  --color-accent-500: var(--accent-500);
+  --color-accent-600: var(--accent-600);
+  --color-accent-700: var(--accent-700);
+  --color-accent-800: var(--accent-800);
+  --color-accent-900: var(--accent-900);
+  --color-accent-950: var(--accent-950);
+  /* Custom neutral color scale */
+  --color-neutral-50: var(--neutral-50);
+  --color-neutral-100: var(--neutral-100);
+  --color-neutral-200: var(--neutral-200);
+  --color-neutral-300: var(--neutral-300);
+  --color-neutral-400: var(--neutral-400);
+  --color-neutral-500: var(--neutral-500);
+  --color-neutral-600: var(--neutral-600);
+  --color-neutral-700: var(--neutral-700);
+  --color-neutral-800: var(--neutral-800);
+  --color-neutral-900: var(--neutral-900);
+  --color-neutral-950: var(--neutral-950);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  --radius: 0.625rem;
+  --background: var(--neutral-50); /* Spring Wood */
+  --foreground: var(--neutral-950);
+  --card: var(--neutral-50);
+  --card-foreground: var(--neutral-950);
+  --popover: var(--neutral-50);
+  --popover-foreground: var(--neutral-950);
+  /* Brand colors - Tango (#EA7525) palette */
+  --brand-50: #fef5ef;
+  --brand-100: #fde6d3;
+  --brand-200: #fbcba7;
+  --brand-300: #f8a871;
+  --brand-400: #f57f3a;
+  --brand-500: #ea7525; /* Tango - Primary brand color */
+  --brand-600: #d15f1a;
+  --brand-700: #ae4a15;
+  --brand-800: #8b3a14;
+  --brand-900: #723012;
+  --brand-950: #3d1809;
+  /* Accent colors - Blue Zodiac (#14345B) palette */
+  --accent-50: #e8edf3;
+  --accent-100: #d1dbe7;
+  --accent-200: #a3b7cf;
+  --accent-300: #7593b7;
+  --accent-400: #476f9f;
+  --accent-500: #14345b; /* Blue Zodiac - Primary accent color */
+  --accent-600: #102a49;
+  --accent-700: #0c2037;
+  --accent-800: #081625;
+  --accent-900: #040c13;
+  --accent-950: #020609;
+  /* Neutral colors - Spring Wood (#F8F9F4) and Shuttle Gray (#54646C) */
+  --neutral-50: #f8f9f4; /* Spring Wood */
+  --neutral-100: #f0f2ea;
+  --neutral-200: #e1e5d5;
+  --neutral-300: #d2d8c0;
+  --neutral-400: #c3cbab;
+  --neutral-500: #b4be96;
+  --neutral-600: #9ba57f;
+  --neutral-700: #828c68;
+  --neutral-800: #54646c; /* Shuttle Gray */
+  --neutral-900: #434f54;
+  --neutral-950: #2a3236;
+  /* Use brand colors for primary */
+  --primary: var(--brand-500); /* Tango */
+  --primary-foreground: var(--neutral-50);
+  --secondary: var(--neutral-100);
+  --secondary-foreground: var(--neutral-900);
+  --muted: var(--neutral-100);
+  --muted-foreground: var(--neutral-800); /* Shuttle Gray */
+  /* Use accent colors for accent */
+  --accent: var(--accent-500); /* Blue Zodiac */
+  --accent-foreground: var(--neutral-50);
+  --destructive: var(--brand-600);
+  --border: var(--neutral-200);
+  --input: var(--neutral-200);
+  --ring: var(--brand-500);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: var(--neutral-50);
+  --sidebar-foreground: var(--neutral-950);
+  --sidebar-primary: var(--brand-500); /* Tango */
+  --sidebar-primary-foreground: var(--neutral-50);
+  --sidebar-accent: var(--neutral-100);
+  --sidebar-accent-foreground: var(--neutral-900);
+  --sidebar-border: var(--neutral-200);
+  --sidebar-ring: var(--brand-500);
+}
+
+.dark {
+  --background: var(--neutral-950);
+  --foreground: var(--neutral-50);
+  --card: var(--neutral-900);
+  --card-foreground: var(--neutral-50);
+  --popover: var(--neutral-900);
+  --popover-foreground: var(--neutral-50);
+  /* Brand colors - same in dark mode, but used differently */
+  --brand-50: #fef5ef;
+  --brand-100: #fde6d3;
+  --brand-200: #fbcba7;
+  --brand-300: #f8a871;
+  --brand-400: #f57f3a;
+  --brand-500: #ea7525; /* Tango */
+  --brand-600: #d15f1a;
+  --brand-700: #ae4a15;
+  --brand-800: #8b3a14;
+  --brand-900: #723012;
+  --brand-950: #3d1809;
+  /* Accent colors - same in dark mode */
+  --accent-50: #e8edf3;
+  --accent-100: #d1dbe7;
+  --accent-200: #a3b7cf;
+  --accent-300: #7593b7;
+  --accent-400: #476f9f;
+  --accent-500: #14345b; /* Blue Zodiac */
+  --accent-600: #102a49;
+  --accent-700: #0c2037;
+  --accent-800: #081625;
+  --accent-900: #040c13;
+  --accent-950: #020609;
+  /* Neutral colors - same in dark mode */
+  --neutral-50: #f8f9f4; /* Spring Wood */
+  --neutral-100: #f0f2ea;
+  --neutral-200: #e1e5d5;
+  --neutral-300: #d2d8c0;
+  --neutral-400: #c3cbab;
+  --neutral-500: #b4be96;
+  --neutral-600: #9ba57f;
+  --neutral-700: #828c68;
+  --neutral-800: #54646c; /* Shuttle Gray */
+  --neutral-900: #434f54;
+  --neutral-950: #2a3236;
+  /* Use brand colors for primary in dark mode */
+  --primary: var(--brand-500); /* Tango */
+  --primary-foreground: var(--neutral-50);
+  --secondary: var(--neutral-800); /* Shuttle Gray */
+  --secondary-foreground: var(--neutral-50);
+  --muted: var(--neutral-800); /* Shuttle Gray */
+  --muted-foreground: var(--neutral-300);
+  /* Use accent colors for accent in dark mode */
+  --accent: var(--accent-400);
+  --accent-foreground: var(--neutral-50);
+  --destructive: var(--brand-600);
+  --border: var(--neutral-700);
+  --input: var(--neutral-700);
+  --ring: var(--brand-400);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: var(--neutral-900);
+  --sidebar-foreground: var(--neutral-50);
+  --sidebar-primary: var(--brand-500); /* Tango */
+  --sidebar-primary-foreground: var(--neutral-50);
+  --sidebar-accent: var(--neutral-800); /* Shuttle Gray */
+  --sidebar-accent-foreground: var(--neutral-50);
+  --sidebar-border: var(--neutral-700);
+  --sidebar-ring: var(--brand-400);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
   }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  body {
+    @apply bg-background text-foreground;
+  }
 }
