@@ -1,9 +1,8 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { EventCard, type EventData } from '@/components/EventCard/EventCard';
-import eventImage17 from '../../assets/images/17.png';
-import eventImageE from '../../assets/images/E.jpg';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { TRANSLATION_KEYS } from '@/config/translation-keys.constants';
 
 const DEMO_EVENTS: EventData[] = [
   {
@@ -46,15 +45,15 @@ export function Events() {
     <div className="container mx-auto p-6 max-w-2xl">
       <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as 'future' | 'previous')}>
         <TabsList className="w-full grid grid-cols-2">
-          <TabsTrigger value="future">{t('events.futureEvents')}</TabsTrigger>
-          <TabsTrigger value="previous">{t('events.previousEvents')}</TabsTrigger>
+          <TabsTrigger value="future">{t(TRANSLATION_KEYS.events.futureEvents)}</TabsTrigger>
+          <TabsTrigger value="previous">{t(TRANSLATION_KEYS.events.previousEvents)}</TabsTrigger>
         </TabsList>
         <TabsContent value="future" className="mt-4">
           <div className="space-y-4">
             {futureEvents.length > 0 ? (
               futureEvents.map((event) => <EventCard key={event.id} event={event} />)
             ) : (
-              <p className="text-center text-muted-foreground py-8">{t('events.noFutureEvents')}</p>
+              <p className="text-center text-muted-foreground py-8">{t(TRANSLATION_KEYS.events.noFutureEvents)}</p>
             )}
           </div>
         </TabsContent>
@@ -63,7 +62,7 @@ export function Events() {
             {previousEvents.length > 0 ? (
               previousEvents.map((event) => <EventCard key={event.id} event={event} />)
             ) : (
-              <p className="text-center text-muted-foreground py-8">{t('events.noPreviousEvents')}</p>
+              <p className="text-center text-muted-foreground py-8">{t(TRANSLATION_KEYS.events.noPreviousEvents)}</p>
             )}
           </div>
         </TabsContent>
@@ -71,4 +70,3 @@ export function Events() {
     </div>
   );
 }
-

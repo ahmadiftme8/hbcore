@@ -1,5 +1,6 @@
 import type { LucideIcon } from 'lucide-react';
 import { Home, Lock, Network, Rocket, ShoppingBasket } from 'lucide-react';
+import { TRANSLATION_KEYS } from './translation-keys.constants';
 
 /**
  * Navigation item configuration
@@ -18,26 +19,26 @@ export interface NavItemConfig {
 export const BOTTOM_NAV_ITEMS: NavItemConfig[] = [
   {
     to: '/',
-    translationKey: 'common.home',
+    translationKey: TRANSLATION_KEYS.common.home,
     icon: Home,
   },
   {
     to: '/shop',
-    translationKey: 'common.shop',
+    translationKey: TRANSLATION_KEYS.common.shop,
     icon: ShoppingBasket,
   },
   {
     to: '/events',
-    translationKey: 'common.events',
+    translationKey: TRANSLATION_KEYS.common.events,
     icon: Rocket,
   },
   {
     to: '/network',
-    translationKey: 'common.network',
+    translationKey: TRANSLATION_KEYS.common.network,
     icon: Network,
   },
   {
-    translationKey: 'common.comingSoon',
+    translationKey: TRANSLATION_KEYS.common.comingSoon,
     icon: Lock,
     disabled: true,
   },
