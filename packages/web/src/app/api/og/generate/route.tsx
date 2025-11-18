@@ -1,11 +1,11 @@
-import { ImageResponse } from "next/og";
-import { baseURL, person } from "@/resources";
+import { ImageResponse } from 'next/og';
+import { baseURL, person } from '@/resources';
 
-export const runtime = "nodejs";
+export const runtime = 'nodejs';
 
 export async function GET(request: Request) {
   let url = new URL(request.url);
-  let title = url.searchParams.get("title") || "Portfolio";
+  let title = url.searchParams.get('title') || 'Portfolio';
 
   async function loadGoogleFont(font: string) {
     const url = `https://fonts.googleapis.com/css2?family=${font}`;
@@ -19,82 +19,86 @@ export async function GET(request: Request) {
       }
     }
 
-    throw new Error("failed to load font data");
+    throw new Error('failed to load font data');
   }
 
   return new ImageResponse(
     <div
       style={{
-        display: "flex",
-        width: "100%",
-        height: "100%",
-        padding: "6rem",
-        background: "#151515",
+        display: 'flex',
+        width: '100%',
+        height: '100%',
+        padding: '6rem',
+        background: '#151515',
       }}
     >
       <div
         style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          gap: "4rem",
-          fontStyle: "normal",
-          color: "white",
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          gap: '4rem',
+          fontStyle: 'normal',
+          color: 'white',
         }}
       >
         <span
           style={{
-            padding: "1rem",
-            fontSize: "6rem",
-            lineHeight: "8rem",
-            letterSpacing: "-0.05em",
-            whiteSpace: "wrap",
-            textWrap: "balance",
-            overflow: "hidden",
+            padding: '1rem',
+            fontSize: '6rem',
+            lineHeight: '8rem',
+            letterSpacing: '-0.05em',
+            whiteSpace: 'wrap',
+            textWrap: 'balance',
+            overflow: 'hidden',
+            fontFamily: 'Vazirmatn',
           }}
         >
           {title}
         </span>
         <div
           style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "5rem",
+            display: 'flex',
+            alignItems: 'center',
+            gap: '5rem',
           }}
         >
           <img
             src={baseURL + person.avatar}
+            alt={person.name}
             style={{
-              width: "12rem",
-              height: "12rem",
-              objectFit: "cover",
-              borderRadius: "100%",
+              width: '12rem',
+              height: '12rem',
+              objectFit: 'cover',
+              borderRadius: '100%',
             }}
           />
           <div
             style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "0.75rem",
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '0.75rem',
             }}
           >
             <span
               style={{
-                fontSize: "4.5rem",
-                lineHeight: "4.5rem",
-                whiteSpace: "pre-wrap",
-                textWrap: "balance",
+                fontSize: '4.5rem',
+                lineHeight: '4.5rem',
+                whiteSpace: 'pre-wrap',
+                textWrap: 'balance',
+                fontFamily: 'Vazirmatn',
               }}
             >
               {person.name}
             </span>
             <span
               style={{
-                fontSize: "2.5rem",
-                lineHeight: "2.5rem",
-                whiteSpace: "pre-wrap",
-                textWrap: "balance",
-                opacity: "0.6",
+                fontSize: '2.5rem',
+                lineHeight: '2.5rem',
+                whiteSpace: 'pre-wrap',
+                textWrap: 'balance',
+                opacity: '0.6',
+                fontFamily: 'Vazirmatn',
               }}
             >
               {person.role}
@@ -108,9 +112,9 @@ export async function GET(request: Request) {
       height: 720,
       fonts: [
         {
-          name: "Geist",
-          data: await loadGoogleFont("Geist:wght@400"),
-          style: "normal",
+          name: 'Vazirmatn',
+          data: await loadGoogleFont('Vazirmatn:wght@400'),
+          style: 'normal',
         },
       ],
     },

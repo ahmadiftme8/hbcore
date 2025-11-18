@@ -1,20 +1,8 @@
-import {
-  Heading,
-  Text,
-  Button,
-  Avatar,
-  RevealFx,
-  Column,
-  Badge,
-  Row,
-  Schema,
-  Meta,
-  Line,
-} from "@once-ui-system/core";
-import { home, about, person, baseURL, routes } from "@/resources";
-import { Mailchimp } from "@/components";
-import { Projects } from "@/components/work/Projects";
-import { Posts } from "@/components/blog/Posts";
+import { Avatar, Badge, Button, Column, Heading, Line, Meta, RevealFx, Row, Schema, Text } from '@once-ui-system/core';
+import { Mailchimp } from '@/components';
+import { Posts } from '@/components/blog/Posts';
+import { Projects } from '@/components/work/Projects';
+import { about, baseURL, home, person, routes } from '@/resources';
 
 export async function generateMetadata() {
   return Meta.generate({
@@ -45,13 +33,7 @@ export default function Home() {
       <Column fillWidth horizontal="center" gap="m">
         <Column maxWidth="s" horizontal="center" align="center">
           {home.featured.display && (
-            <RevealFx
-              fillWidth
-              horizontal="center"
-              paddingTop="16"
-              paddingBottom="32"
-              paddingLeft="12"
-            >
+            <RevealFx fillWidth horizontal="center" paddingTop="16" paddingBottom="32" paddingLeft="12">
               <Badge
                 background="brand-alpha-weak"
                 paddingX="12"
@@ -87,12 +69,7 @@ export default function Home() {
             >
               <Row gap="8" vertical="center" paddingRight="4">
                 {about.avatar.display && (
-                  <Avatar
-                    marginRight="8"
-                    style={{ marginLeft: "-0.75rem" }}
-                    src={person.avatar}
-                    size="m"
-                  />
+                  <Avatar marginRight="8" style={{ marginLeft: '-0.75rem' }} src={person.avatar} size="m" />
                 )}
                 {about.title}
               </Row>
@@ -103,15 +80,15 @@ export default function Home() {
       <RevealFx translateY="16" delay={0.6}>
         <Projects range={[1, 1]} />
       </RevealFx>
-      {routes["/blog"] && (
+      {routes['/blog'] && (
         <Column fillWidth gap="24" marginBottom="l">
           <Row fillWidth paddingRight="64">
             <Line maxWidth={48} />
           </Row>
-          <Row fillWidth gap="24" marginTop="40" s={{ direction: "column" }}>
+          <Row fillWidth gap="24" marginTop="40" s={{ direction: 'column' }}>
             <Row flex={1} paddingLeft="l" paddingTop="24">
               <Heading as="h2" variant="display-strong-xs" wrap="balance">
-                Latest from the blog
+                آخرین مطالب بلاگ
               </Heading>
             </Row>
             <Row flex={3} paddingX="20">

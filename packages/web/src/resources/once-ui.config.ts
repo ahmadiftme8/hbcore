@@ -1,3 +1,4 @@
+import { NeutralColor, Schemes } from '@once-ui-system/core';
 import {
   DataStyleConfig,
   DisplayConfig,
@@ -10,18 +11,18 @@ import {
   SchemaConfig,
   SocialSharingConfig,
   StyleConfig,
-} from "@/types";
-import { home } from "./index";
+} from '@/types';
+import { home } from './index';
 
 // IMPORTANT: Replace with your own domain address - it's used for SEO in meta tags and schema
-const baseURL: string = "https://demo.magic-portfolio.com";
+const baseURL: string = 'https://demo.magic-portfolio.com';
 
 const routes: RoutesConfig = {
-  "/": true,
-  "/about": true,
-  "/work": true,
-  "/blog": true,
-  "/gallery": true,
+  '/': true,
+  '/about': true,
+  '/work': true,
+  '/blog': true,
+  '/gallery': true,
 };
 
 const display: DisplayConfig = {
@@ -33,35 +34,34 @@ const display: DisplayConfig = {
 // Enable password protection on selected routes
 // Set password in the .env file, refer to .env.example
 const protectedRoutes: ProtectedRoutesConfig = {
-  "/work/automate-design-handovers-with-a-figma-to-code-pipeline": true,
+  '/work/automate-design-handovers-with-a-figma-to-code-pipeline': true,
 };
 
 // Import and set font for each variant
-import { Geist } from "next/font/google";
-import { Geist_Mono } from "next/font/google";
+import { Vazirmatn } from 'next/font/google';
 
-const heading = Geist({
-  variable: "--font-heading",
-  subsets: ["latin"],
-  display: "swap",
+const heading = Vazirmatn({
+  variable: '--font-heading',
+  subsets: ['latin', 'arabic'],
+  display: 'swap',
 });
 
-const body = Geist({
-  variable: "--font-body",
-  subsets: ["latin"],
-  display: "swap",
+const body = Vazirmatn({
+  variable: '--font-body',
+  subsets: ['latin', 'arabic'],
+  display: 'swap',
 });
 
-const label = Geist({
-  variable: "--font-label",
-  subsets: ["latin"],
-  display: "swap",
+const label = Vazirmatn({
+  variable: '--font-label',
+  subsets: ['latin', 'arabic'],
+  display: 'swap',
 });
 
-const code = Geist_Mono({
-  variable: "--font-code",
-  subsets: ["latin"],
-  display: "swap",
+const code = Vazirmatn({
+  variable: '--font-code',
+  subsets: ['latin', 'arabic'],
+  display: 'swap',
 });
 
 const fonts: FontsConfig = {
@@ -73,27 +73,27 @@ const fonts: FontsConfig = {
 
 // default customization applied to the HTML in the main layout.tsx
 const style: StyleConfig = {
-  theme: "system", // dark | light | system
-  neutral: "gray", // sand | gray | slate | custom
-  brand: "cyan", // blue | indigo | violet | magenta | pink | red | orange | yellow | moss | green | emerald | aqua | cyan | custom
-  accent: "red", // blue | indigo | violet | magenta | pink | red | orange | yellow | moss | green | emerald | aqua | cyan | custom
-  solid: "contrast", // color | contrast
-  solidStyle: "flat", // flat | plastic
-  border: "playful", // rounded | playful | conservative
-  surface: "translucent", // filled | translucent
-  transition: "all", // all | micro | macro
-  scaling: "100", // 90 | 95 | 100 | 105 | 110
+  theme: 'system', // dark | light | system
+  neutral: 'custom' as NeutralColor, // sand | gray | slate | custom
+  brand: 'custom' as Schemes, // blue | indigo | violet | magenta | pink | red | orange | yellow | moss | green | emerald | aqua | cyan | custom
+  accent: 'custom' as Schemes, // blue | indigo | violet | magenta | pink | red | orange | yellow | moss | green | emerald | aqua | cyan | custom
+  solid: 'contrast', // color | contrast
+  solidStyle: 'flat', // flat | plastic
+  border: 'playful', // rounded | playful | conservative
+  surface: 'translucent', // filled | translucent
+  transition: 'all', // all | micro | macro
+  scaling: '100', // 90 | 95 | 100 | 105 | 110
 };
 
 const dataStyle: DataStyleConfig = {
-  variant: "gradient", // flat | gradient | outline
-  mode: "categorical", // categorical | divergent | sequential
+  variant: 'gradient', // flat | gradient | outline
+  mode: 'categorical', // categorical | divergent | sequential
   height: 24, // default chart height
   axis: {
-    stroke: "var(--neutral-alpha-weak)",
+    stroke: 'var(--neutral-alpha-weak)',
   },
   tick: {
-    fill: "var(--neutral-on-background-weak)",
+    fill: 'var(--neutral-on-background-weak)',
     fontSize: 11,
     line: false,
   },
@@ -114,34 +114,34 @@ const effects: EffectsConfig = {
     width: 100,
     height: 50,
     tilt: 0,
-    colorStart: "accent-background-strong",
-    colorEnd: "page-background",
+    colorStart: 'accent-background-strong',
+    colorEnd: 'page-background',
   },
   dots: {
     display: true,
     opacity: 40,
-    size: "2",
-    color: "brand-background-strong",
+    size: '2',
+    color: 'brand-background-strong',
   },
   grid: {
     display: false,
     opacity: 100,
-    color: "neutral-alpha-medium",
-    width: "0.25rem",
-    height: "0.25rem",
+    color: 'neutral-alpha-medium',
+    width: '0.25rem',
+    height: '0.25rem',
   },
   lines: {
     display: false,
     opacity: 100,
-    color: "neutral-alpha-weak",
-    size: "16",
+    color: 'neutral-alpha-weak',
+    size: '16',
     thickness: 1,
     angle: 45,
   },
 };
 
 const mailchimp: MailchimpConfig = {
-  action: "https://url/subscribe/post?parameters",
+  action: 'https://url/subscribe/post?parameters',
   effects: {
     mask: {
       cursor: true,
@@ -157,27 +157,27 @@ const mailchimp: MailchimpConfig = {
       width: 50,
       height: 50,
       tilt: 0,
-      colorStart: "accent-background-strong",
-      colorEnd: "static-transparent",
+      colorStart: 'accent-background-strong',
+      colorEnd: 'static-transparent',
     },
     dots: {
       display: true,
       opacity: 20,
-      size: "2",
-      color: "brand-on-background-weak",
+      size: '2',
+      color: 'brand-on-background-weak',
     },
     grid: {
       display: false,
       opacity: 100,
-      color: "neutral-alpha-medium",
-      width: "0.25rem",
-      height: "0.25rem",
+      color: 'neutral-alpha-medium',
+      width: '0.25rem',
+      height: '0.25rem',
     },
     lines: {
       display: false,
       opacity: 100,
-      color: "neutral-alpha-medium",
-      size: "16",
+      color: 'neutral-alpha-medium',
+      size: '16',
       thickness: 1,
       angle: 90,
     },
@@ -186,18 +186,18 @@ const mailchimp: MailchimpConfig = {
 
 // default schema data
 const schema: SchemaConfig = {
-  logo: "",
-  type: "Organization",
-  name: "Once UI",
+  logo: '',
+  type: 'Organization',
+  name: 'Once UI',
   description: home.description,
-  email: "lorant@once-ui.com",
+  email: 'lorant@once-ui.com',
 };
 
 // social links
 const sameAs: SameAsConfig = {
-  threads: "https://www.threads.com/@once_ui",
-  linkedin: "https://www.linkedin.com/company/once-ui/",
-  discord: "https://discord.com/invite/5EyAQ4eNdS",
+  threads: 'https://www.threads.com/@once_ui',
+  linkedin: 'https://www.linkedin.com/company/once-ui/',
+  discord: 'https://discord.com/invite/5EyAQ4eNdS',
 };
 
 // social sharing configuration for blog posts

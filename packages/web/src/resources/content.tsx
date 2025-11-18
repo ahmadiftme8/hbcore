@@ -1,87 +1,86 @@
-import { About, Blog, Gallery, Home, Newsletter, Person, Social, Work } from "@/types";
-import { Line, Logo, Row, Text } from "@once-ui-system/core";
+import { Line, Logo, Row, Text } from '@once-ui-system/core';
+import { About, Blog, Gallery, Home, Newsletter, Person, Social, Work } from '@/types';
 
 const person: Person = {
-  firstName: "Selene",
-  lastName: "Yu",
+  firstName: 'Selene',
+  lastName: 'Yu',
   name: `Selene Yu`,
-  role: "Design Engineer",
-  avatar: "/images/avatar.jpg",
-  email: "example@gmail.com",
-  location: "Asia/Jakarta", // Expecting the IANA time zone identifier, e.g., 'Europe/Vienna'
-  languages: ["English", "Bahasa"], // optional: Leave the array empty if you don't want to display languages
+  role: 'طراح مهندس',
+  avatar: '/images/avatar.jpg',
+  email: 'example@gmail.com',
+  location: 'Asia/Jakarta', // Expecting the IANA time zone identifier, e.g., 'Europe/Vienna'
+  languages: ['English', 'Bahasa'], // optional: Leave the array empty if you don't want to display languages
 };
 
 const newsletter: Newsletter = {
   display: true,
-  title: <>Subscribe to {person.firstName}'s Newsletter</>,
-  description: <>My weekly newsletter about creativity and engineering</>,
+  title: <>اشتراک در خبرنامه {person.firstName}</>,
+  description: <>خبرنامه هفتگی من درباره خلاقیت و مهندسی</>,
 };
 
 const social: Social = [
   // Links are automatically displayed.
   // Import new icons in /once-ui/icons.ts
   {
-    name: "GitHub",
-    icon: "github",
-    link: "https://github.com/once-ui-system",
+    name: 'GitHub',
+    icon: 'github',
+    link: 'https://github.com/once-ui-system',
   },
   {
-    name: "LinkedIn",
-    icon: "linkedin",
-    link: "https://www.linkedin.com/company/once-ui/",
+    name: 'LinkedIn',
+    icon: 'linkedin',
+    link: 'https://www.linkedin.com/company/once-ui/',
   },
   {
-    name: "Threads",
-    icon: "threads",
-    link: "https://www.threads.com/@once_ui",
+    name: 'Threads',
+    icon: 'threads',
+    link: 'https://www.threads.com/@once_ui',
   },
   {
-    name: "Email",
-    icon: "email",
+    name: 'Email',
+    icon: 'email',
     link: `mailto:${person.email}`,
   },
 ];
 
 const home: Home = {
-  path: "/",
-  image: "/images/og/home.jpg",
-  label: "Home",
-  title: `${person.name}'s Portfolio`,
-  description: `Portfolio website showcasing my work as a ${person.role}`,
-  headline: <>Building bridges between design and code</>,
+  path: '/',
+  image: '/images/og/home.jpg',
+  label: 'خانه',
+  title: `نمونه کار ${person.name}`,
+  description: `وب‌سایت نمونه کار که کارهای من به عنوان ${person.role} را نمایش می‌دهد`,
+  headline: <>ساختن پل بین طراحی و کد</>,
   featured: {
     display: true,
     title: (
       <Row gap="12" vertical="center">
-        <strong className="ml-4">Once UI</strong>{" "}
-        <Line background="brand-alpha-strong" vert height="20" />
+        <strong className="ml-4">Once UI</strong> <Line background="brand-alpha-strong" vert height="20" />
         <Text marginRight="4" onBackground="brand-medium">
-          Featured work
+          کارهای برجسته
         </Text>
       </Row>
     ),
-    href: "/work/building-once-ui-a-customizable-design-system",
+    href: '/work/building-once-ui-a-customizable-design-system',
   },
   subline: (
     <>
-      I'm Selene, a design engineer at{" "}
+      من سلین هستم، یک طراح مهندس در{' '}
       <Logo
         dark
         icon="/trademarks/wordmark-dark.svg"
-        style={{ display: "inline-flex", top: "0.25em", marginLeft: "-0.25em" }}
+        style={{ display: 'inline-flex', top: '0.25em', marginLeft: '-0.25em' }}
       />
-      , where I craft intuitive
-      <br /> user experiences. After hours, I build my own projects.
+      ، جایی که تجربیات کاربری
+      <br /> بصری می‌سازم. بعد از ساعات کاری، پروژه‌های خودم را می‌سازم.
     </>
   ),
 };
 
 const about: About = {
-  path: "/about",
-  label: "About",
-  title: `About – ${person.name}`,
-  description: `Meet ${person.name}, ${person.role} from ${person.location}`,
+  path: '/about',
+  label: 'درباره',
+  title: `درباره – ${person.name}`,
+  description: `با ${person.name}، ${person.role} از ${person.location} آشنا شوید`,
   tableOfContent: {
     display: true,
     subItems: false,
@@ -91,60 +90,50 @@ const about: About = {
   },
   calendar: {
     display: true,
-    link: "https://cal.com",
+    link: 'https://cal.com',
   },
   intro: {
     display: true,
-    title: "Introduction",
+    title: 'معرفی',
     description: (
       <>
-        Selene is a Jakarta-based design engineer with a passion for transforming complex challenges
-        into simple, elegant design solutions. Her work spans digital interfaces, interactive
-        experiences, and the convergence of design and technology.
+        سلین یک طراح مهندس ساکن جاکارتا است که علاقه‌مند به تبدیل چالش‌های پیچیده به راه‌حل‌های طراحی ساده و ظریف است. کار
+        او شامل رابط‌های دیجیتال، تجربیات تعاملی و همگرایی طراحی و فناوری می‌شود.
       </>
     ),
   },
   work: {
     display: true, // set to false to hide this section
-    title: "Work Experience",
+    title: 'سوابق کاری',
     experiences: [
       {
-        company: "FLY",
-        timeframe: "2022 - Present",
-        role: "Senior Design Engineer",
+        company: 'FLY',
+        timeframe: '2022 - اکنون',
+        role: 'طراح مهندس ارشد',
         achievements: [
           <>
-            Redesigned the UI/UX for the FLY platform, resulting in a 20% increase in user
-            engagement and 30% faster load times.
+            بازطراحی UI/UX برای پلتفرم FLY که منجر به افزایش 20 درصدی تعامل کاربران و 30 درصد سریع‌تر شدن زمان بارگذاری
+            شد.
           </>,
-          <>
-            Spearheaded the integration of AI tools into design workflows, enabling designers to
-            iterate 50% faster.
-          </>,
+          <>پیشگامی در ادغام ابزارهای هوش مصنوعی در گردش کار طراحی، که به طراحان امکان تکرار 50 درصد سریع‌تر را داد.</>,
         ],
         images: [
           // optional: leave the array empty if you don't want to display images
           {
-            src: "/images/projects/project-01/cover-01.jpg",
-            alt: "Once UI Project",
+            src: '/images/projects/project-01/cover-01.jpg',
+            alt: 'Once UI Project',
             width: 16,
             height: 9,
           },
         ],
       },
       {
-        company: "Creativ3",
-        timeframe: "2018 - 2022",
-        role: "Lead Designer",
+        company: 'Creativ3',
+        timeframe: '2018 - 2022',
+        role: 'طراح ارشد',
         achievements: [
-          <>
-            Developed a design system that unified the brand across multiple platforms, improving
-            design consistency by 40%.
-          </>,
-          <>
-            Led a cross-functional team to launch a new product line, contributing to a 15% increase
-            in overall company revenue.
-          </>,
+          <>توسعه یک سیستم طراحی که برند را در چندین پلتفرم یکپارچه کرد و سازگاری طراحی را 40 درصد بهبود بخشید.</>,
+          <>رهبری یک تیم چند عملکردی برای راه‌اندازی یک خط تولید جدید، که به افزایش 15 درصدی درآمد کل شرکت کمک کرد.</>,
         ],
         images: [],
       },
@@ -152,147 +141,143 @@ const about: About = {
   },
   studies: {
     display: true, // set to false to hide this section
-    title: "Studies",
+    title: 'تحصیلات',
     institutions: [
       {
-        name: "University of Jakarta",
-        description: <>Studied software engineering.</>,
+        name: 'دانشگاه جاکارتا',
+        description: <>تحصیل در رشته مهندسی نرم‌افزار.</>,
       },
       {
-        name: "Build the Future",
-        description: <>Studied online marketing and personal branding.</>,
+        name: 'Build the Future',
+        description: <>تحصیل در بازاریابی آنلاین و برندسازی شخصی.</>,
       },
     ],
   },
   technical: {
     display: true, // set to false to hide this section
-    title: "Technical skills",
+    title: 'مهارت‌های فنی',
     skills: [
       {
-        title: "Figma",
-        description: (
-          <>Able to prototype in Figma with Once UI with unnatural speed.</>
-        ),
+        title: 'Figma',
+        description: <>قادر به ساخت نمونه اولیه در Figma با Once UI با سرعت غیرعادی.</>,
         tags: [
           {
-            name: "Figma",
-            icon: "figma",
+            name: 'Figma',
+            icon: 'figma',
           },
         ],
         // optional: leave the array empty if you don't want to display images
         images: [
           {
-            src: "/images/projects/project-01/cover-02.jpg",
-            alt: "Project image",
+            src: '/images/projects/project-01/cover-02.jpg',
+            alt: 'Project image',
             width: 16,
             height: 9,
           },
           {
-            src: "/images/projects/project-01/cover-03.jpg",
-            alt: "Project image",
+            src: '/images/projects/project-01/cover-03.jpg',
+            alt: 'Project image',
             width: 16,
             height: 9,
           },
         ],
       },
       {
-        title: "Next.js",
-        description: (
-          <>Building next gen apps with Next.js + Once UI + Supabase.</>
-        ),
+        title: 'Next.js',
+        description: <>ساخت اپلیکیشن‌های نسل بعدی با Next.js + Once UI + Supabase.</>,
         tags: [
           {
-            name: "JavaScript",
-            icon: "javascript",
+            name: 'JavaScript',
+            icon: 'javascript',
           },
           {
-            name: "Next.js",
-            icon: "nextjs",
+            name: 'Next.js',
+            icon: 'nextjs',
           },
           {
-            name: "Supabase",
-            icon: "supabase",
+            name: 'Supabase',
+            icon: 'supabase',
           },
         ],
         // optional: leave the array empty if you don't want to display images
         images: [
           {
-            src: "/images/projects/project-01/cover-04.jpg",
-            alt: "Project image",
+            src: '/images/projects/project-01/cover-04.jpg',
+            alt: 'Project image',
             width: 16,
             height: 9,
           },
         ],
-      },  
+      },
     ],
   },
 };
 
 const blog: Blog = {
-  path: "/blog",
-  label: "Blog",
-  title: "Writing about design and tech...",
-  description: `Read what ${person.name} has been up to recently`,
+  path: '/blog',
+  label: 'بلاگ',
+  title: 'نوشتن درباره طراحی و فناوری...',
+  description: `بخوانید ${person.name} اخیراً چه کرده است`,
   // Create new blog posts by adding a new .mdx file to app/blog/posts
   // All posts will be listed on the /blog route
 };
 
 const work: Work = {
-  path: "/work",
-  label: "Work",
-  title: `Projects – ${person.name}`,
-  description: `Design and dev projects by ${person.name}`,
+  path: '/work',
+  label: 'کار',
+  title: `پروژه‌ها – ${person.name}`,
+  description: `پروژه‌های طراحی و توسعه توسط ${person.name}`,
   // Create new project pages by adding a new .mdx file to app/blog/posts
   // All projects will be listed on the /home and /work routes
 };
 
 const gallery: Gallery = {
-  path: "/gallery",
-  label: "Gallery",
-  title: `Photo gallery – ${person.name}`,
-  description: `A photo collection by ${person.name}`,
+  path: '/gallery',
+  label: 'گالری',
+  title: `گالری عکس – ${person.name}`,
+  description: `مجموعه عکس توسط ${person.name}`,
   // Images by https://lorant.one
   // These are placeholder images, replace with your own
   images: [
     {
-      src: "/images/gallery/horizontal-1.jpg",
-      alt: "image",
-      orientation: "horizontal",
+      src: '/images/gallery/horizontal-1.jpg',
+      alt: 'image',
+      orientation: 'horizontal',
     },
     {
-      src: "/images/gallery/vertical-4.jpg",
-      alt: "image",
-      orientation: "vertical",
+      src: '/images/gallery/vertical-4.jpg',
+      alt: 'image',
+      orientation: 'vertical',
     },
     {
-      src: "/images/gallery/horizontal-3.jpg",
-      alt: "image",
-      orientation: "horizontal",
+      src: '/images/gallery/horizontal-3.jpg',
+      alt: 'image',
+      orientation: 'horizontal',
     },
     {
-      src: "/images/gallery/vertical-1.jpg",
-      alt: "image",
-      orientation: "vertical",
+      src: '/images/gallery/vertical-1.jpg',
+      alt: 'image',
+      orientation: 'vertical',
     },
     {
-      src: "/images/gallery/vertical-2.jpg",
-      alt: "image",
-      orientation: "vertical",
+      src: '/images/gallery/vertical-2.jpg',
+      alt: 'image',
+      orientation: 'vertical',
     },
     {
-      src: "/images/gallery/horizontal-2.jpg",
-      alt: "image",
-      orientation: "horizontal",
+      src: '/images/gallery/horizontal-2.jpg',
+      alt: 'image',
+      orientation: 'horizontal',
     },
     {
-      src: "/images/gallery/horizontal-4.jpg",
-      alt: "image",
-      orientation: "horizontal",
+      src: '/images/gallery/horizontal-4.jpg',
+      alt: 'image',
+      orientation: 'horizontal',
     },
     {
-      src: "/images/gallery/vertical-3.jpg",
-      alt: "image",
-      orientation: "vertical",
+      src: '/images/gallery/vertical-3.jpg',
+      alt: 'image',
+      orientation: 'vertical',
     },
   ],
 };
