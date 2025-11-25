@@ -4,8 +4,8 @@ import { geistMono, rubik, vazirmatn } from '@/lib/fonts';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'همبازی ایونت',
-  description: 'همبازی ایونت',
+  title: 'Data to enrich your online business',
+  description: 'Data to enrich your online business',
 };
 
 export default function RootLayout({
@@ -14,7 +14,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fa" dir="rtl" className="dark">
+    <html lang="en" dir="ltr" className="dark">
       <body className={`${rubik.variable} ${vazirmatn.variable} ${geistMono.variable} antialiased`}>
         <Navigation />
         <main>{children}</main>
