@@ -23,16 +23,16 @@
   "featuresAndBenefits": {
     "features": {
       "feature1": {
-        "title": "Feature one",
-        "description": "All base UI elements are made using Nested Symbols and shared styles that are logically connected with one another."
+        "title": "Custom Board Games",
+        "description": "To strengthen the necessary abilities for team building and competition in the startup world"
       },
       "feature2": {
-        "title": "Feature two",
-        "description": "All base UI elements are made using Nested Symbols and shared styles that are logically connected with one another."
+        "title": "Networking",
+        "description": "Opportunity to meet top students and startup enthusiasts and build a team"
       },
       "feature3": {
-        "title": "Feature three",
-        "description": "All base UI elements are made using Nested Symbols and shared styles that are logically connected with one another."
+        "title": "Business Concepts Education",
+        "description": "Presenting content related to startups and transferring experience"
       }
     },
     "benefits": {
