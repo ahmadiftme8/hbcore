@@ -9,5 +9,11 @@
   },
   "common": {
     "login": "Log in"
+  },
+  "hero": {
+    "title": "From Board Games to Team Building",
+    "subtitle": "Where board games turn into innovative ideas. Play together, build together, grow together.",
+    "ctaPrimary": "Sign up",
+    "ctaSecondary": "Learn more"
   }
 }

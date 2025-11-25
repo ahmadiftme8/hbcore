@@ -23,7 +23,7 @@ const navigationItems = [
 type NavigationKey = (typeof navigationItems)[number]['key'];
 
 export function Navigation() {
-  const { t, language, toggleLanguage } = useTranslation();
+  const { t } = useTranslation();
 
   return (
     <nav className="navigation">
@@ -45,14 +45,14 @@ export function Navigation() {
           </NavigationMenuList>
         </NavigationMenu>
         <div className="navigation-actions">
-          <button
+          {/* <button
             type="button"
             onClick={toggleLanguage}
             className="navigation-language-switcher"
             aria-label="Switch language"
           >
             {language === 'fa' ? 'EN' : 'FA'}
-          </button>
+          </button> */}
           <Link href="#" className="navigation-login-link">
             {t('common.login')} →
           </Link>

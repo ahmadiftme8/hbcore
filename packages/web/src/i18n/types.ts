@@ -10,6 +10,12 @@ export interface TranslationSchema {
   common: {
     login: string;
   };
+  hero: {
+    title: string;
+    subtitle: string;
+    ctaPrimary: string;
+    ctaSecondary: string;
+  };
 }
 
 /**
