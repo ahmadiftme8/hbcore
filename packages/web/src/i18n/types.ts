@@ -16,6 +16,39 @@ export interface TranslationSchema {
     ctaPrimary: string;
     ctaSecondary: string;
   };
+  featuresAndBenefits: {
+    features: {
+      feature1: {
+        title: string;
+        description: string;
+      };
+      feature2: {
+        title: string;
+        description: string;
+      };
+      feature3: {
+        title: string;
+        description: string;
+      };
+    };
+    benefits: {
+      benefit1: {
+        headline: string;
+        paragraph: string;
+        bullet1: string;
+        bullet2: string;
+        bullet3: string;
+        bullet4: string;
+      };
+      benefit2: {
+        headline: string;
+        paragraph: string;
+        bullet1: string;
+        bullet2: string;
+        bullet3: string;
+      };
+    };
+  };
 }
 
 /**

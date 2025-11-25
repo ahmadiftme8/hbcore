@@ -15,5 +15,38 @@
     "subtitle": "Where board games turn into innovative ideas. Play together, build together, grow together.",
     "ctaPrimary": "Sign up",
     "ctaSecondary": "Learn more"
+  },
+  "featuresAndBenefits": {
+    "features": {
+      "feature1": {
+        "title": "Feature one",
+        "description": "All base UI elements are made using Nested Symbols and shared styles that are logically connected with one another."
+      },
+      "feature2": {
+        "title": "Feature two",
+        "description": "All base UI elements are made using Nested Symbols and shared styles that are logically connected with one another."
+      },
+      "feature3": {
+        "title": "Feature three",
+        "description": "All base UI elements are made using Nested Symbols and shared styles that are logically connected with one another."
+      }
+    },
+    "benefits": {
+      "benefit1": {
+        "headline": "Long headline on two lines to turn your visitors into users and achieve more",
+        "paragraph": "Separated they live in Bookmarks right at the coast of the famous Semantics, large language ocean",
+        "bullet1": "Showcase and embed your work with",
+        "bullet2": "Publish across social channels in a click",
+        "bullet3": "Sell your videos worldwide",
+        "bullet4": "Embed your work with"
+      },
+      "benefit2": {
+        "headline": "Long headline on two lines to turn your visitors into users and achieve more",
+        "paragraph": "Separated they live in Bookmarks right at the coast of the famous Semantics, large language ocean Separated they live in Bookmarks right at the coast",
+        "bullet1": "Showcase and embed your work with",
+        "bullet2": "Publish across social channels in a click",
+        "bullet3": "Sell your videos worldwide"
+      }
+    }
   }
 }
