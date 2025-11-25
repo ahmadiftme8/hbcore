@@ -25,9 +25,9 @@ export function Hero({ imagePath = '/images/hero/hero_1.jpg' }: HeroProps) {
           <Link href="#" className="hero-cta-primary">
             {t.hero.ctaPrimary}
           </Link>
-          <Link href="#" className="hero-cta-secondary">
+          <div className="hero-cta-secondary">
             {t.hero.ctaSecondary}
-          </Link>
+          </div>
         </div>
       </div>
     </section>
