@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -24,9 +25,23 @@ type NavigationKey = (typeof navigationItems)[number]['key'];
 
 export function Navigation() {
   const { t } = useTranslation();
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      setIsScrolled(scrollPosition > 50);
+    };
+
+    // Check initial scroll position
+    handleScroll();
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
-    <nav className="navigation">
+    <nav className={`navigation ${isScrolled ? 'navigation-scrolled' : ''}`}>
       <div className="navigation-container">
         <div className="navigation-brand">
           <Link href="#" className="navigation-brand-link">

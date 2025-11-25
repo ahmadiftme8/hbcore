@@ -4,8 +4,16 @@
   left: 0;
   right: 0;
   z-index: 100;
-  background-color: transparent;
+  background: linear-gradient(135deg, rgba(251, 193, 179, 0.1) 0%, rgba(242, 97, 63, 0.15) 50%, rgba(155, 57, 34, 0.2) 100%);
+  backdrop-filter: blur(8px);
   border: none;
+  transition: background 0.3s ease, backdrop-filter 0.3s ease;
+}
+
+.navigation-scrolled {
+  background: linear-gradient(135deg, var(--brand-200) 0%, var(--brand-400) 50%, var(--brand-500) 100%);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
 .navigation-container {

@@ -132,7 +132,7 @@ export function FeaturesAndBenefits() {
 
   return (
     <section className="features-and-benefits">
-      <div className="features-section">
+      <div id="features" className="features-section">
         <div className="features-grid">
           <Feature
             iconSrc={analyticsSetupIcon}
@@ -158,7 +158,7 @@ export function FeaturesAndBenefits() {
         </div>
       </div>
 
-      <div className="benefits-section">
+      <div id="benefits" className="benefits-section">
         <Benefit
           illustrationSrc={eatingTogetherIllustration}
           illustrationAlt="Eating Together"

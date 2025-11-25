@@ -13,7 +13,7 @@ export function Hero({ imagePath = '/images/hero/hero_1.jpg' }: HeroProps) {
   const { t } = useTranslation();
 
   return (
-    <section className="hero">
+    <section id="hero" className="hero">
       <div className="hero-background">
         <Image src={imagePath} alt="Hero background" fill priority className="hero-image" sizes="100vw" quality={90} />
         <div className="hero-overlay" />
