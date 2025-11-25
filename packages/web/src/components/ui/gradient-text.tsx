@@ -1,85 +1,55 @@
 'use client';
 
-import { animate, motion, useMotionValue, useTransform } from 'framer-motion';
-import { useEffect, useRef } from 'react';
+import { motion, type Transition } from 'motion/react';
+import * as React from 'react';
+import { designTokens } from '@/lib/design-tokens';
 import { cn } from '@/lib/utils';
 
-interface GradientTextProps {
-  children: React.ReactNode;
-  className?: string;
-  gradientColors?: string[];
+type GradientTextProps = React.ComponentProps<'span'> & {
+  text: string;
+  gradient?: string;
   neon?: boolean;
-  duration?: number;
-}
+  transition?: Transition;
+};
 
-export function GradientText({
-  children,
+// Default gradient using design system colors: light and dark versions of main brand color
+const defaultGradient = `linear-gradient(90deg, ${designTokens.colors.brand[400]} 0%, ${designTokens.colors.brand[200]} 50%, ${designTokens.colors.brand[400]} 100%)`;
+
+function GradientText({
+  text,
   className,
-  gradientColors = ['#8b5cf6', '#7c3aed', '#6d28d9', '#a78bfa'],
+  gradient = defaultGradient,
   neon = false,
-  duration = 4,
+  transition = { duration: 3, repeat: Infinity, ease: 'linear' },
+  ...props
 }: GradientTextProps) {
-  const x = useMotionValue(0);
-  const containerRef = useRef<HTMLHeadingElement>(null);
-
-  useEffect(() => {
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    if (prefersReducedMotion) {
-      return;
-    }
-
-    const gradientWidth = 200;
-    const animation = animate(x, gradientWidth, {
-      duration: duration,
-      repeat: Infinity,
-      repeatType: 'loop',
-      ease: 'linear',
-    });
-
-    return () => {
-      animation.stop();
-    };
-  }, [x, duration]);
-
-  const backgroundPosition = useTransform(x, (value) => `${value}% 50%`);
-
-  // Make gradient cyclic by adding the first color at the end
-  const cyclicColors = [...gradientColors, gradientColors[0]];
-  const gradientString = `linear-gradient(90deg, ${cyclicColors.join(', ')})`;
+  const baseStyle: React.CSSProperties = {
+    backgroundImage: gradient,
+  };
 
   return (
-    <motion.h1
-      ref={containerRef}
-      className={cn('relative inline-block', className)}
-      style={{
-        backgroundImage: gradientString,
-        backgroundSize: '200% 100%',
-        backgroundPosition: backgroundPosition,
-        WebkitBackgroundClip: 'text',
-        WebkitTextFillColor: 'transparent',
-        backgroundClip: 'text',
-      }}
-    >
-      {children}
+    <span data-slot="gradient-text" className={cn('relative inline-block', className)} {...props}>
+      <motion.span
+        className="m-0 text-transparent bg-clip-text bg-size-[200%_100%]"
+        style={baseStyle}
+        animate={{ backgroundPositionX: ['0%', '200%'] }}
+        transition={transition}
+      >
+        {text}
+      </motion.span>
+
       {neon && (
         <motion.span
-          className="absolute inset-0 blur-xl opacity-50"
-          style={{
-            backgroundImage: gradientString,
-            backgroundSize: '200% 100%',
-            backgroundPosition: backgroundPosition,
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text',
-            mixBlendMode: 'screen',
-            zIndex: -1,
-          }}
-          aria-hidden="true"
+          className="m-0 absolute top-0 left-0 text-transparent bg-clip-text blur-[8px] mix-blend-plus-lighter bg-size-[200%_100%]"
+          style={baseStyle}
+          animate={{ backgroundPositionX: ['0%', '200%'] }}
+          transition={transition}
         >
-          {children}
+          {text}
         </motion.span>
       )}
-    </motion.h1>
+    </span>
   );
 }
+
+export { GradientText, type GradientTextProps };

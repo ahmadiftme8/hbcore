@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
+import { GradientText } from '@/components/ui/gradient-text';
 import { useTranslation } from '@/i18n/useTranslation';
 import './Hero.css';
 
@@ -19,15 +20,13 @@ export function Hero({ imagePath = '/images/hero/hero_1.jpg' }: HeroProps) {
         <div className="hero-overlay" />
       </div>
       <div className="hero-content">
-        <h1 className="hero-title">{t.hero.title}</h1>
+        <GradientText text={t.hero.title} className="hero-title" />
         <p className="hero-subtitle">{t.hero.subtitle}</p>
         <div className="hero-ctas">
           <Link href="#" className="hero-cta-primary">
             {t.hero.ctaPrimary}
           </Link>
-          <div className="hero-cta-secondary">
-            {t.hero.ctaSecondary}
-          </div>
+          <div className="hero-cta-secondary">{t.hero.ctaSecondary}</div>
         </div>
       </div>
     </section>
