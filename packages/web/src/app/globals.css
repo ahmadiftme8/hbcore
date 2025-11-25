@@ -89,51 +89,20 @@
   --card-foreground: var(--neutral-950);
   --popover: var(--neutral-50);
   --popover-foreground: var(--neutral-950);
-  /* Brand colors - Orange/Red palette (#F2613F, #9B3922, #481E14) */
-  --brand-50: #fef2f0;
-  --brand-100: #fde0d9;
-  --brand-200: #fbc1b3;
-  --brand-300: #f8a28d;
-  --brand-400: #f2613f; /* Coral Orange - Primary brand color */
-  --brand-500: #9b3922; /* Burnt Orange - Main brand color */
-  --brand-600: #7d2e1b;
-  --brand-700: #5f2314;
-  --brand-800: #481e14; /* Dark Reddish-Brown */
-  --brand-900: #2f140d;
-  --brand-950: #1a0a07;
-  /* Accent colors - Variations of brand colors */
-  --accent-50: #fef2f0;
-  --accent-100: #fde0d9;
-  --accent-200: #fbc1b3;
-  --accent-300: #f8a28d;
-  --accent-400: #f2613f; /* Coral Orange */
-  --accent-500: #9b3922; /* Burnt Orange */
-  --accent-600: #7d2e1b;
-  --accent-700: #5f2314;
-  --accent-800: #481e14; /* Dark Reddish-Brown */
-  --accent-900: #2f140d;
-  --accent-950: #1a0a07;
-  /* Neutral colors - Black (#0C0C0C) based grayscale */
-  --neutral-50: #f5f5f5;
-  --neutral-100: #e5e5e5;
-  --neutral-200: #cccccc;
-  --neutral-300: #b3b3b3;
-  --neutral-400: #999999;
-  --neutral-500: #808080;
-  --neutral-600: #666666;
-  --neutral-700: #4d4d4d;
-  --neutral-800: #333333;
-  --neutral-900: #1a1a1a;
-  --neutral-950: #0c0c0c; /* Black */
+  /* 
+   * NOTE: Color variables (--brand-*, --accent-*, --neutral-*) are injected at runtime
+   * from design-tokens.ts via DesignTokensProvider component.
+   * Source of truth: src/lib/design-tokens.ts
+   */
   /* Use brand colors for primary */
-  --primary: var(--brand-500); /* Burnt Orange */
+  --primary: var(--brand-500); /* Dark magenta/plum */
   --primary-foreground: var(--neutral-50);
   --secondary: var(--neutral-100);
   --secondary-foreground: var(--neutral-900);
   --muted: var(--neutral-100);
   --muted-foreground: var(--neutral-800);
   /* Use accent colors for accent */
-  --accent: var(--accent-400); /* Coral Orange */
+  --accent: var(--accent-400); /* Medium pale green */
   --accent-foreground: var(--neutral-50);
   --destructive: var(--brand-600);
   --border: var(--neutral-200);
@@ -146,7 +115,7 @@
   --chart-5: oklch(0.769 0.188 70.08);
   --sidebar: var(--neutral-50);
   --sidebar-foreground: var(--neutral-950);
-  --sidebar-primary: var(--brand-500); /* Burnt Orange */
+  --sidebar-primary: var(--brand-500); /* Dark magenta/plum */
   --sidebar-primary-foreground: var(--neutral-50);
   --sidebar-accent: var(--neutral-100);
   --sidebar-accent-foreground: var(--neutral-900);
@@ -161,51 +130,20 @@
   --card-foreground: var(--neutral-50);
   --popover: var(--neutral-900);
   --popover-foreground: var(--neutral-50);
-  /* Brand colors - Orange/Red palette */
-  --brand-50: #fef2f0;
-  --brand-100: #fde0d9;
-  --brand-200: #fbc1b3;
-  --brand-300: #f8a28d;
-  --brand-400: #f2613f; /* Coral Orange */
-  --brand-500: #9b3922; /* Burnt Orange */
-  --brand-600: #7d2e1b;
-  --brand-700: #5f2314;
-  --brand-800: #481e14; /* Dark Reddish-Brown */
-  --brand-900: #2f140d;
-  --brand-950: #1a0a07;
-  /* Accent colors - Variations of brand colors */
-  --accent-50: #fef2f0;
-  --accent-100: #fde0d9;
-  --accent-200: #fbc1b3;
-  --accent-300: #f8a28d;
-  --accent-400: #f2613f; /* Coral Orange */
-  --accent-500: #9b3922; /* Burnt Orange */
-  --accent-600: #7d2e1b;
-  --accent-700: #5f2314;
-  --accent-800: #481e14; /* Dark Reddish-Brown */
-  --accent-900: #2f140d;
-  --accent-950: #1a0a07;
-  /* Neutral colors - Black (#0C0C0C) based grayscale */
-  --neutral-50: #f5f5f5;
-  --neutral-100: #e5e5e5;
-  --neutral-200: #cccccc;
-  --neutral-300: #b3b3b3;
-  --neutral-400: #999999;
-  --neutral-500: #808080;
-  --neutral-600: #666666;
-  --neutral-700: #4d4d4d;
-  --neutral-800: #333333;
-  --neutral-900: #1a1a1a;
-  --neutral-950: #0c0c0c; /* Black */
+  /* 
+   * NOTE: Color variables (--brand-*, --accent-*, --neutral-*) are injected at runtime
+   * from design-tokens.ts via DesignTokensProvider component.
+   * Source of truth: src/lib/design-tokens.ts
+   */
   /* Use brand colors for primary in dark mode */
-  --primary: var(--brand-500); /* Burnt Orange */
+  --primary: var(--brand-500); /* Dark magenta/plum */
   --primary-foreground: var(--neutral-50);
   --secondary: var(--neutral-800);
   --secondary-foreground: var(--neutral-50);
   --muted: var(--neutral-800);
   --muted-foreground: var(--neutral-300);
   /* Use accent colors for accent in dark mode */
-  --accent: var(--accent-400); /* Coral Orange */
+  --accent: var(--accent-400); /* Medium pale green */
   --accent-foreground: var(--neutral-50);
   --destructive: var(--brand-600);
   --border: var(--neutral-700);
@@ -218,7 +156,7 @@
   --chart-5: oklch(0.645 0.246 16.439);
   --sidebar: var(--neutral-900);
   --sidebar-foreground: var(--neutral-50);
-  --sidebar-primary: var(--brand-500); /* Burnt Orange */
+  --sidebar-primary: var(--brand-500); /* Dark magenta/plum */
   --sidebar-primary-foreground: var(--neutral-50);
   --sidebar-accent: var(--neutral-800);
   --sidebar-accent-foreground: var(--neutral-50);

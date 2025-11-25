@@ -5,47 +5,47 @@
 
 export const designTokens = {
   colors: {
-    // Brand colors - Orange/Red palette (#F2613F, #9B3922, #481E14)
+    // Brand colors - Dark magenta/plum palette from image
     brand: {
-      50: '#FEF2F0',
-      100: '#FDE0D9',
-      200: '#FBC1B3',
-      300: '#F8A28D',
-      400: '#F2613F', // Coral Orange - Primary brand color
-      500: '#9B3922', // Burnt Orange - Main brand color
-      600: '#7D2E1B',
-      700: '#5F2314',
-      800: '#481E14', // Dark Reddish-Brown
-      900: '#2F140D',
-      950: '#1A0A07',
+      50: '#F5E6F0',
+      100: '#E8CCE0',
+      200: '#D199C1',
+      300: '#BA66A2',
+      400: '#A33383', // Medium magenta/plum
+      500: '#6B2D5E', // Dark magenta/plum - Primary brand color from image
+      600: '#55244A',
+      700: '#401B36',
+      800: '#2B1222', // Dark magenta/plum
+      900: '#1D0C17',
+      950: '#0F060B',
     },
-    // Accent colors - Variations of brand colors for accents
+    // Accent colors - Complementary palette based on light pale green/off-white from image
     accent: {
-      50: '#FEF2F0',
-      100: '#FDE0D9',
-      200: '#FBC1B3',
-      300: '#F8A28D',
-      400: '#F2613F', // Coral Orange
-      500: '#9B3922', // Burnt Orange
-      600: '#7D2E1B',
-      700: '#5F2314',
-      800: '#481E14', // Dark Reddish-Brown
-      900: '#2F140D',
-      950: '#1A0A07',
+      50: '#F5F5E6', // Light pale green/off-white from image
+      100: '#E8E8D9',
+      200: '#D1D1B3',
+      300: '#BABA8D',
+      400: '#A3A367', // Medium pale green
+      500: '#8C8C41', // Pale green accent
+      600: '#707033',
+      700: '#545425',
+      800: '#383817', // Dark pale green
+      900: '#1C1C0C',
+      950: '#0E0E06',
     },
-    // Neutral colors - Black (#0C0C0C) based grayscale
+    // Neutral colors - Derived from image (desaturated dark magenta/plum base with light pale green/off-white)
     neutral: {
-      50: '#F5F5F5',
-      100: '#E5E5E5',
-      200: '#CCCCCC',
-      300: '#B3B3B3',
-      400: '#999999',
-      500: '#808080',
-      600: '#666666',
-      700: '#4D4D4D',
-      800: '#333333',
-      900: '#1A1A1A',
-      950: '#0C0C0C', // Black
+      50: '#F5F5E6', // Light pale green/off-white from image
+      100: '#E8E8DC',
+      200: '#D1D1C4',
+      300: '#B8B8AC',
+      400: '#9F9F94',
+      500: '#86867C',
+      600: '#6D6D64',
+      700: '#54544C',
+      800: '#3B3B34',
+      900: '#2D2A2E', // Desaturated dark magenta/plum base
+      950: '#1A181B', // Darkest neutral
     },
   },
   spacing: {
