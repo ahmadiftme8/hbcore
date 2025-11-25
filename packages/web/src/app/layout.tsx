@@ -1,15 +1,25 @@
 import type { Metadata } from 'next';
+import { cookies } from 'next/headers';
+import { DesignTokensProvider } from '@/components/DesignTokensProvider/DesignTokensProvider';
 import { LanguageAttributes } from '@/components/LanguageAttributes/LanguageAttributes';
 import { Navigation } from '@/components/Navigation/Navigation';
+import enTranslations from '@/i18n/locales/en.json';
+import faTranslations from '@/i18n/locales/fa.json';
+import type { Language } from '@/i18n/TranslationProvider';
 import { TranslationProvider } from '@/i18n/TranslationProvider';
-import { DesignTokensProvider } from '@/components/DesignTokensProvider/DesignTokensProvider';
 import { geistMono, rubik, vazirmatn } from '@/lib/fonts';
 import './globals.css';
 
-export const metadata: Metadata = {
-  title: 'Data to enrich your online business',
-  description: 'Data to enrich your online business',
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const cookieStore = await cookies();
+  const language = (cookieStore.get('hbcore-language')?.value || 'fa') as Language;
+  const translations = language === 'en' ? enTranslations : faTranslations;
+
+  return {
+    title: translations.metadata.title,
+    description: translations.metadata.description,
+  };
+}
 
 export default function RootLayout({
   children,

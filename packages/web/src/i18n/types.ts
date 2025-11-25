@@ -1,4 +1,8 @@
 export interface TranslationSchema {
+  metadata: {
+    title: string;
+    description: string;
+  };
   navigation: {
     home: string;
     features: string;

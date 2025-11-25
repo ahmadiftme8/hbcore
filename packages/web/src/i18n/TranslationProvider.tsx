@@ -18,6 +18,7 @@ interface TranslationContextType {
 const TranslationContext = createContext<TranslationContextType | undefined>(undefined);
 
 const STORAGE_KEY = 'hbcore-language';
+const COOKIE_KEY = 'hbcore-language';
 
 // Type assertion to ensure JSON files match the schema
 const translationResources: Record<Language, Translations> = {
@@ -39,16 +40,21 @@ export function TranslationProvider({ children }: TranslationProviderProps) {
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved === 'fa' || saved === 'en') {
       setLanguage(saved);
+      // Sync to cookie for server-side access
+      document.cookie = `${COOKIE_KEY}=${saved}; path=/; max-age=31536000; SameSite=Lax`;
     } else {
       // Default to Persian without browser detection
       setLanguage('fa');
       localStorage.setItem(STORAGE_KEY, 'fa');
+      document.cookie = `${COOKIE_KEY}=fa; path=/; max-age=31536000; SameSite=Lax`;
     }
   }, []);
 
   const changeLanguage = (lang: Language) => {
     setLanguage(lang);
     localStorage.setItem(STORAGE_KEY, lang);
+    // Sync to cookie for server-side access
+    document.cookie = `${COOKIE_KEY}=${lang}; path=/; max-age=31536000; SameSite=Lax`;
   };
 
   const value: TranslationContextType = {
