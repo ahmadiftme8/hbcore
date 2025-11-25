@@ -19,19 +19,6 @@ const TranslationContext = createContext<TranslationContextType | undefined>(und
 
 const STORAGE_KEY = 'hbcore-language';
 
-function detectBrowserLanguage(): Language {
-  if (typeof window === 'undefined') return 'fa';
-
-  const browserLang = navigator.language || navigator.languages?.[0] || '';
-  const langCode = browserLang.split('-')[0].toLowerCase();
-
-  if (langCode === 'fa' || langCode === 'en') {
-    return langCode;
-  }
-
-  return 'fa';
-}
-
 // Type assertion to ensure JSON files match the schema
 const translationResources: Record<Language, Translations> = {
   fa: faTranslations as Translations,
@@ -48,14 +35,14 @@ export function TranslationProvider({ children }: TranslationProviderProps) {
   const [language, setLanguage] = useState<Language>('fa');
 
   useEffect(() => {
-    // After hydration, check for saved language or detect browser language
+    // After hydration, check for saved language or default to Persian
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved === 'fa' || saved === 'en') {
       setLanguage(saved);
     } else {
-      const detected = detectBrowserLanguage();
-      setLanguage(detected);
-      localStorage.setItem(STORAGE_KEY, detected);
+      // Default to Persian without browser detection
+      setLanguage('fa');
+      localStorage.setItem(STORAGE_KEY, 'fa');
     }
   }, []);
 
