@@ -45,8 +45,9 @@ RUN addgroup --system --gid 1001 nodejs && \
 # Next.js standalone mode creates a minimal server in .next/standalone
 # The structure mirrors the monorepo, so server.js will be in packages/web/
 COPY --from=builder --chown=nextjs:nodejs /app/packages/web/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/packages/web/.next/static ./.next/static
-COPY --from=builder --chown=nextjs:nodejs /app/packages/web/public ./public
+# Copy static files to the correct location relative to where server.js runs
+COPY --from=builder --chown=nextjs:nodejs /app/packages/web/.next/static ./packages/web/.next/static
+COPY --from=builder --chown=nextjs:nodejs /app/packages/web/public ./packages/web/public
 
 USER nextjs
 
