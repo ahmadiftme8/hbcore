@@ -1,8 +1,10 @@
 'use client';
 
+import Autoplay from 'embla-carousel-autoplay';
 import Image from 'next/image';
 import * as React from 'react';
 import { Carousel, CarouselApi, CarouselContent, CarouselItem } from '@/components/ui/carousel';
+import { useTranslation } from '@/i18n/useTranslation';
 import { cn } from '@/lib/utils';
 import './TestimonialCarousel.css';
 
@@ -22,8 +24,11 @@ interface TestimonialCarouselProps extends React.HTMLAttributes<HTMLDivElement> 
 
 export const TestimonialCarousel = React.forwardRef<HTMLDivElement, TestimonialCarouselProps>(
   ({ className, testimonials, companyLogoPath = '', avatarPath = '', ...props }, ref) => {
+    const { isRTL } = useTranslation();
     const [api, setApi] = React.useState<CarouselApi>();
     const [current, setCurrent] = React.useState(0);
+
+    const autoplayPlugin = React.useMemo(() => Autoplay({ delay: 5000, stopOnInteraction: true }), []);
 
     React.useEffect(() => {
       if (!api) return;
@@ -33,28 +38,22 @@ export const TestimonialCarousel = React.forwardRef<HTMLDivElement, TestimonialC
       });
     }, [api]);
 
-    // Auto-play functionality
-    React.useEffect(() => {
-      if (!api || testimonials.length <= 1) return;
-
-      const interval = setInterval(() => {
-        const currentIndex = api.selectedScrollSnap();
-        const nextIndex = (currentIndex + 1) % testimonials.length;
-        api.scrollTo(nextIndex);
-      }, 5000); // Change slide every 5 seconds
-
-      return () => clearInterval(interval);
-    }, [api, testimonials.length]);
-
     return (
       <div ref={ref} className={cn('testimonial-carousel', className)} {...props}>
-        <Carousel setApi={setApi} className="testimonial-carousel-container">
+        <Carousel
+          setApi={setApi}
+          opts={{ direction: isRTL ? 'rtl' : 'ltr', loop: true }}
+          plugins={[autoplayPlugin]}
+          className="testimonial-carousel-container"
+        >
           <CarouselContent>
             {testimonials.map((testimonial, index) => (
               <CarouselItem key={`${testimonial.company}-${index}`} className="testimonial-carousel-item">
                 <div className="testimonial-company-logo">
                   <Image
-                    src={companyLogoPath ? `${companyLogoPath}${testimonial.company}.svg` : `/${testimonial.company}.svg`}
+                    src={
+                      companyLogoPath ? `${companyLogoPath}${testimonial.company}.svg` : `/${testimonial.company}.svg`
+                    }
                     alt={`${testimonial.company} logo`}
                     fill
                     className="testimonial-company-logo-image"
