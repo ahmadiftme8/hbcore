@@ -83,5 +83,47 @@
         "review": "webtics delivers powerful insights that turn complex data into actionable decisions"
       }
     }
+  },
+  "footer": {
+    "brand": {
+      "name": "Hambazi Event",
+      "tagline": "From Board Games to Team Building"
+    },
+    "sections": {
+      "product": "Product",
+      "company": "Company",
+      "resources": "Resources",
+      "social": "Social"
+    },
+    "product": {
+      "home": "Home",
+      "features": "Features",
+      "benefits": "Benefits",
+      "socialProof": "Social Proof"
+    },
+    "company": {
+      "about": "About",
+      "blog": "Blog",
+      "careers": "Careers",
+      "contact": "Contact"
+    },
+    "resources": {
+      "docs": "Documentation",
+      "support": "Support",
+      "faq": "FAQ",
+      "changelog": "Changelog"
+    },
+    "social": {
+      "twitter": "Twitter",
+      "linkedin": "LinkedIn",
+      "instagram": "Instagram",
+      "telegram": "Telegram"
+    },
+    "copyright": "© 2024 Hambazi Event. All rights reserved.",
+    "legal": {
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service",
+      "cookies": "Cookie Policy"
+    }
   }
 }

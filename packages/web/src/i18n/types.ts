@@ -84,6 +84,48 @@ export interface TranslationSchema {
       };
     };
   };
+  footer: {
+    brand: {
+      name: string;
+      tagline: string;
+    };
+    sections: {
+      product: string;
+      company: string;
+      resources: string;
+      social: string;
+    };
+    product: {
+      home: string;
+      features: string;
+      benefits: string;
+      socialProof: string;
+    };
+    company: {
+      about: string;
+      blog: string;
+      careers: string;
+      contact: string;
+    };
+    resources: {
+      docs: string;
+      support: string;
+      faq: string;
+      changelog: string;
+    };
+    social: {
+      twitter: string;
+      linkedin: string;
+      instagram: string;
+      telegram: string;
+    };
+    copyright: string;
+    legal: {
+      privacy: string;
+      terms: string;
+      cookies: string;
+    };
+  };
 }
 
 /**

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { cookies } from 'next/headers';
 import { DesignTokensProvider } from '@/components/DesignTokensProvider/DesignTokensProvider';
+import { Footer } from '@/components/Footer/Footer';
 import { LanguageAttributes } from '@/components/LanguageAttributes/LanguageAttributes';
 import { Navbar1 } from '@/components/Navigation/Navbar1';
 import enTranslations from '@/i18n/locales/en.json';
@@ -34,6 +35,7 @@ export default function RootLayout({
           <LanguageAttributes />
           <Navbar1 />
           <main>{children}</main>
+          <Footer />
         </TranslationProvider>
       </body>
     </html>
