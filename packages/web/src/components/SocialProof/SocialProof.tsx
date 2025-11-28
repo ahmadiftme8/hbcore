@@ -49,11 +49,7 @@ export function SocialProof() {
 
   return (
     <section id="social-proof" className="social-proof">
-      <TestimonialCarousel
-        testimonials={testimonials}
-        companyLogoPath=""
-        avatarPath=""
-      />
+      <TestimonialCarousel testimonials={testimonials} companyLogoPath="" avatarPath="" />
     </section>
   );
 }

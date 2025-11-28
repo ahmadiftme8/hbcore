@@ -3,12 +3,7 @@
 import { Menu } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Button } from '@/components/ui/button';
 import {
   NavigationMenu,
@@ -18,13 +13,7 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from '@/components/ui/navigation-menu';
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { useTranslation } from '@/i18n/useTranslation';
 
 interface MenuItem {
@@ -100,9 +89,7 @@ const Navbar1 = ({
   return (
     <section
       className={`fixed top-0 left-0 right-0 z-50 py-4 transition-all ${
-        isScrolled
-          ? 'bg-background/80 backdrop-blur-md shadow-sm'
-          : 'bg-transparent'
+        isScrolled ? 'bg-background/80 backdrop-blur-md shadow-sm' : 'bg-transparent'
       }`}
     >
       <div className="container mx-auto px-4">
@@ -111,22 +98,12 @@ const Navbar1 = ({
           <div className="flex items-center gap-6">
             {/* Logo */}
             <Link href={logo.url} className="flex items-center gap-2">
-              {logo.src && (
-                <img
-                  src={logo.src}
-                  className="max-h-8 dark:invert"
-                  alt={logo.alt}
-                />
-              )}
-              <span className="text-lg font-semibold tracking-tighter">
-                {logo.title}
-              </span>
+              {logo.src && <img src={logo.src} className="max-h-8 dark:invert" alt={logo.alt} />}
+              <span className="text-lg font-semibold tracking-tighter">{logo.title}</span>
             </Link>
             <div className="flex items-center">
               <NavigationMenu>
-                <NavigationMenuList>
-                  {menuItems.map((item) => renderMenuItem(item))}
-                </NavigationMenuList>
+                <NavigationMenuList>{menuItems.map((item) => renderMenuItem(item))}</NavigationMenuList>
               </NavigationMenu>
             </div>
           </div>
@@ -145,18 +122,8 @@ const Navbar1 = ({
           <div className="flex items-center justify-between">
             {/* Logo */}
             <Link href={logo.url} className="flex items-center gap-2">
-              {logo.src && (
-                <img
-                  src={logo.src}
-                  className="max-h-8 dark:invert"
-                  alt={logo.alt}
-                />
-              )}
-              {!logo.src && (
-                <span className="text-lg font-semibold tracking-tighter">
-                  {logo.title}
-                </span>
-              )}
+              {logo.src && <img src={logo.src} className="max-h-8 dark:invert" alt={logo.alt} />}
+              {!logo.src && <span className="text-lg font-semibold tracking-tighter">{logo.title}</span>}
             </Link>
             <Sheet>
               <SheetTrigger asChild>
@@ -168,39 +135,21 @@ const Navbar1 = ({
                 <SheetHeader>
                   <SheetTitle>
                     <Link href={logo.url} className="flex items-center gap-2">
-                      {logo.src && (
-                        <img
-                          src={logo.src}
-                          className="max-h-8 dark:invert"
-                          alt={logo.alt}
-                        />
-                      )}
-                      {!logo.src && (
-                        <span className="text-lg font-semibold">
-                          {logo.title}
-                        </span>
-                      )}
+                      {logo.src && <img src={logo.src} className="max-h-8 dark:invert" alt={logo.alt} />}
+                      {!logo.src && <span className="text-lg font-semibold">{logo.title}</span>}
                     </Link>
                   </SheetTitle>
                 </SheetHeader>
                 <div className="flex flex-col gap-6 p-4">
-                  <Accordion
-                    type="single"
-                    collapsible
-                    className="flex w-full flex-col gap-4"
-                  >
+                  <Accordion type="single" collapsible className="flex w-full flex-col gap-4">
                     {menuItems.map((item) => renderMobileMenuItem(item))}
                   </Accordion>
                   <div className="flex flex-col gap-3">
                     <Button asChild variant="outline">
-                      <Link href={authItems.login.url}>
-                        {authItems.login.title}
-                      </Link>
+                      <Link href={authItems.login.url}>{authItems.login.title}</Link>
                     </Button>
                     <Button asChild>
-                      <Link href={authItems.signup.url}>
-                        {authItems.signup.title}
-                      </Link>
+                      <Link href={authItems.signup.url}>{authItems.signup.title}</Link>
                     </Button>
                   </div>
                 </div>
@@ -246,9 +195,7 @@ const renderMobileMenuItem = (item: MenuItem) => {
   if (item.items) {
     return (
       <AccordionItem key={item.title} value={item.title} className="border-b-0">
-        <AccordionTrigger className="text-md py-0 font-semibold hover:no-underline">
-          {item.title}
-        </AccordionTrigger>
+        <AccordionTrigger className="text-md py-0 font-semibold hover:no-underline">{item.title}</AccordionTrigger>
         <AccordionContent className="mt-2">
           {item.items.map((subItem) => (
             <SubMenuLink key={subItem.title} item={subItem} />
@@ -258,11 +205,7 @@ const renderMobileMenuItem = (item: MenuItem) => {
     );
   }
   return (
-    <Link
-      key={item.title}
-      href={item.url}
-      className="text-md font-semibold"
-    >
+    <Link key={item.title} href={item.url} className="text-md font-semibold">
       {item.title}
     </Link>
   );
@@ -277,15 +220,10 @@ const SubMenuLink = ({ item }: { item: MenuItem }) => {
       {item.icon && <div className="text-foreground">{item.icon}</div>}
       <div>
         <div className="text-sm font-semibold">{item.title}</div>
-        {item.description && (
-          <p className="text-muted-foreground text-sm leading-snug">
-            {item.description}
-          </p>
-        )}
+        {item.description && <p className="text-muted-foreground text-sm leading-snug">{item.description}</p>}
       </div>
     </Link>
   );
 };
 
 export { Navbar1 };
-
