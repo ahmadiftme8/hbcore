@@ -58,12 +58,15 @@ export function Benefit({
                 <Skeleton className="h-5 w-full mb-2" />
               </li>
               <li>
+                <Skeleton className="h-5 w-full mb-2" />
+              </li>
+              <li>
                 <Skeleton className="h-5 w-3/4" />
               </li>
             </>
           ) : (
-            bullets.map((bullet) => (
-              <li key={bullet} className="benefit-bullet">
+            bullets.map((bullet, index) => (
+              <li key={`bullet-${index}-${bullet.substring(0, 20)}`} className="benefit-bullet">
                 {bullet}
               </li>
             ))

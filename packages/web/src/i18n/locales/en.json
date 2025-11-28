@@ -44,35 +44,44 @@
   },
   "benefits": {
     "benefit1": {
-      "headline": "You'll Play, But Strategically",
-      "paragraph": "At Hambazi Event, every move you make is the result of thought and planning. Our board games are designed to strengthen your strategic thinking and decision-making skills. This isn't just entertainment—it's learning strategic thinking.",
-      "bullet1": "Board games designed to enhance strategic thinking",
-      "bullet2": "Opportunity to practice decision-making in a safe, controlled environment",
-      "bullet3": "Learning business concepts through gameplay",
-      "bullet4": "Experience healthy and purposeful competition"
+      "headline": "Skill-Based and Custom Games",
+      "paragraph": "We don't just roll dice here! With board games designed for the business environment, practice soft skills like negotiation, risk-taking, and strategy in action.",
+      "bullet1": "Board games designed for the business environment",
+      "bullet2": "Practice negotiation skills",
+      "bullet3": "Practice risk-taking",
+      "bullet4": "Practice strategic thinking"
     },
     "benefit2": {
-      "headline": "You Gain Experience, But Real Experience",
-      "paragraph": "The experience you gain at Hambazi Event isn't just theoretical. You face real challenges in a real environment that are directly applicable to the startup and business world. Every experience is a step toward your professional success.",
-      "bullet1": "Working with real challenges from the startup world",
-      "bullet2": "Practical experience in team building and project management",
-      "bullet3": "Familiarity with real business processes",
-      "bullet4": "Building portfolio-worthy projects"
+      "headline": "Networking in Action",
+      "paragraph": "You need to know people through challenges. In Hambazi, you learn and compete together to build your network and find your team members through complete understanding.",
+      "bullet1": "Learn and compete together",
+      "bullet2": "Build your professional network",
+      "bullet3": "Find team members through understanding",
+      "bullet4": "Connect through challenges"
     },
     "benefit3": {
-      "headline": "You See Education, But Practical Education",
-      "paragraph": "Education at Hambazi Event is practical and hands-on. You learn concepts not through books, but through direct experience. Each session is an opportunity to learn skills that are immediately applicable.",
-      "bullet1": "Learning through doing and direct experience",
-      "bullet2": "Practical, project-based workshops",
-      "bullet3": "Mentorship and guidance from industry experts"
+      "headline": "Mentoring and Experience Transfer",
+      "paragraph": "Hear key startup concepts from those who have walked this path and learn how to turn your idea into a product.",
+      "bullet1": "Learn from experienced entrepreneurs",
+      "bullet2": "Understand key startup concepts",
+      "bullet3": "Transform ideas into products",
+      "bullet4": "Gain practical insights"
     },
     "benefit4": {
-      "headline": "You Find Friends, But Professional Friends",
-      "paragraph": "At Hambazi Event, you meet people who are not only good friends but also potential professional colleagues and partners. Networking here means building lasting and meaningful relationships.",
-      "bullet1": "Meeting top students and young talents",
-      "bullet2": "Building a professional network of lasting relationships",
-      "bullet3": "Opportunity to collaborate and build teams with like-minded individuals",
-      "bullet4": "Access to a community of entrepreneurs and innovators"
+      "headline": "Practical Ideation Challenge",
+      "paragraph": "It's not just theory! An exciting challenge in the startup space awaits you to bring your learnings into practice.",
+      "bullet1": "Apply learnings in practice",
+      "bullet2": "Participate in startup challenges",
+      "bullet3": "Move beyond theory",
+      "bullet4": "Engage in real-world scenarios"
+    },
+    "benefit5": {
+      "headline": "Seed Capital and Cash Prizes",
+      "paragraph": "Top teams don't leave empty-handed. Top teams receive cash prizes. There's also a chance to attract support for brilliant ideas.",
+      "bullet1": "Win cash prizes for top teams",
+      "bullet2": "Attract support for brilliant ideas",
+      "bullet3": "Recognition for achievements",
+      "bullet4": "Financial rewards"
     }
   },
   "socialProof": {

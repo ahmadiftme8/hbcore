@@ -6,9 +6,9 @@ import { Benefit } from './Benefit';
 import './Benefits.css';
 
 const analyticsIllustration = '/components/FeaturesAndBenefits/illustrations/undraw_analytics-setup_ptrz.svg';
-const eatingTogetherIllustration = '/components/FeaturesAndBenefits/illustrations/undraw_eating-together_mr7m.svg';
-const halloweenIcon = '/components/FeaturesAndBenefits/illustrations/undraw_halloween-2025_o47f.svg';
 const mindfulnessIllustration = '/components/FeaturesAndBenefits/illustrations/undraw_mindfulness_d853.svg';
+const halloweenIcon = '/components/FeaturesAndBenefits/illustrations/undraw_halloween-2025_o47f.svg';
+const eatingTogetherIllustration = '/components/FeaturesAndBenefits/illustrations/undraw_eating-together_mr7m.svg';
 
 export function Benefits() {
   const { t } = useTranslation();
@@ -38,8 +38,8 @@ export function Benefits() {
         isLoading={isLoading}
       />
       <Benefit
-        illustrationSrc={eatingTogetherIllustration}
-        illustrationAlt="Eating Together"
+        illustrationSrc={mindfulnessIllustration}
+        illustrationAlt="Mindfulness"
         headline={t.benefits.benefit2.headline}
         paragraph={t.benefits.benefit2.paragraph}
         bullets={[
@@ -60,13 +60,14 @@ export function Benefits() {
           t.benefits.benefit3.bullet1,
           t.benefits.benefit3.bullet2,
           t.benefits.benefit3.bullet3,
+          t.benefits.benefit3.bullet4,
         ]}
         imagePosition="right"
         isLoading={isLoading}
       />
       <Benefit
-        illustrationSrc={mindfulnessIllustration}
-        illustrationAlt="Mindfulness"
+        illustrationSrc={eatingTogetherIllustration}
+        illustrationAlt="Eating Together"
         headline={t.benefits.benefit4.headline}
         paragraph={t.benefits.benefit4.paragraph}
         bullets={[
@@ -76,6 +77,20 @@ export function Benefits() {
           t.benefits.benefit4.bullet4,
         ]}
         imagePosition="left"
+        isLoading={isLoading}
+      />
+      <Benefit
+        illustrationSrc={analyticsIllustration}
+        illustrationAlt="Analytics Setup"
+        headline={t.benefits.benefit5.headline}
+        paragraph={t.benefits.benefit5.paragraph}
+        bullets={[
+          t.benefits.benefit5.bullet1,
+          t.benefits.benefit5.bullet2,
+          t.benefits.benefit5.bullet3,
+          t.benefits.benefit5.bullet4,
+        ]}
+        imagePosition="right"
         isLoading={isLoading}
       />
     </section>
