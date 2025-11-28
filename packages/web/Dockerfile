@@ -17,7 +17,6 @@ WORKDIR /app
 
 # Copy dependencies from deps stage
 COPY --from=deps /app/node_modules ./node_modules
-COPY --from=deps /app/packages/web/node_modules ./packages/web/node_modules
 
 # Copy workspace configuration
 COPY package.json bun.lock* ./
