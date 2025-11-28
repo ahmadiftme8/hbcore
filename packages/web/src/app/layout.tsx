@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { cookies } from 'next/headers';
 import { DesignTokensProvider } from '@/components/DesignTokensProvider/DesignTokensProvider';
 import { LanguageAttributes } from '@/components/LanguageAttributes/LanguageAttributes';
-import { Navigation } from '@/components/Navigation/Navigation';
+import { Navbar1 } from '@/components/Navigation/Navbar1';
 import enTranslations from '@/i18n/locales/en.json';
 import faTranslations from '@/i18n/locales/fa.json';
 import type { Language } from '@/i18n/TranslationProvider';
@@ -32,7 +32,7 @@ export default function RootLayout({
         <DesignTokensProvider />
         <TranslationProvider>
           <LanguageAttributes />
-          <Navigation />
+          <Navbar1 />
           <main>{children}</main>
         </TranslationProvider>
       </body>

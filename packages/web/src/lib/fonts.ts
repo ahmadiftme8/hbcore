@@ -7,13 +7,13 @@ import { Geist_Mono, Rubik, Vazirmatn } from 'next/font/google';
 
 export const rubik = Rubik({
   variable: '--font-rubik',
-  subsets: ['latin', 'arabic'],
+  subsets: ['latin'],
   display: 'swap',
 });
 
 export const vazirmatn = Vazirmatn({
   variable: '--font-vazirmatn',
-  subsets: ['latin', 'arabic'],
+  subsets: ['latin'],
   display: 'swap',
 });
 
