@@ -1,1 +1,2 @@
-export const SharedConstant = 3;
+// Domain types
+export type { User } from './domain/user.js';
