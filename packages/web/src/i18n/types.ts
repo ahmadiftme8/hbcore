@@ -50,6 +50,22 @@ export interface TranslationSchema {
         bullet1: string;
         bullet2: string;
         bullet3: string;
+        bullet4: string;
+      };
+      benefit3: {
+        headline: string;
+        paragraph: string;
+        bullet1: string;
+        bullet2: string;
+        bullet3: string;
+      };
+      benefit4: {
+        headline: string;
+        paragraph: string;
+        bullet1: string;
+        bullet2: string;
+        bullet3: string;
+        bullet4: string;
       };
     };
   };
