@@ -1,7 +1,7 @@
 import { Benefits } from '@/components/Benefits/Benefits';
 import { Features } from '@/components/Features/Features';
 import { Hero } from '@/components/Hero/Hero';
-import { SocialProof } from '@/components/SocialProof/SocialProof';
+// import { SocialProof } from '@/components/SocialProof/SocialProof';
 
 export default function Home() {
   return (
@@ -9,7 +9,7 @@ export default function Home() {
       <Hero />
       <Features />
       <Benefits />
-      <SocialProof />
+      {/* <SocialProof /> */}
     </>
   );
 }
