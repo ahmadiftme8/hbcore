@@ -1,0 +1,12 @@
+{
+  "extends": ["../../biome.json"],
+  "formatter": {
+    "indentStyle": "tab"
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "double"
+    }
+  }
+}
+
