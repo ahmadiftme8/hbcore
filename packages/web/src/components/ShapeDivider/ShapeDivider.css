@@ -1,0 +1,29 @@
+.shape-divider {
+  width: 100%;
+  height: 100px;
+  display: block;
+  line-height: 0;
+  overflow: hidden;
+}
+
+.shape-divider-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.shape-divider-group {
+  fill: var(--divider-color, var(--primary));
+}
+
+@media (max-width: 768px) {
+  .shape-divider {
+    height: 60px;
+  }
+}
+
+@media (max-width: 480px) {
+  .shape-divider {
+    height: 40px;
+  }
+}
