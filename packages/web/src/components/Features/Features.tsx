@@ -27,36 +27,36 @@ export function Features() {
         <Feature
           iconSrc={analyticsSetupIcon}
           iconAlt="Analytics Setup"
-          title={t.featuresAndBenefits.features.feature1.title}
-          description={t.featuresAndBenefits.features.feature1.description}
+          title={t.features.feature1.title}
+          description={t.features.feature1.description}
           isLoading={isLoading}
         />
         <Feature
           iconSrc={mindfulnessIcon}
           iconAlt="Mindfulness"
-          title={t.featuresAndBenefits.features.feature2.title}
-          description={t.featuresAndBenefits.features.feature2.description}
+          title={t.features.feature2.title}
+          description={t.features.feature2.description}
           isLoading={isLoading}
         />
         <Feature
           iconSrc={halloweenIcon}
           iconAlt="Halloween"
-          title={t.featuresAndBenefits.features.feature3.title}
-          description={t.featuresAndBenefits.features.feature3.description}
+          title={t.features.feature3.title}
+          description={t.features.feature3.description}
           isLoading={isLoading}
         />
         <Feature
           iconSrc={eatingTogetherIcon}
           iconAlt="Ideation Challenge"
-          title={t.featuresAndBenefits.features.feature4.title}
-          description={t.featuresAndBenefits.features.feature4.description}
+          title={t.features.feature4.title}
+          description={t.features.feature4.description}
           isLoading={isLoading}
         />
         <Feature
           iconSrc={analyticsSetupIcon}
           iconAlt="Cash Prizes"
-          title={t.featuresAndBenefits.features.feature5.title}
-          description={t.featuresAndBenefits.features.feature5.description}
+          title={t.features.feature5.title}
+          description={t.features.feature5.description}
           isLoading={isLoading}
         />
       </div>

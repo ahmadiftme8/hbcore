@@ -20,61 +20,59 @@
     "ctaPrimary": "Sign up",
     "ctaSecondary": "Learn more"
   },
-  "featuresAndBenefits": {
-    "features": {
-      "feature1": {
-        "title": "Skill-Based and Custom Games",
-        "description": "We don't just roll dice here! With board games designed for the business environment, practice soft skills like negotiation, risk-taking, and strategy in action."
-      },
-      "feature2": {
-        "title": "Networking in Action",
-        "description": "You need to know people through challenges. In Hambazi, you learn and compete together to build your network and find your team members through complete understanding."
-      },
-      "feature3": {
-        "title": "Mentoring and Experience Transfer",
-        "description": "Hear key startup concepts from those who have walked this path and learn how to turn your idea into a product."
-      },
-      "feature4": {
-        "title": "Practical Ideation Challenge",
-        "description": "It's not just theory! An exciting challenge in the startup space awaits you to bring your learnings into practice."
-      },
-      "feature5": {
-        "title": "Seed Capital and Cash Prizes",
-        "description": "Top teams don't leave empty-handed. Top teams receive cash prizes. There's also a chance to attract support for brilliant ideas."
-      }
+  "features": {
+    "feature1": {
+      "title": "Skill-Based and Custom Games",
+      "description": "We don't just roll dice here! With board games designed for the business environment, practice soft skills like negotiation, risk-taking, and strategy in action."
     },
-    "benefits": {
-      "benefit1": {
-        "headline": "You'll Play, But Strategically",
-        "paragraph": "At Hambazi Event, every move you make is the result of thought and planning. Our board games are designed to strengthen your strategic thinking and decision-making skills. This isn't just entertainment—it's learning strategic thinking.",
-        "bullet1": "Board games designed to enhance strategic thinking",
-        "bullet2": "Opportunity to practice decision-making in a safe, controlled environment",
-        "bullet3": "Learning business concepts through gameplay",
-        "bullet4": "Experience healthy and purposeful competition"
-      },
-      "benefit2": {
-        "headline": "You Gain Experience, But Real Experience",
-        "paragraph": "The experience you gain at Hambazi Event isn't just theoretical. You face real challenges in a real environment that are directly applicable to the startup and business world. Every experience is a step toward your professional success.",
-        "bullet1": "Working with real challenges from the startup world",
-        "bullet2": "Practical experience in team building and project management",
-        "bullet3": "Familiarity with real business processes",
-        "bullet4": "Building portfolio-worthy projects"
-      },
-      "benefit3": {
-        "headline": "You See Education, But Practical Education",
-        "paragraph": "Education at Hambazi Event is practical and hands-on. You learn concepts not through books, but through direct experience. Each session is an opportunity to learn skills that are immediately applicable.",
-        "bullet1": "Learning through doing and direct experience",
-        "bullet2": "Practical, project-based workshops",
-        "bullet3": "Mentorship and guidance from industry experts"
-      },
-      "benefit4": {
-        "headline": "You Find Friends, But Professional Friends",
-        "paragraph": "At Hambazi Event, you meet people who are not only good friends but also potential professional colleagues and partners. Networking here means building lasting and meaningful relationships.",
-        "bullet1": "Meeting top students and young talents",
-        "bullet2": "Building a professional network of lasting relationships",
-        "bullet3": "Opportunity to collaborate and build teams with like-minded individuals",
-        "bullet4": "Access to a community of entrepreneurs and innovators"
-      }
+    "feature2": {
+      "title": "Networking in Action",
+      "description": "You need to know people through challenges. In Hambazi, you learn and compete together to build your network and find your team members through complete understanding."
+    },
+    "feature3": {
+      "title": "Mentoring and Experience Transfer",
+      "description": "Hear key startup concepts from those who have walked this path and learn how to turn your idea into a product."
+    },
+    "feature4": {
+      "title": "Practical Ideation Challenge",
+      "description": "It's not just theory! An exciting challenge in the startup space awaits you to bring your learnings into practice."
+    },
+    "feature5": {
+      "title": "Seed Capital and Cash Prizes",
+      "description": "Top teams don't leave empty-handed. Top teams receive cash prizes. There's also a chance to attract support for brilliant ideas."
+    }
+  },
+  "benefits": {
+    "benefit1": {
+      "headline": "You'll Play, But Strategically",
+      "paragraph": "At Hambazi Event, every move you make is the result of thought and planning. Our board games are designed to strengthen your strategic thinking and decision-making skills. This isn't just entertainment—it's learning strategic thinking.",
+      "bullet1": "Board games designed to enhance strategic thinking",
+      "bullet2": "Opportunity to practice decision-making in a safe, controlled environment",
+      "bullet3": "Learning business concepts through gameplay",
+      "bullet4": "Experience healthy and purposeful competition"
+    },
+    "benefit2": {
+      "headline": "You Gain Experience, But Real Experience",
+      "paragraph": "The experience you gain at Hambazi Event isn't just theoretical. You face real challenges in a real environment that are directly applicable to the startup and business world. Every experience is a step toward your professional success.",
+      "bullet1": "Working with real challenges from the startup world",
+      "bullet2": "Practical experience in team building and project management",
+      "bullet3": "Familiarity with real business processes",
+      "bullet4": "Building portfolio-worthy projects"
+    },
+    "benefit3": {
+      "headline": "You See Education, But Practical Education",
+      "paragraph": "Education at Hambazi Event is practical and hands-on. You learn concepts not through books, but through direct experience. Each session is an opportunity to learn skills that are immediately applicable.",
+      "bullet1": "Learning through doing and direct experience",
+      "bullet2": "Practical, project-based workshops",
+      "bullet3": "Mentorship and guidance from industry experts"
+    },
+    "benefit4": {
+      "headline": "You Find Friends, But Professional Friends",
+      "paragraph": "At Hambazi Event, you meet people who are not only good friends but also potential professional colleagues and partners. Networking here means building lasting and meaningful relationships.",
+      "bullet1": "Meeting top students and young talents",
+      "bullet2": "Building a professional network of lasting relationships",
+      "bullet3": "Opportunity to collaborate and build teams with like-minded individuals",
+      "bullet4": "Access to a community of entrepreneurs and innovators"
     }
   },
   "socialProof": {
