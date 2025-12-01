@@ -5,6 +5,7 @@
     "tgbot:start": "bun run --bun --filter='@hbcore/tgbot' start",
     "tgapp:dev": "bun run --bun --filter='@hbcore/tgapp' dev",
     "web:dev": "bun run --bun --filter='@hbcore/web' dev",
+    "admin:dev": "bun run --bun --filter='@hbcore/api' dev",
     "format": "bun run --bun --filter='*' format",
     "format:check": "bun run --bun --filter='*' format:check",
     "lint": "bun run --bun --filter='*' lint",
