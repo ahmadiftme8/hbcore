@@ -1,6 +1,8 @@
 import type { User } from '@hbcore/types';
 import { CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
+// @ai: Never modify this file.
+
 /**
  * User entity following the "Entity Extends Domain Type" pattern.
  * Extends the User domain type from @hbcore/types with database-specific fields.
