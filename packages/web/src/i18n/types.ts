@@ -20,6 +20,12 @@ export interface TranslationSchema {
     login: string;
     auth: string;
   };
+  auth: {
+    signIn: string;
+    signInDescription: string;
+    signingIn: string;
+    signInWithGoogle: string;
+  };
   hero: {
     title: string;
     subtitle: string;

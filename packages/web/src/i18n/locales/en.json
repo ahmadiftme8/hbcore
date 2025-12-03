@@ -20,6 +20,12 @@
     "login": "Log in",
     "auth": "Login / Sign up"
   },
+  "auth": {
+    "signIn": "Sign In",
+    "signInDescription": "Sign in to your account to continue",
+    "signingIn": "Signing in...",
+    "signInWithGoogle": "Sign in with Google"
+  },
   "hero": {
     "title": "From Board Games to Team Building",
     "subtitle": "Play to know, build a team to win! From friendly banter to the serious battle of ideas.",
