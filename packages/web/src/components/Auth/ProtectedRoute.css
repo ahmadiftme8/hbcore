@@ -1,0 +1,8 @@
+.protected-route__loading,
+.protected-route__unauthorized {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  font-size: 1.125rem;
+}
