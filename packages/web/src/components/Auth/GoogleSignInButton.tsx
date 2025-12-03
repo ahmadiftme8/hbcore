@@ -48,13 +48,28 @@ export function GoogleSignInButton() {
           case 'auth/network-request-failed':
             alert('Network error. Please check your internet connection and try again.');
             break;
+          case 'auth/configuration-not-found':
+            alert(
+              'Firebase configuration error: Configuration not found.\n\n' +
+                'This usually happens when:\n' +
+                '1. Firebase environment variables are missing or empty in production\n' +
+                '2. Your production domain is not authorized in Firebase Console\n\n' +
+                'Please check:\n' +
+                '1. All NEXT_PUBLIC_FIREBASE_* variables are set during Docker build\n' +
+                '2. Your production domain (e.g., hambazievent.com) is added to authorized domains\n' +
+                '   (Firebase Console > Authentication > Settings > Authorized domains)\n' +
+                '3. Google Sign-In is enabled in Firebase Console\n' +
+                '4. Firebase project configuration matches your environment',
+            );
+            break;
           default:
             alert(
               `Sign in failed: ${error.message}\n\n` +
                 `Error code: ${error.code}\n\n` +
                 'Please check:\n' +
                 '1. Google Sign-In is enabled in Firebase Console\n' +
-                '2. localhost:3000 is added to authorized domains\n' +
+                '2. Your domain is added to authorized domains in Firebase Console\n' +
+                '   (Authentication > Settings > Authorized domains)\n' +
                 '3. Firebase project configuration is correct',
             );
         }

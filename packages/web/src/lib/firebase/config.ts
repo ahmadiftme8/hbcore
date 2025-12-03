@@ -22,23 +22,27 @@ export function getFirebaseConfig() {
     );
   }
 
-  const apiKey = process.env.NEXT_PUBLIC_FIREBASE_API_KEY;
-  const projectId = process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID;
-  const authDomain = process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN;
-  const storageBucket = process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET;
-  const messagingSenderId = process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID;
-  const appId = process.env.NEXT_PUBLIC_FIREBASE_APP_ID;
-  const measurementId = process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID;
+  const apiKey = process.env.NEXT_PUBLIC_FIREBASE_API_KEY?.trim();
+  const projectId = process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID?.trim();
+  const authDomain = process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN?.trim();
+  const storageBucket = process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET?.trim();
+  const messagingSenderId = process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID?.trim();
+  const appId = process.env.NEXT_PUBLIC_FIREBASE_APP_ID?.trim();
+  const measurementId = process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID?.trim();
 
-  if (!apiKey) {
+  if (!apiKey || apiKey.length === 0) {
     throw new Error(
-      'NEXT_PUBLIC_FIREBASE_API_KEY is required. Please set it in your .env file. ' +
+      'NEXT_PUBLIC_FIREBASE_API_KEY is required but missing or empty. ' +
+        'Please ensure it is set in your environment variables during build time. ' +
         'You can find it in Firebase Console > Project Settings > General > Your apps > Web app config',
     );
   }
 
-  if (!projectId) {
-    throw new Error('NEXT_PUBLIC_FIREBASE_PROJECT_ID is required. Please set it in your .env file.');
+  if (!projectId || projectId.length === 0) {
+    throw new Error(
+      'NEXT_PUBLIC_FIREBASE_PROJECT_ID is required but missing or empty. ' +
+        'Please ensure it is set in your environment variables during build time.',
+    );
   }
 
   // Auto-generate auth domain if not provided
