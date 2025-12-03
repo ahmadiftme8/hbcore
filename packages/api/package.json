@@ -7,12 +7,12 @@
   "license": "MIT",
   "scripts": {
     "build": "nest build",
-    "format": "biome format --write src test",
-    "format:check": "biome format src test",
+    "format": "bunx biome format --write src",
+    "format:check": "bunx biome format src",
     "lint": "biome lint src test",
-    "lint:fix": "biome lint --write src test",
-    "check": "biome check src test",
-    "check:fix": "biome check --write src test",
+    "lint:fix": "bunx biome lint --write src",
+    "check": "bunx biome check src",
+    "check:fix": "bunx biome check --write src",
     "start": "bun run src/main.ts",
     "dev": "nest start --watch",
     "debug": "nest start --debug --watch",
@@ -23,11 +23,16 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
+    "@hbcore/db": "workspace:*",
+    "@hbcore/types": "workspace:*",
     "@nestjs/common": "^11.0.1",
     "@nestjs/core": "^11.0.1",
     "@nestjs/platform-express": "^11.0.1",
+    "@nestjs/typeorm": "^11.0.0",
+    "firebase-admin": "^13.6.0",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1",
+    "typeorm": "^0.3.27",
     "zod": "^4.1.12"
   },
   "devDependencies": {

@@ -33,7 +33,7 @@ bun run start:dev
 bun run start
 ```
 
-The application will be available at `http://localhost:3000` (or the port specified in your environment variables)
+The application will be available at `http://localhost:3001` (or the port specified in your environment variables)
 
 ### Building
 
@@ -116,7 +116,7 @@ bun run test:e2e
 
 The application uses environment variables validated with Zod. Create a `.env` file in the root directory with the following variables:
 
-- `PORT` - Server port (default: 3000)
+- `PORT` - Server port (default: 3001)
 - `NODE_ENV` - Environment (development, production, etc.)
 
 ## Why Bun?
