@@ -18,13 +18,15 @@
   },
   "common": {
     "login": "Log in",
-    "auth": "Login / Sign up"
+    "auth": "Login / Sign up",
+    "user": "User"
   },
   "auth": {
     "signIn": "Sign In",
     "signInDescription": "Sign in to your account to continue",
     "signingIn": "Signing in...",
-    "signInWithGoogle": "Sign in with Google"
+    "signInWithGoogle": "Sign in with Google",
+    "signOut": "Sign Out"
   },
   "hero": {
     "title": "From Board Games to Team Building",

@@ -18,13 +18,15 @@
   },
   "common": {
     "login": "ورود",
-    "auth": "ورود / ثبت‌نام"
+    "auth": "ورود / ثبت‌نام",
+    "user": "کاربر"
   },
   "auth": {
     "signIn": "ورود",
     "signInDescription": "برای ادامه وارد حساب کاربری خود شوید",
     "signingIn": "در حال ورود...",
-    "signInWithGoogle": "ورود با گوگل"
+    "signInWithGoogle": "ورود با گوگل",
+    "signOut": "خروج"
   },
   "hero": {
     "title": "از بردگیم تا تیم‌سازی",

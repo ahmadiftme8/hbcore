@@ -19,6 +19,10 @@ export interface UserInfo {
   phone?: string | null;
   /** User display name */
   name?: string | null;
+  /** User first name */
+  firstname?: string | null;
+  /** User last name */
+  lastname?: string | null;
   /** User profile photo URL */
   photoUrl?: string | null;
 }

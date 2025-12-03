@@ -26,10 +26,43 @@ export class FirebaseStrategy implements AuthStrategy {
     const name = decodedToken.name || null;
     const photoUrl = decodedToken.picture || null;
 
+    // Extract firstname and lastname
+    // Check if given_name and family_name are available in custom claims or token
+    // These fields may be present in Google Sign-In tokens but are not part of the standard DecodedIdToken type
+    const tokenWithClaims = decodedToken as typeof decodedToken & {
+      given_name?: string;
+      family_name?: string;
+    };
+    const givenName = tokenWithClaims.given_name || null;
+    const familyName = tokenWithClaims.family_name || null;
+
+    let firstname: string | null = null;
+    let lastname: string | null = null;
+
+    if (givenName && familyName) {
+      // Use provided names if available
+      firstname = givenName;
+      lastname = familyName;
+    } else if (name) {
+      // Parse name field: first string is firstname, last string is lastname
+      const nameParts = name
+        .trim()
+        .split(/\s+/)
+        .filter((part) => part.length > 0);
+      if (nameParts.length > 0) {
+        firstname = nameParts[0];
+        if (nameParts.length > 1) {
+          lastname = nameParts[nameParts.length - 1];
+        }
+      }
+    }
+
     // Find or create user by Firebase UID
     const user = await this.usersService.findOrCreateByFirebaseUid(firebaseUid, {
       email,
       name,
+      firstname,
+      lastname,
       photoUrl,
     });
 

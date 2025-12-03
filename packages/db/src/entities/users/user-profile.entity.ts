@@ -42,6 +42,14 @@ export class UserProfileEntity implements UserInfo {
   @Column({ type: 'varchar', length: 255, nullable: true })
   name?: string | null;
 
+  /** User first name */
+  @Column({ type: 'varchar', length: 255, nullable: true })
+  firstname?: string | null;
+
+  /** User last name */
+  @Column({ type: 'varchar', length: 255, nullable: true })
+  lastname?: string | null;
+
   /** User profile photo URL */
   @Column({ type: 'varchar', length: 512, nullable: true, name: 'photo_url' })
   photoUrl?: string | null;

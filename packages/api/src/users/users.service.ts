@@ -27,6 +27,8 @@ export class UsersService {
       email: profile?.email ?? null,
       phone: profile?.phone ?? null,
       name: profile?.name ?? null,
+      firstname: profile?.firstname ?? null,
+      lastname: profile?.lastname ?? null,
       photoUrl: profile?.photoUrl ?? null,
     };
   }
@@ -93,16 +95,25 @@ export class UsersService {
    * Create a new user
    */
   async create(userData: Partial<User & UserInfo>): Promise<User & UserInfo> {
-    const { email, phone, name, photoUrl, ...rest } = userData;
+    const { email, phone, name, firstname, lastname, photoUrl, ...rest } = userData;
     const savedUser = await this.userRepository.create(rest);
 
     // Create profile if profile data is provided
-    if (email !== undefined || phone !== undefined || name !== undefined || photoUrl !== undefined) {
+    if (
+      email !== undefined ||
+      phone !== undefined ||
+      name !== undefined ||
+      firstname !== undefined ||
+      lastname !== undefined ||
+      photoUrl !== undefined
+    ) {
       await this.userProfileRepository.create({
         userId: savedUser.id,
         email: email ?? null,
         phone: phone ?? null,
         name: name ?? null,
+        firstname: firstname ?? null,
+        lastname: lastname ?? null,
         photoUrl: photoUrl ?? null,
       });
     }
@@ -114,7 +125,7 @@ export class UsersService {
    * Update a user
    */
   async update(id: number, userData: Partial<User & UserInfo>): Promise<User & UserInfo> {
-    const { email, phone, name, photoUrl, ...rest } = userData;
+    const { email, phone, name, firstname, lastname, photoUrl, ...rest } = userData;
 
     // Update user entity if there are non-profile fields
     if (Object.keys(rest).length > 0) {
@@ -122,13 +133,22 @@ export class UsersService {
     }
 
     // Update or create profile
-    if (email !== undefined || phone !== undefined || name !== undefined || photoUrl !== undefined) {
+    if (
+      email !== undefined ||
+      phone !== undefined ||
+      name !== undefined ||
+      firstname !== undefined ||
+      lastname !== undefined ||
+      photoUrl !== undefined
+    ) {
       const existingProfile = await this.userProfileRepository.findByUserId(id);
 
       if (existingProfile) {
         existingProfile.email = email ?? existingProfile.email ?? null;
         existingProfile.phone = phone ?? existingProfile.phone ?? null;
         existingProfile.name = name ?? existingProfile.name ?? null;
+        existingProfile.firstname = firstname ?? existingProfile.firstname ?? null;
+        existingProfile.lastname = lastname ?? existingProfile.lastname ?? null;
         existingProfile.photoUrl = photoUrl ?? existingProfile.photoUrl ?? null;
         await this.userProfileRepository.save(existingProfile);
       } else {
@@ -137,6 +157,8 @@ export class UsersService {
           email: email ?? null,
           phone: phone ?? null,
           name: name ?? null,
+          firstname: firstname ?? null,
+          lastname: lastname ?? null,
           photoUrl: photoUrl ?? null,
         });
       }

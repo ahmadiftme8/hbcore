@@ -1,11 +1,11 @@
 'use client';
 
-import { useEffect, useState, type ReactNode } from 'react';
-import { signInWithPopup, signOut as firebaseSignOut, onAuthStateChanged } from 'firebase/auth';
+import type { User, UserInfo } from '@hbcore/types';
+import { signOut as firebaseSignOut, onAuthStateChanged, signInWithPopup } from 'firebase/auth';
+import { type ReactNode, useEffect, useState } from 'react';
+import { apiClient } from '@/lib/api/client';
 import { auth, googleAuthProvider } from '@/lib/firebase/auth';
 import { AuthContext, type AuthContextType } from './AuthContext';
-import { apiClient } from '@/lib/api/client';
-import type { User, UserInfo } from '@hbcore/types';
 
 interface AuthProviderProps {
   children: ReactNode;
@@ -28,6 +28,37 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }, []);
 
   useEffect(() => {
+    const PROFILE_CACHE_KEY = 'hbcore-profile-cache';
+
+    const saveProfileToCache = (user: User & UserInfo) => {
+      if (typeof window === 'undefined') {
+        return;
+      }
+
+      try {
+        const cache = {
+          firstname: user.firstname ?? null,
+          lastname: user.lastname ?? null,
+          photoUrl: user.photoUrl ?? null,
+        };
+        localStorage.setItem(PROFILE_CACHE_KEY, JSON.stringify(cache));
+      } catch (error) {
+        console.error('Failed to cache profile:', error);
+      }
+    };
+
+    const clearProfileCache = () => {
+      if (typeof window === 'undefined') {
+        return;
+      }
+
+      try {
+        localStorage.removeItem(PROFILE_CACHE_KEY);
+      } catch (error) {
+        console.error('Failed to clear cached profile:', error);
+      }
+    };
+
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
       if (firebaseUser) {
         try {
@@ -40,12 +71,15 @@ export function AuthProvider({ children }: AuthProviderProps) {
           });
 
           setUser(response.data.user);
+          saveProfileToCache(response.data.user);
         } catch (error) {
           console.error('Failed to authenticate with API:', error);
           setUser(null);
+          clearProfileCache();
         }
       } else {
         setUser(null);
+        clearProfileCache();
       }
       setLoading(false);
     });
@@ -64,6 +98,21 @@ export function AuthProvider({ children }: AuthProviderProps) {
       });
 
       setUser(response.data.user);
+
+      // Cache profile data
+      if (typeof window !== 'undefined') {
+        try {
+          const PROFILE_CACHE_KEY = 'hbcore-profile-cache';
+          const cache = {
+            firstname: response.data.user.firstname ?? null,
+            lastname: response.data.user.lastname ?? null,
+            photoUrl: response.data.user.photoUrl ?? null,
+          };
+          localStorage.setItem(PROFILE_CACHE_KEY, JSON.stringify(cache));
+        } catch (error) {
+          console.error('Failed to cache profile:', error);
+        }
+      }
     } catch (error) {
       console.error('Sign in error:', error);
       throw error;
@@ -74,6 +123,15 @@ export function AuthProvider({ children }: AuthProviderProps) {
     try {
       await firebaseSignOut(auth);
       setUser(null);
+
+      // Clear profile cache
+      if (typeof window !== 'undefined') {
+        try {
+          localStorage.removeItem('hbcore-profile-cache');
+        } catch (error) {
+          console.error('Failed to clear cached profile:', error);
+        }
+      }
     } catch (error) {
       console.error('Sign out error:', error);
       throw error;

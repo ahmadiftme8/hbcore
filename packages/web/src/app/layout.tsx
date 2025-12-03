@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { cookies } from 'next/headers';
+import { ThemeProvider } from 'next-themes';
 import { DesignTokensProvider } from '@/components/DesignTokensProvider/DesignTokensProvider';
 import { Footer } from '@/components/Footer/Footer';
 import { LanguageAttributes } from '@/components/LanguageAttributes/LanguageAttributes';
@@ -42,17 +43,25 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fa" dir="rtl" className="dark">
+    <html lang="fa" dir="rtl" suppressHydrationWarning>
       <body className={`${rubik.variable} ${vazirmatn.variable} ${geistMono.variable} antialiased`}>
-        <DesignTokensProvider />
-        <AuthProvider>
-          <TranslationProvider>
-            <LanguageAttributes />
-            <Navbar1 />
-            <main>{children}</main>
-            <Footer />
-          </TranslationProvider>
-        </AuthProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem={false}
+          storageKey="hbcore-theme"
+          disableTransitionOnChange={false}
+        >
+          <DesignTokensProvider />
+          <AuthProvider>
+            <TranslationProvider>
+              <LanguageAttributes />
+              <Navbar1 />
+              <main>{children}</main>
+              <Footer />
+            </TranslationProvider>
+          </AuthProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

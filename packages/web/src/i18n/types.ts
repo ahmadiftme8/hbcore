@@ -19,12 +19,14 @@ export interface TranslationSchema {
   common: {
     login: string;
     auth: string;
+    user: string;
   };
   auth: {
     signIn: string;
     signInDescription: string;
     signingIn: string;
     signInWithGoogle: string;
+    signOut: string;
   };
   hero: {
     title: string;
