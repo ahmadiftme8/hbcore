@@ -54,6 +54,7 @@ const Navbar1 = ({
   const { t, isRTL } = useTranslation();
   const { user, loading: authLoading } = useAuth();
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isSheetOpen, setIsSheetOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -142,7 +143,7 @@ const Navbar1 = ({
               {!logo.src && <span className="text-lg font-semibold tracking-tighter">{logo.title}</span>}
             </Link>
             <div className={isRTL ? 'order-1' : 'order-2'}>
-              <Sheet>
+              <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
                 <SheetTrigger asChild>
                   <Button variant="outline" size="icon">
                     <Menu className="size-4" />
@@ -167,7 +168,7 @@ const Navbar1 = ({
                   </SheetHeader>
                   <div className="flex flex-col gap-6 p-4">
                     <Accordion type="single" collapsible className="flex w-full flex-col gap-4">
-                      {menuItems.map((item) => renderMobileMenuItem(item))}
+                      {menuItems.map((item) => renderMobileMenuItem(item, () => setIsSheetOpen(false)))}
                     </Accordion>
                     <div className="flex flex-col gap-3">
                       {authLoading ? (
@@ -175,7 +176,7 @@ const Navbar1 = ({
                       ) : user ? (
                         <UserProfile />
                       ) : (
-                        <Button asChild>
+                        <Button asChild onClick={() => setIsSheetOpen(false)}>
                           <Link href={authItem.url}>{authItem.title}</Link>
                         </Button>
                       )}
@@ -220,31 +221,32 @@ const renderMenuItem = (item: MenuItem) => {
   );
 };
 
-const renderMobileMenuItem = (item: MenuItem) => {
+const renderMobileMenuItem = (item: MenuItem, onLinkClick?: () => void) => {
   if (item.items) {
     return (
       <AccordionItem key={item.title} value={item.title} className="border-b-0">
         <AccordionTrigger className="text-md py-0 font-semibold hover:no-underline">{item.title}</AccordionTrigger>
         <AccordionContent className="mt-2">
           {item.items.map((subItem) => (
-            <SubMenuLink key={subItem.title} item={subItem} />
+            <SubMenuLink key={subItem.title} item={subItem} onLinkClick={onLinkClick} />
           ))}
         </AccordionContent>
       </AccordionItem>
     );
   }
   return (
-    <Link key={item.title} href={item.url} className="text-md font-semibold">
+    <Link key={item.title} href={item.url} className="text-md font-semibold" onClick={onLinkClick}>
       {item.title}
     </Link>
   );
 };
 
-const SubMenuLink = ({ item }: { item: MenuItem }) => {
+const SubMenuLink = ({ item, onLinkClick }: { item: MenuItem; onLinkClick?: () => void }) => {
   return (
     <Link
       className="hover:bg-muted hover:text-accent-foreground flex min-w-80 select-none flex-row gap-4 rounded-md p-3 leading-none no-underline outline-none transition-colors"
       href={item.url}
+      onClick={onLinkClick}
     >
       {item.icon && <div className="text-foreground">{item.icon}</div>}
       <div>
