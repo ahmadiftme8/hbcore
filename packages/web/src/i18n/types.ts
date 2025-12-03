@@ -10,9 +10,15 @@ export interface TranslationSchema {
     proof: string;
     objections: string;
     cta: string;
+    events: string;
+    blog: string;
+    support: string;
+    about: string;
+    contact: string;
   };
   common: {
     login: string;
+    auth: string;
   };
   hero: {
     title: string;
