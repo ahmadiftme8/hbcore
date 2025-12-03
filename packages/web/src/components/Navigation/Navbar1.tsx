@@ -4,6 +4,7 @@ import { Menu } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import { UserProfile } from '@/components/Auth/UserProfile';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Button } from '@/components/ui/button';
 import {
@@ -15,9 +16,8 @@ import {
   NavigationMenuTrigger,
 } from '@/components/ui/navigation-menu';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
-import { useTranslation } from '@/i18n/useTranslation';
 import { useAuth } from '@/contexts/AuthContext/AuthContext';
-import { UserProfile } from '@/components/Auth/UserProfile';
+import { useTranslation } from '@/i18n/useTranslation';
 
 interface MenuItem {
   title: string;
@@ -43,8 +43,8 @@ interface Navbar1Props {
 
 const Navbar1 = ({
   logo = {
-    url: '#',
-    src: '',
+    url: '/',
+    src: '/logo.png',
     alt: 'همبازی ایونت',
     title: 'همبازی ایونت',
   },
@@ -96,7 +96,13 @@ const Navbar1 = ({
             {/* Logo */}
             <Link href={logo.url} className="flex items-center gap-2">
               {logo.src && (
-                <Image src={logo.src} width={100} height={32} className="max-h-8 dark:invert" alt={logo.alt} />
+                <Image
+                  src={logo.src}
+                  width={40}
+                  height={40}
+                  className="h-10 w-10 rounded-lg object-contain"
+                  alt={logo.alt}
+                />
               )}
               <span className="text-lg font-semibold tracking-tighter">{logo.title}</span>
             </Link>
@@ -125,7 +131,13 @@ const Navbar1 = ({
             {/* Logo */}
             <Link href={logo.url} className={`flex items-center gap-2 ${isRTL ? 'order-2' : 'order-1'}`}>
               {logo.src && (
-                <Image src={logo.src} width={100} height={32} className="max-h-8 dark:invert" alt={logo.alt} />
+                <Image
+                  src={logo.src}
+                  width={40}
+                  height={40}
+                  className="h-10 w-10 rounded-lg object-contain"
+                  alt={logo.alt}
+                />
               )}
               {!logo.src && <span className="text-lg font-semibold tracking-tighter">{logo.title}</span>}
             </Link>
@@ -143,9 +155,9 @@ const Navbar1 = ({
                         {logo.src && (
                           <Image
                             src={logo.src}
-                            width={100}
-                            height={32}
-                            className="max-h-8 dark:invert"
+                            width={40}
+                            height={40}
+                            className="h-10 w-10 rounded-lg object-contain"
                             alt={logo.alt}
                           />
                         )}
