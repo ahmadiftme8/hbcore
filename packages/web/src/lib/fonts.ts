@@ -9,16 +9,22 @@ export const rubik = Rubik({
   variable: '--font-rubik',
   subsets: ['latin'],
   display: 'swap',
+  preload: true,
+  adjustFontFallback: true,
 });
 
 export const vazirmatn = Vazirmatn({
   variable: '--font-vazirmatn',
-  subsets: ['latin'],
+  subsets: ['latin', 'arabic'],
   display: 'swap',
+  preload: true,
+  adjustFontFallback: true,
 });
 
 export const geistMono = Geist_Mono({
   variable: '--font-geist-mono',
   subsets: ['latin'],
   display: 'swap',
+  preload: false,
+  adjustFontFallback: true,
 });
