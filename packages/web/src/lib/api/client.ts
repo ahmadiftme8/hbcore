@@ -1,70 +1,61 @@
-import axios, { type AxiosInstance, type AxiosRequestConfig } from 'axios';
+import type { IHttpClient } from '../http/HttpClient.interface';
+import { createHttpClient } from '../http/httpClient';
+import type { HttpClientRequestOptions } from '../http/types';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
 
+/**
+ * API Client
+ * Provides API-specific methods using the HTTP client
+ */
 class ApiClient {
-  private client: AxiosInstance;
-  private tokenGetter?: () => Promise<string | null>;
+  private httpClient: IHttpClient;
 
   constructor() {
-    this.client = axios.create({
+    this.httpClient = createHttpClient({
       baseURL: API_BASE_URL,
-      headers: {
-        'Content-Type': 'application/json',
+      timeout: 10000,
+      retry: {
+        limit: 2,
+        methods: ['get', 'put', 'head', 'delete', 'options', 'trace'],
+        statusCodes: [408, 429, 500, 502, 503, 504],
       },
     });
-
-    // Request interceptor to add auth token
-    this.client.interceptors.request.use(
-      async (config) => {
-        // Get token using the token getter if available
-        if (this.tokenGetter) {
-          const token = await this.tokenGetter();
-          if (token) {
-            config.headers.Authorization = `Bearer ${token}`;
-          }
-        }
-        return config;
-      },
-      (error) => {
-        return Promise.reject(error);
-      },
-    );
-
-    // Response interceptor for error handling
-    this.client.interceptors.response.use(
-      (response) => response,
-      (error) => {
-        if (error.response?.status === 401) {
-          // Handle unauthorized - could redirect to login
-          console.error('Unauthorized access');
-        }
-        return Promise.reject(error);
-      },
-    );
   }
 
   /**
    * Set a function to get the auth token
    */
-  setTokenGetter(getter: () => Promise<string | null>) {
-    this.tokenGetter = getter;
+  setTokenGetter(getter: () => Promise<string | null>): void {
+    this.httpClient.setTokenGetter(getter);
   }
 
-  async get<T>(url: string, config?: AxiosRequestConfig) {
-    return this.client.get<T>(url, config);
+  /**
+   * Perform a GET request
+   */
+  async get<T>(url: string, config?: HttpClientRequestOptions) {
+    return this.httpClient.get<T>(url, config);
   }
 
-  async post<T>(url: string, data?: unknown, config?: AxiosRequestConfig) {
-    return this.client.post<T>(url, data, config);
+  /**
+   * Perform a POST request
+   */
+  async post<T>(url: string, data?: unknown, config?: HttpClientRequestOptions) {
+    return this.httpClient.post<T>(url, { ...config, json: data });
   }
 
-  async put<T>(url: string, data?: unknown, config?: AxiosRequestConfig) {
-    return this.client.put<T>(url, data, config);
+  /**
+   * Perform a PUT request
+   */
+  async put<T>(url: string, data?: unknown, config?: HttpClientRequestOptions) {
+    return this.httpClient.put<T>(url, { ...config, json: data });
   }
 
-  async delete<T>(url: string, config?: AxiosRequestConfig) {
-    return this.client.delete<T>(url, config);
+  /**
+   * Perform a DELETE request
+   */
+  async delete<T>(url: string, config?: HttpClientRequestOptions) {
+    return this.httpClient.delete<T>(url, config);
   }
 }
 
