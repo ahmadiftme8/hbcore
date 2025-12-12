@@ -1,5 +1,7 @@
-import type { AfterResponseHook, BeforeRequestHook } from 'ky';
-import ky, { type KyInstance } from 'ky';
+import axios, { type AxiosInstance, type AxiosRequestConfig, type AxiosResponse } from 'axios';
+import axiosRetry from 'axios-retry';
+import { logger } from '../utils/logger';
+import { handleHttpError } from './error-handler';
 import type { IHttpClient } from './HttpClient.interface';
 import type { HttpClientConfig, HttpClientRequestOptions, HttpClientResponse, HttpMethod } from './types';
 
@@ -8,59 +10,101 @@ import type { HttpClientConfig, HttpClientRequestOptions, HttpClientResponse, Ht
  * Uses Proxy pattern to intercept HTTP method calls and add cross-cutting concerns
  */
 export class HttpClientProxy implements IHttpClient {
-  private kyInstance: KyInstance;
+  private axiosInstance: AxiosInstance;
   private tokenGetter?: () => Promise<string | null>;
   private config: HttpClientConfig;
 
   constructor(config: HttpClientConfig = {}) {
     this.config = config;
 
-    // Create Ky instance with retry configuration
     const retryConfig = {
       limit: config.retry?.limit ?? 2,
       methods: config.retry?.methods ?? ['get', 'put', 'head', 'delete', 'options', 'trace'],
       statusCodes: config.retry?.statusCodes ?? [408, 429, 500, 502, 503, 504],
     };
 
-    this.kyInstance = ky.create({
-      prefixUrl: config.baseURL ?? '',
+    this.axiosInstance = axios.create({
+      baseURL: config.baseURL ?? '',
       timeout: config.timeout ?? 10000,
-      retry: retryConfig,
       headers: {
         'Content-Type': 'application/json',
         ...config.headers,
       },
-      hooks: {
-        beforeRequest: [this.createBeforeRequestHook()],
-        afterResponse: [this.createAfterResponseHook()],
+    });
+
+    // Configure retry logic using axios-retry
+    axiosRetry(this.axiosInstance, {
+      retries: retryConfig.limit,
+      retryDelay: axiosRetry.exponentialDelay,
+      retryCondition: (error) => {
+        if (!error.response) {
+          // Retry on network errors
+          return true;
+        }
+        // Retry on specific status codes
+        return retryConfig.statusCodes.includes(error.response.status);
+      },
+      onRetry: (retryCount, error) => {
+        logger.info(`🔄 Retrying request (attempt ${retryCount + 1}/${retryConfig.limit + 1})`, {
+          url: error.config?.url,
+          method: error.config?.method,
+        });
       },
     });
-  }
 
-  /**
-   * Create beforeRequest hook for authentication token injection
-   */
-  private createBeforeRequestHook(): BeforeRequestHook {
-    return async (request) => {
-      if (this.tokenGetter) {
-        const token = await this.tokenGetter();
-        if (token) {
-          request.headers.set('Authorization', `Bearer ${token}`);
+    // Set up request interceptor for authentication token injection
+    this.axiosInstance.interceptors.request.use(
+      async (config) => {
+        logger.info('🔧 Request interceptor called', {
+          url: config.url,
+          method: config.method,
+          headersCount: Object.keys(config.headers).length,
+        });
+
+        if (this.tokenGetter) {
+          try {
+            const token = await this.tokenGetter();
+            if (token) {
+              config.headers.Authorization = `Bearer ${token}`;
+              logger.info('✅ Auth token added to request headers');
+            } else {
+              logger.info('ℹ️ No auth token available');
+            }
+          } catch (error) {
+            logger.error('❌ Failed to get auth token:', error);
+          }
         }
-      }
-    };
-  }
 
-  /**
-   * Create afterResponse hook for error handling
-   */
-  private createAfterResponseHook(): AfterResponseHook {
-    return async (_request, _options, response) => {
-      if (response.status === 401) {
-        console.error('Unauthorized access');
-      }
-      return response;
-    };
+        // Log request headers (excluding sensitive data)
+        const headers: Record<string, string> = {};
+        Object.entries(config.headers).forEach(([key, value]) => {
+          if (key.toLowerCase() === 'authorization') {
+            headers[key] = 'Bearer ***';
+          } else if (typeof value === 'string') {
+            headers[key] = value;
+          }
+        });
+        logger.info('📋 Request headers:', headers);
+
+        return config;
+      },
+      (error) => {
+        return Promise.reject(error);
+      },
+    );
+
+    // Set up response interceptor for error handling
+    this.axiosInstance.interceptors.response.use(
+      (response) => {
+        if (response.status === 401) {
+          logger.error('Unauthorized access');
+        }
+        return response;
+      },
+      (error) => {
+        return Promise.reject(error);
+      },
+    );
   }
 
   /**
@@ -71,14 +115,14 @@ export class HttpClientProxy implements IHttpClient {
   }
 
   /**
-   * Convert data and response to HttpClientResponse format
+   * Convert axios response to HttpClientResponse format
    */
-  private createResponse<T>(data: T, response: Response): HttpClientResponse<T> {
+  private createResponse<T>(axiosResponse: AxiosResponse<T>): HttpClientResponse<T> {
     return {
-      data,
-      status: response.status,
-      statusText: response.statusText,
-      headers: response.headers,
+      data: axiosResponse.data,
+      status: axiosResponse.status,
+      statusText: axiosResponse.statusText,
+      headers: axiosResponse.headers as unknown as Headers,
     };
   }
 
@@ -90,78 +134,69 @@ export class HttpClientProxy implements IHttpClient {
     url: string,
     options?: HttpClientRequestOptions & { json?: unknown },
   ): Promise<HttpClientResponse<T>> {
-    const kyOptions: Parameters<KyInstance>[1] = {
+    const normalizedUrl = url.startsWith('/') ? url.slice(1) : url;
+    const normalizedBaseURL = this.config.baseURL?.replace(/\/$/, '') ?? '';
+    const fullUrl = `${normalizedBaseURL}/${normalizedUrl}`;
+
+    // Log request initiation
+    logger.info(`🚀 Initiating ${method.toUpperCase()} request`, {
+      fullUrl,
+      baseURL: normalizedBaseURL,
+      url: normalizedUrl,
+      hasJson: options?.json !== undefined,
+      hasHeaders: !!options?.headers,
+      hasSearchParams: !!options?.searchParams,
+      timeout: options?.timeout ?? this.config.timeout,
+    });
+
+    const axiosConfig: AxiosRequestConfig = {
+      method,
+      url: normalizedUrl,
       headers: options?.headers,
-      searchParams: options?.searchParams,
+      params: options?.searchParams,
       timeout: options?.timeout,
-      retry: options?.retry,
     };
 
     if (options?.json !== undefined && (method === 'post' || method === 'put' || method === 'patch')) {
-      kyOptions.json = options.json;
+      axiosConfig.data = options.json;
+      // Log request body (be careful with sensitive data)
+      logger.info('📦 Request body:', {
+        hasData: true,
+        dataType: typeof options.json,
+        isArray: Array.isArray(options.json),
+      });
     }
 
-    // Store response metadata in closure for this request
-    let responseMetadata: Response | null = null;
-
-    // Create a request-specific Ky instance to capture response metadata
-    // This is necessary because Ky returns parsed JSON, not Response objects
-    const requestKy = ky.create({
-      prefixUrl: this.config.baseURL ?? '',
-      timeout: this.config.timeout ?? 10000,
-      retry: {
-        limit: this.config.retry?.limit ?? 2,
-        methods: this.config.retry?.methods ?? ['get', 'put', 'head', 'delete', 'options', 'trace'],
-        statusCodes: this.config.retry?.statusCodes ?? [408, 429, 500, 502, 503, 504],
-      },
-      headers: {
-        'Content-Type': 'application/json',
-        ...this.config.headers,
-      },
-      hooks: {
-        beforeRequest: [this.createBeforeRequestHook()],
-        afterResponse: [
-          async (_request, _options, response) => {
-            // Clone response to store metadata (response body is consumed by Ky)
-            responseMetadata = response.clone();
-            if (response.status === 401) {
-              console.error('Unauthorized access');
-            }
-            return response;
-          },
-        ],
-      },
+    // Log full request configuration
+    logger.info('⚙️ Request configuration:', {
+      method: method.toUpperCase(),
+      url: normalizedUrl,
+      baseURL: normalizedBaseURL,
+      fullUrl,
+      hasHeaders: !!axiosConfig.headers,
+      hasSearchParams: !!axiosConfig.params,
+      timeout: axiosConfig.timeout,
     });
 
     try {
-      const data = (await requestKy[method](url, kyOptions)) as T;
+      logger.info(`🌐 Sending ${method.toUpperCase()} request to Axios...`);
+      const response = await this.axiosInstance.request<T>(axiosConfig);
+      logger.info(`✅ ${method.toUpperCase()} request successful`, {
+        url: fullUrl,
+        hasData: response.data !== undefined,
+        dataType: typeof response.data,
+      });
 
-      // Use captured response metadata or create fallback
-      if (!responseMetadata) {
-        responseMetadata = new Response(JSON.stringify(data), {
-          status: 200,
-          statusText: 'OK',
-          headers: new Headers({ 'Content-Type': 'application/json' }),
-        });
-      }
-
-      return this.createResponse<T>(data, responseMetadata);
+      return this.createResponse<T>(response);
     } catch (error) {
-      // Handle HTTP errors - Ky throws HTTPError for non-2xx responses
-      if (error && typeof error === 'object' && 'response' in error) {
-        const httpError = error as { response: Response };
-        let errorData: unknown = {};
-        try {
-          const text = await httpError.response.text();
-          errorData = text ? JSON.parse(text) : {};
-        } catch {
-          // Ignore JSON parse errors, use empty object
-        }
-        throw {
-          ...error,
-          response: this.createResponse(errorData, httpError.response),
-        };
-      }
+      logger.error(`❌ ${method.toUpperCase()} request failed`, {
+        url: fullUrl,
+        error: error instanceof Error ? error.message : String(error),
+        errorName: error instanceof Error ? error.name : 'Unknown',
+      });
+      // Use centralized error handler
+      await handleHttpError(error, method, normalizedUrl, normalizedBaseURL);
+      // This will never be reached, but TypeScript needs it
       throw error;
     }
   }
