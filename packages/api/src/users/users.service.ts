@@ -77,9 +77,21 @@ export class UsersService {
   async findByPhone(phone: string): Promise<(User & UserInfo) | null> {
     // Parse and validate phone from external input
     const parsedPhone = PhoneSchema.parse(phone);
-    const profile = await this.userProfileRepository.findByPhone(parsedPhone);
 
-    if (!profile || !profile.user) {
+    // Prefer phone auth credentials (source of truth for phone authentication)
+    const credential = await this.phoneCredentialRepository.findByPhone(parsedPhone);
+    if (credential?.user) {
+      const userWithProfile = await this.getUserWithProfile(credential.user);
+      // If profile doesn't have phone yet, return the credential phone for completeness
+      return {
+        ...userWithProfile,
+        phone: userWithProfile.phone ?? parsedPhone,
+      };
+    }
+
+    // Fallback to profile phone lookup (legacy / non-auth use cases)
+    const profile = await this.userProfileRepository.findByPhone(parsedPhone);
+    if (!profile?.user) {
       return null;
     }
 
@@ -286,7 +298,10 @@ export class UsersService {
     }
 
     // Create new user
-    const user = await this.create(userData);
+    const user = await this.create({
+      ...userData,
+      phone: userData.phone ?? parsedPhone,
+    });
 
     // Create phone credential
     await this.upsertPhoneCredential(user.id, parsedPhone);
