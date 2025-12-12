@@ -30,9 +30,11 @@ export const envSchema = z.object({
   // OTP
   OTP_LENGTH: z.string().default('6').transform(Number),
   OTP_EXPIRY_MINUTES: z.string().default('2').transform(Number),
+  OTP_HMAC_SECRET: z.string().optional(),
+  OTP_LOCKOUT_MINUTES: z.string().default('15').transform(Number),
   // JWT
   JWT_SECRET: z.string().min(1, 'JWT_SECRET is required'),
-  JWT_EXPIRY_HOURS: z.string().default('24').transform(Number),
+  JWT_EXPIRY_HOURS: z.string().default('72').transform(Number),
 });
 
 export type EnvSchema = z.infer<typeof envSchema>;

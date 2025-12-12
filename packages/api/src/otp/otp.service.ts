@@ -1,35 +1,58 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import { createHmac, randomInt, timingSafeEqual } from 'crypto';
 import { ConfigService } from '@/config/config.service';
 import { RedisService } from '@/redis/redis.service';
-
-interface OTPData {
-  code: string;
-  attempts: number;
-  createdAt: number;
-}
 
 @Injectable()
 export class OtpService {
   private readonly maxAttempts = 5;
   private readonly otpLength: number;
   private readonly otpExpiryMinutes: number;
+  private readonly otpLockoutMinutes: number;
+  private readonly otpHmacSecret: string;
 
   constructor(
     private readonly redisService: RedisService,
     private readonly configService: ConfigService,
   ) {
-    this.otpLength = this.configService.e.OTP_LENGTH;
-    this.otpExpiryMinutes = this.configService.e.OTP_EXPIRY_MINUTES;
+    const config = this.configService.e;
+    this.otpLength = config.OTP_LENGTH;
+    this.otpExpiryMinutes = config.OTP_EXPIRY_MINUTES;
+    this.otpLockoutMinutes = config.OTP_LOCKOUT_MINUTES;
+    this.otpHmacSecret =
+      config.OTP_HMAC_SECRET && config.OTP_HMAC_SECRET.trim().length > 0 ? config.OTP_HMAC_SECRET : config.JWT_SECRET;
   }
 
   /**
-   * Generate a 6-digit OTP code
+   * Generate a numeric OTP code using a cryptographically secure RNG
    */
   private generateOTPCode(): string {
     const min = 10 ** (this.otpLength - 1);
-    const max = 10 ** this.otpLength - 1;
-    const code = Math.floor(Math.random() * (max - min + 1)) + min;
-    return code.toString().padStart(this.otpLength, '0');
+    const maxExclusive = 10 ** this.otpLength;
+    const code = randomInt(min, maxExclusive);
+    return String(code).padStart(this.otpLength, '0');
+  }
+
+  private hashOTP(phone: string, code: string): string {
+    const payload = `${phone}:${code}`;
+    return createHmac('sha256', this.otpHmacSecret).update(payload).digest('hex');
+  }
+
+  private isHashEqual(storedHashHex: string, candidateHashHex: string): boolean {
+    const stored = Buffer.from(storedHashHex, 'hex');
+    const candidate = Buffer.from(candidateHashHex, 'hex');
+    if (stored.length !== candidate.length) {
+      return false;
+    }
+    return timingSafeEqual(stored, candidate);
+  }
+
+  private async assertNotLocked(phone: string): Promise<void> {
+    const lockKey = this.getOTPLockKey(phone);
+    const isLocked = await this.redisService.exists(lockKey);
+    if (isLocked) {
+      throw new BadRequestException('Too many failed OTP attempts. Please try again later.');
+    }
   }
 
   /**
@@ -39,20 +62,22 @@ export class OtpService {
    * @throws BadRequestException if Redis is unavailable
    */
   async generateOTP(phone: string): Promise<string> {
-    const code = this.generateOTPCode();
-    const otpData: OTPData = {
-      code,
-      attempts: 0,
-      createdAt: Date.now(),
-    };
+    await this.assertNotLocked(phone);
 
-    const key = this.getOTPKey(phone);
+    const code = this.generateOTPCode();
+    const otpHash = this.hashOTP(phone, code);
+
+    const hashKey = this.getOTPHashKey(phone);
+    const attemptsKey = this.getOTPAttemptsKey(phone);
     const ttlSeconds = this.otpExpiryMinutes * 60;
 
-    const success = await this.redisService.set(key, JSON.stringify(otpData), ttlSeconds);
+    const success = await this.redisService.set(hashKey, otpHash, ttlSeconds);
     if (!success) {
       throw new BadRequestException('Unable to generate OTP. Please try again later.');
     }
+
+    // Reset attempts for the new OTP (best-effort)
+    await this.redisService.del(attemptsKey);
 
     return code;
   }
@@ -66,41 +91,44 @@ export class OtpService {
    * @throws BadRequestException if Redis is unavailable
    */
   async verifyOTP(phone: string, code: string): Promise<boolean> {
-    const key = this.getOTPKey(phone);
-    const stored = await this.redisService.get(key);
+    await this.assertNotLocked(phone);
 
-    if (!stored) {
+    const normalizedCode = code.trim();
+    const hashKey = this.getOTPHashKey(phone);
+    const attemptsKey = this.getOTPAttemptsKey(phone);
+
+    const storedHash = await this.redisService.get(hashKey);
+    if (!storedHash) {
       throw new NotFoundException('OTP not found or expired. Please request a new OTP.');
     }
 
     try {
-      const otpData: OTPData = JSON.parse(stored);
-
-      // Check if max attempts exceeded
-      if (otpData.attempts >= this.maxAttempts) {
-        await this.redisService.del(key);
-        throw new BadRequestException('Maximum verification attempts exceeded. Please request a new OTP.');
-      }
-
-      // Get remaining TTL to preserve expiration time
-      const remainingTtl = await this.redisService.ttl(key);
-
-      // If TTL is -2, key was deleted between get and ttl check
-      if (remainingTtl === -2) {
-        throw new NotFoundException('OTP not found or expired. Please request a new OTP.');
-      }
-
       // Increment attempts atomically
-      // Use remaining TTL if available, otherwise use default expiry
-      const ttlToUse = remainingTtl > 0 ? remainingTtl : this.otpExpiryMinutes * 60;
-      otpData.attempts += 1;
-      const setSuccess = await this.redisService.set(key, JSON.stringify(otpData), ttlToUse);
-      if (!setSuccess) {
+      const attempts = await this.redisService.incr(attemptsKey);
+      if (attempts === 0) {
         throw new BadRequestException('Unable to verify OTP. Please try again later.');
       }
 
-      // Verify code
-      if (otpData.code !== code) {
+      // Align attempts TTL to OTP TTL (best-effort, only needed on first attempt)
+      if (attempts === 1) {
+        const remainingTtl = await this.redisService.ttl(hashKey);
+        if (remainingTtl === -2) {
+          throw new NotFoundException('OTP not found or expired. Please request a new OTP.');
+        }
+        const ttlToUse = remainingTtl > 0 ? remainingTtl : this.otpExpiryMinutes * 60;
+        await this.redisService.expire(attemptsKey, ttlToUse);
+      }
+
+      // Enforce max attempts with a cooldown lockout
+      if (attempts > this.maxAttempts) {
+        const lockKey = this.getOTPLockKey(phone);
+        const lockTtlSeconds = this.otpLockoutMinutes * 60;
+        await this.redisService.set(lockKey, '1', lockTtlSeconds);
+        throw new BadRequestException('Maximum verification attempts exceeded. Please try again later.');
+      }
+
+      const candidateHash = this.hashOTP(phone, normalizedCode);
+      if (!this.isHashEqual(storedHash, candidateHash)) {
         return false;
       }
 
@@ -122,8 +150,9 @@ export class OtpService {
    * @param phone - Phone number in E.164 format
    */
   async invalidateOTP(phone: string): Promise<void> {
-    const key = this.getOTPKey(phone);
-    await this.redisService.del(key);
+    const hashKey = this.getOTPHashKey(phone);
+    const attemptsKey = this.getOTPAttemptsKey(phone);
+    await Promise.all([this.redisService.del(hashKey), this.redisService.del(attemptsKey)]);
   }
 
   /**
@@ -131,21 +160,30 @@ export class OtpService {
    * @param phone - Phone number in E.164 format
    */
   async getRemainingAttempts(phone: string): Promise<number> {
-    const key = this.getOTPKey(phone);
-    const stored = await this.redisService.get(key);
-
-    if (!stored) {
+    const hashKey = this.getOTPHashKey(phone);
+    const storedHash = await this.redisService.get(hashKey);
+    if (!storedHash) {
       return 0;
     }
 
-    const otpData: OTPData = JSON.parse(stored);
-    return Math.max(0, this.maxAttempts - otpData.attempts);
+    const attemptsKey = this.getOTPAttemptsKey(phone);
+    const attemptsStr = await this.redisService.get(attemptsKey);
+    const attempts = attemptsStr ? parseInt(attemptsStr, 10) : 0;
+    return Math.max(0, this.maxAttempts - attempts);
   }
 
   /**
-   * Generate Redis key for OTP storage
+   * Generate Redis keys for OTP storage
    */
-  private getOTPKey(phone: string): string {
-    return `otp:${phone}`;
+  private getOTPHashKey(phone: string): string {
+    return `otp:hash:${phone}`;
+  }
+
+  private getOTPAttemptsKey(phone: string): string {
+    return `otp:attempts:${phone}`;
+  }
+
+  private getOTPLockKey(phone: string): string {
+    return `otp:lock:${phone}`;
   }
 }
