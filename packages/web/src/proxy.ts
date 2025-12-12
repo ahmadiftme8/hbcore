@@ -17,23 +17,28 @@ export function proxy(_request: NextRequest) {
   // - child-src: alternative to frame-src for older browsers
   const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
 
-  // Build connect-src directive with API URL
+  // Build connect-src directive with API URL and Firebase domains
   const connectSrc = [
     "'self'",
     'https://challenges.cloudflare.com',
     'https://*.cloudflare.com',
+    'https://identitytoolkit.googleapis.com',
+    'https://securetoken.googleapis.com',
+    'https://*.googleapis.com',
+    'https://accounts.google.com',
+    'https://*.google.com',
     apiUrl, // Allow connections to API server
   ].join(' ');
 
   const cspHeader = [
     "default-src 'self'",
-    "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://challenges.cloudflare.com https://*.cloudflare.com",
+    "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://challenges.cloudflare.com https://*.cloudflare.com https://*.googleapis.com https://*.google.com",
     "style-src 'self' 'unsafe-inline' https://challenges.cloudflare.com",
     "img-src 'self' data: https: blob:",
     "font-src 'self' data:",
     `connect-src ${connectSrc}`,
-    "frame-src 'self' https://challenges.cloudflare.com https://*.cloudflare.com",
-    "child-src 'self' https://challenges.cloudflare.com https://*.cloudflare.com",
+    "frame-src 'self' https://challenges.cloudflare.com https://*.cloudflare.com https://accounts.google.com https://*.google.com https://*.firebaseapp.com",
+    "child-src 'self' https://challenges.cloudflare.com https://*.cloudflare.com https://accounts.google.com https://*.google.com https://*.firebaseapp.com",
     "frame-ancestors 'self'",
     "base-uri 'self'",
     "form-action 'self'",

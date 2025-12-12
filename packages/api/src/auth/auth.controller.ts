@@ -1,14 +1,14 @@
 import type { User, UserInfo } from '@hbcore/types';
-import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Logger, Post, Req, UseGuards } from '@nestjs/common';
 import type { Request } from 'express';
 import { FingerprintingService } from '@/fingerprinting/fingerprinting.service';
 import { AuthService } from './auth.service';
 import { CurrentUser } from './decorators/current-user.decorator';
-import { FirebaseAuthGuard } from './guards/firebase-auth.guard';
+import { PhoneAuthGuard } from './guards/phone-auth.guard';
 
-interface FirebaseAuthDto {
-  idToken: string;
-}
+// interface FirebaseAuthDto {
+//   idToken: string;
+// }
 
 interface RequestOtpDto {
   phone: string;
@@ -22,6 +22,8 @@ interface VerifyOtpDto {
 
 @Controller('auth')
 export class AuthController {
+  private readonly logger = new Logger(AuthController.name);
+
   constructor(
     private readonly authService: AuthService,
     private readonly fingerprintingService: FingerprintingService,
@@ -30,16 +32,34 @@ export class AuthController {
   /**
    * Authenticate with Firebase ID token
    * POST /auth/firebase
+   * @deprecated Google/Firebase authentication is disabled
    */
-  @Post('firebase')
-  async authenticateWithFirebase(@Body() body: FirebaseAuthDto): Promise<{
-    user: User & UserInfo;
-  }> {
-    const result = await this.authService.authenticateWithFirebase(body.idToken);
-    return {
-      user: result.user,
-    };
-  }
+  // @Post('firebase')
+  // async authenticateWithFirebase(@Body() body: FirebaseAuthDto): Promise<{
+  //   user: User & UserInfo;
+  // }> {
+  //   if (!body.idToken || typeof body.idToken !== 'string' || body.idToken.trim().length === 0) {
+  //     this.logger.warn('Firebase authentication attempted with missing or invalid idToken');
+  //     throw new BadRequestException('Firebase ID token is required');
+  //   }
+
+  //   try {
+  //     const result = await this.authService.authenticateWithFirebase(body.idToken);
+  //     this.logger.log('Firebase authentication successful', {
+  //       userId: result.user.id,
+  //       firebaseUid: result.providerUid,
+  //     });
+  //     return {
+  //       user: result.user,
+  //     };
+  //   } catch (error) {
+  //     this.logger.error('Firebase authentication failed', {
+  //       error: error instanceof Error ? error.message : String(error),
+  //       stack: error instanceof Error ? error.stack : undefined,
+  //     });
+  //     throw error;
+  //   }
+  // }
 
   /**
    * Request OTP for phone authentication
@@ -87,7 +107,7 @@ export class AuthController {
    * GET /auth/me
    */
   @Get('me')
-  @UseGuards(FirebaseAuthGuard)
+  @UseGuards(PhoneAuthGuard)
   async getCurrentUser(@CurrentUser() user: User & UserInfo): Promise<{
     user: User & UserInfo;
   }> {

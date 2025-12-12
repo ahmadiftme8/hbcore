@@ -18,7 +18,6 @@ import { createContext, useContext } from 'react';
 export interface AuthContextType {
   user: (User & UserInfo) | null;
   loading: boolean;
-  signInWithGoogle: () => Promise<void>;
   signInWithPhone: (phone: string, otp: string) => Promise<void>;
   signOut: () => Promise<void>;
   getIdToken: () => Promise<string | null>;

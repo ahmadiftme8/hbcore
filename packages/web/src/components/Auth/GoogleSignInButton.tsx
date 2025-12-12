@@ -22,6 +22,7 @@ export function GoogleSignInButton() {
       'auth/popup-blocked': t.auth.errors.popupBlocked,
       'auth/network-request-failed': t.auth.errors.networkError,
       'auth/configuration-not-found': t.auth.errors.configurationNotFound,
+      'auth/internal-error': t.auth.errors.internalError,
     },
     onFirebasePopupClosed: () => {
       // User closed popup, don't show error
@@ -35,7 +36,11 @@ export function GoogleSignInButton() {
       setError(null);
       await signInWithGoogle();
     } catch (err) {
-      logger.error('Sign in failed:', err);
+      const firebaseError = err as { code?: string };
+      // Don't log popup-closed-by-user as an error - it's handled gracefully
+      if (firebaseError.code !== 'auth/popup-closed-by-user') {
+        logger.error('Sign in failed:', err);
+      }
       const errorMessage = handleError(err);
       if (errorMessage) {
         setError(errorMessage);

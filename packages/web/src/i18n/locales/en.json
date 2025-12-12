@@ -48,7 +48,8 @@
       "operationNotAllowed": "Firebase configuration error: Sign-in method not enabled. Please enable Google Sign-In in Firebase Console.",
       "popupBlocked": "Popup blocked by browser. Please allow popups for this site and try again.",
       "networkError": "Network error. Please check your internet connection and try again.",
-      "configurationNotFound": "Firebase configuration error: Configuration not found. Please check your Firebase environment variables and domain authorization."
+      "configurationNotFound": "Firebase configuration error: Configuration not found. Please check your Firebase environment variables and domain authorization.",
+      "internalError": "An internal error occurred during authentication. This may be due to a server issue or configuration problem. Please try again or contact support if the problem persists."
     }
   },
   "hero": {

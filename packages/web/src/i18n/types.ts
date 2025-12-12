@@ -49,6 +49,7 @@ export interface TranslationSchema {
       popupBlocked: string;
       networkError: string;
       configurationNotFound: string;
+      internalError: string;
     };
   };
   hero: {

@@ -78,3 +78,10 @@ export const auth = new Proxy({} as Auth, {
 
 // Google Auth Provider
 export const googleAuthProvider = new GoogleAuthProvider();
+// Add scopes for better compatibility
+googleAuthProvider.addScope('profile');
+googleAuthProvider.addScope('email');
+// Set custom parameters to ensure proper OAuth flow
+googleAuthProvider.setCustomParameters({
+  prompt: 'select_account',
+});

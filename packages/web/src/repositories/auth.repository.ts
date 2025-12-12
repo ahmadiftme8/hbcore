@@ -1,7 +1,6 @@
-import type { User, UserInfo } from '@hbcore/types';
 import { API_ENDPOINTS } from '../lib/constants/api-endpoints';
 import { apiClient } from './api-client';
-import type { FirebaseAuthResponse, PhoneOtpRequestResponse, PhoneOtpVerifyResponse } from './types';
+import type { PhoneOtpRequestResponse, PhoneOtpVerifyResponse } from './types';
 
 /**
  * Auth Repository
@@ -10,13 +9,14 @@ import type { FirebaseAuthResponse, PhoneOtpRequestResponse, PhoneOtpVerifyRespo
 export class AuthRepository {
   /**
    * Authenticate with Firebase ID token
+   * @deprecated Google/Firebase authentication is disabled
    */
-  async authenticateWithFirebase(idToken: string): Promise<User & UserInfo> {
-    const response = await apiClient.post<FirebaseAuthResponse>(API_ENDPOINTS.AUTH.FIREBASE, {
-      idToken,
-    });
-    return response.data.user;
-  }
+  // async authenticateWithFirebase(idToken: string): Promise<User & UserInfo> {
+  //   const response = await apiClient.post<FirebaseAuthResponse>(API_ENDPOINTS.AUTH.FIREBASE, {
+  //     idToken,
+  //   });
+  //   return response.data.user;
+  // }
 
   /**
    * Request OTP for phone authentication

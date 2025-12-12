@@ -2,7 +2,6 @@
 
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense, useEffect } from 'react';
-import { GoogleSignInButton } from '@/components/Auth/GoogleSignInButton';
 import { PhoneSignInButton } from '@/components/Auth/PhoneSignInButton';
 import { useAuth } from '@/contexts/AuthContext/AuthContext';
 import { useTranslation } from '@/i18n/useTranslation';
@@ -49,10 +48,6 @@ function AuthPageContent() {
         <h1 className="auth-page__title">{t.auth.signIn}</h1>
         <p className="auth-page__description">{t.auth.signInDescription}</p>
         <div className="auth-page__actions">
-          <GoogleSignInButton />
-          <div className="auth-page__divider">
-            <span>{t.auth.or}</span>
-          </div>
           <PhoneSignInButton />
         </div>
       </div>

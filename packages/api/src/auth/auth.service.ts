@@ -32,10 +32,11 @@ export class AuthService {
    * Authenticate with Firebase
    * @param idToken - Firebase ID token
    * @returns Authentication result
+   * @deprecated Google/Firebase authentication is disabled
    */
-  async authenticateWithFirebase(idToken: string): Promise<AuthResult> {
-    return this.firebaseStrategy.authenticate(idToken);
-  }
+  // async authenticateWithFirebase(idToken: string): Promise<AuthResult> {
+  //   return this.firebaseStrategy.authenticate(idToken);
+  // }
 
   /**
    * Request OTP for phone authentication

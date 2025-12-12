@@ -1,9 +1,7 @@
 'use client';
 
 import type { User, UserInfo } from '@hbcore/types';
-import { onAuthStateChanged } from 'firebase/auth';
 import { type ReactNode, useCallback, useEffect, useState } from 'react';
-import { auth } from '@/lib/firebase/auth';
 import { apiClient } from '@/repositories/api-client';
 import { authService } from '@/services/auth.service';
 import { AuthContext, type AuthContextType } from './AuthContext';
@@ -25,30 +23,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }, [getIdToken]);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
-      if (firebaseUser) {
-        try {
-          const idToken = await firebaseUser.getIdToken();
-          const authenticatedUser = await authService.authenticateWithFirebase(idToken);
-          setUser(authenticatedUser);
-        } catch (error) {
-          setUser(null);
-          authService.clearProfileCache();
-        }
-      } else {
-        setUser(null);
-        authService.clearProfileCache();
-      }
-      setLoading(false);
-    });
-
-    return () => unsubscribe();
+    // Google/Firebase authentication is disabled
+    // Only phone authentication is available
+    setLoading(false);
   }, []);
-
-  const signInWithGoogle = async () => {
-    const authenticatedUser = await authService.signInWithGoogle();
-    setUser(authenticatedUser);
-  };
 
   const signOut = async () => {
     await authService.signOut();
@@ -63,7 +41,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const value: AuthContextType = {
     user,
     loading,
-    signInWithGoogle,
     signInWithPhone,
     signOut,
     getIdToken,
