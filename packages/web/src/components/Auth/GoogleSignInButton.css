@@ -1,2 +1,12 @@
-/* GoogleSignInButton styles */
+.google-signin {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
 
+.google-signin-error {
+  color: hsl(var(--destructive));
+  font-size: 0.875rem;
+  text-align: center;
+  margin: 0;
+}

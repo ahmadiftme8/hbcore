@@ -1,10 +1,11 @@
 'use client';
 
 import type { User, UserInfo } from '@hbcore/types';
-import { signOut as firebaseSignOut, onAuthStateChanged, signInWithPopup } from 'firebase/auth';
-import { type ReactNode, useEffect, useState } from 'react';
-import { apiClient } from '@/lib/api/client';
-import { auth, googleAuthProvider } from '@/lib/firebase/auth';
+import { onAuthStateChanged } from 'firebase/auth';
+import { type ReactNode, useCallback, useEffect, useState } from 'react';
+import { auth } from '@/lib/firebase/auth';
+import { apiClient } from '@/repositories/api-client';
+import { authService } from '@/services/auth.service';
 import { AuthContext, type AuthContextType } from './AuthContext';
 
 interface AuthProviderProps {
@@ -15,71 +16,28 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<(User & UserInfo) | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // Set up token getter for API client
-  useEffect(() => {
-    const getIdToken = async (): Promise<string | null> => {
-      if (!auth.currentUser) {
-        return null;
-      }
-      return auth.currentUser.getIdToken();
-    };
-
-    apiClient.setTokenGetter(getIdToken);
+  const getIdToken = useCallback(async (): Promise<string | null> => {
+    return authService.getIdToken();
   }, []);
 
   useEffect(() => {
-    const PROFILE_CACHE_KEY = 'hbcore-profile-cache';
+    apiClient.setTokenGetter(getIdToken);
+  }, [getIdToken]);
 
-    const saveProfileToCache = (user: User & UserInfo) => {
-      if (typeof window === 'undefined') {
-        return;
-      }
-
-      try {
-        const cache = {
-          firstname: user.firstname ?? null,
-          lastname: user.lastname ?? null,
-          photoUrl: user.photoUrl ?? null,
-        };
-        localStorage.setItem(PROFILE_CACHE_KEY, JSON.stringify(cache));
-      } catch (error) {
-        console.error('Failed to cache profile:', error);
-      }
-    };
-
-    const clearProfileCache = () => {
-      if (typeof window === 'undefined') {
-        return;
-      }
-
-      try {
-        localStorage.removeItem(PROFILE_CACHE_KEY);
-      } catch (error) {
-        console.error('Failed to clear cached profile:', error);
-      }
-    };
-
+  useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
       if (firebaseUser) {
         try {
-          // Get Firebase ID token
           const idToken = await firebaseUser.getIdToken();
-
-          // Authenticate with our API
-          const response = await apiClient.post<{ user: User & UserInfo }>('/auth/firebase', {
-            idToken,
-          });
-
-          setUser(response.data.user);
-          saveProfileToCache(response.data.user);
+          const authenticatedUser = await authService.authenticateWithFirebase(idToken);
+          setUser(authenticatedUser);
         } catch (error) {
-          console.error('Failed to authenticate with API:', error);
           setUser(null);
-          clearProfileCache();
+          authService.clearProfileCache();
         }
       } else {
         setUser(null);
-        clearProfileCache();
+        authService.clearProfileCache();
       }
       setLoading(false);
     });
@@ -88,67 +46,25 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }, []);
 
   const signInWithGoogle = async () => {
-    try {
-      const result = await signInWithPopup(auth, googleAuthProvider);
-      const idToken = await result.user.getIdToken();
-
-      // Authenticate with our API
-      const response = await apiClient.post<{ user: User & UserInfo }>('/auth/firebase', {
-        idToken,
-      });
-
-      setUser(response.data.user);
-
-      // Cache profile data
-      if (typeof window !== 'undefined') {
-        try {
-          const PROFILE_CACHE_KEY = 'hbcore-profile-cache';
-          const cache = {
-            firstname: response.data.user.firstname ?? null,
-            lastname: response.data.user.lastname ?? null,
-            photoUrl: response.data.user.photoUrl ?? null,
-          };
-          localStorage.setItem(PROFILE_CACHE_KEY, JSON.stringify(cache));
-        } catch (error) {
-          console.error('Failed to cache profile:', error);
-        }
-      }
-    } catch (error) {
-      console.error('Sign in error:', error);
-      throw error;
-    }
+    const authenticatedUser = await authService.signInWithGoogle();
+    setUser(authenticatedUser);
   };
 
   const signOut = async () => {
-    try {
-      await firebaseSignOut(auth);
-      setUser(null);
-
-      // Clear profile cache
-      if (typeof window !== 'undefined') {
-        try {
-          localStorage.removeItem('hbcore-profile-cache');
-        } catch (error) {
-          console.error('Failed to clear cached profile:', error);
-        }
-      }
-    } catch (error) {
-      console.error('Sign out error:', error);
-      throw error;
-    }
+    await authService.signOut();
+    setUser(null);
   };
 
-  const getIdToken = async (): Promise<string | null> => {
-    if (!auth.currentUser) {
-      return null;
-    }
-    return auth.currentUser.getIdToken();
+  const signInWithPhone = async (phone: string, otp: string) => {
+    const authenticatedUser = await authService.signInWithPhone(phone, otp);
+    setUser(authenticatedUser);
   };
 
   const value: AuthContextType = {
     user,
     loading,
     signInWithGoogle,
+    signInWithPhone,
     signOut,
     getIdToken,
   };

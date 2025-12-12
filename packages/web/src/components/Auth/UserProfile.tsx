@@ -6,8 +6,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext/AuthContext';
 import { useTranslation } from '@/i18n/useTranslation';
-
-const PROFILE_CACHE_KEY = 'hbcore-profile-cache';
+import { storageService } from '@/services/storage.service';
 
 interface CachedProfile {
   firstname: string | null;
@@ -15,66 +14,18 @@ interface CachedProfile {
   photoUrl: string | null;
 }
 
-function getCachedProfile(): CachedProfile | null {
-  if (typeof window === 'undefined') {
-    return null;
-  }
-
-  try {
-    const cached = localStorage.getItem(PROFILE_CACHE_KEY);
-    if (cached) {
-      return JSON.parse(cached) as CachedProfile;
-    }
-  } catch (error) {
-    console.error('Failed to read cached profile:', error);
-  }
-
-  return null;
-}
-
-function saveCachedProfile(user: User & UserInfo): void {
-  if (typeof window === 'undefined') {
-    return;
-  }
-
-  try {
-    const cache: CachedProfile = {
-      firstname: user.firstname ?? null,
-      lastname: user.lastname ?? null,
-      photoUrl: user.photoUrl ?? null,
-    };
-    localStorage.setItem(PROFILE_CACHE_KEY, JSON.stringify(cache));
-  } catch (error) {
-    console.error('Failed to cache profile:', error);
-  }
-}
-
-function clearCachedProfile(): void {
-  if (typeof window === 'undefined') {
-    return;
-  }
-
-  try {
-    localStorage.removeItem(PROFILE_CACHE_KEY);
-  } catch (error) {
-    console.error('Failed to clear cached profile:', error);
-  }
-}
-
 export function UserProfile() {
   const { user, signOut, loading } = useAuth();
   const { t } = useTranslation();
   const [displayProfile, setDisplayProfile] = useState<CachedProfile | null>(null);
 
-  // Load cached profile on mount for immediate display
   useEffect(() => {
-    const cached = getCachedProfile();
+    const cached = storageService.getCachedProfile<CachedProfile>();
     if (cached) {
       setDisplayProfile(cached);
     }
   }, []);
 
-  // Update display profile when user data loads
   useEffect(() => {
     if (user) {
       const profile: CachedProfile = {
@@ -83,15 +34,13 @@ export function UserProfile() {
         photoUrl: user.photoUrl ?? null,
       };
       setDisplayProfile(profile);
-      saveCachedProfile(user);
+      storageService.setCachedProfile(profile);
     } else if (!loading) {
-      // Session expired or logged out
       setDisplayProfile(null);
-      clearCachedProfile();
+      storageService.removeCachedProfile();
     }
   }, [user, loading]);
 
-  // Show cached profile if available, even if user is not loaded yet
   const showProfile =
     displayProfile || (user && { firstname: user.firstname, lastname: user.lastname, photoUrl: user.photoUrl });
 
@@ -102,9 +51,9 @@ export function UserProfile() {
   const handleSignOut = async () => {
     try {
       await signOut();
-      clearCachedProfile();
+      storageService.removeCachedProfile();
     } catch (error) {
-      console.error('Sign out failed:', error);
+      // Error handling is done in AuthProvider
     }
   };
 
@@ -112,7 +61,6 @@ export function UserProfile() {
   const lastname = showProfile?.lastname || '';
   const photoUrl = showProfile?.photoUrl || null;
 
-  // Generate initials from firstname and lastname
   const initials =
     firstname && lastname
       ? `${firstname[0]}${lastname[0]}`.toUpperCase()
