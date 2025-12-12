@@ -67,7 +67,6 @@ export class DatabaseService implements OnModuleInit, OnModuleDestroy {
     if (!this.dataSource?.isInitialized) {
       try {
         await this.dataSource?.initialize();
-        console.log('✅ Database connection established');
       } catch (error) {
         console.error('💥 Failed to initialize database connection:');
         if (error instanceof Error) {

@@ -23,11 +23,6 @@ async function bootstrap() {
     console.error('   CORS requests will be rejected.');
   }
 
-  // Log CORS configuration on startup
-  console.log(`🌐 CORS Configuration:`);
-  console.log(`   Allowed origins: ${allowedOrigins.join(', ')}`);
-  console.log(`   Total allowed origins: ${allowedOrigins.length}`);
-
   // Warn if production but only localhost origins are configured
   if (configService.e.NODE_ENV === 'production') {
     const hasProductionOrigin = allowedOrigins.some(
@@ -59,11 +54,6 @@ async function bootstrap() {
       if (isAllowed) {
         return callback(null, true);
       }
-
-      // Log rejected origin for debugging (only log rejections to avoid log spam)
-      console.warn(`🚫 CORS: Origin "${origin}" not allowed.`);
-      console.warn(`   Requested origin: "${normalizedOrigin}"`);
-      console.warn(`   Allowed origins: ${allowedOrigins.join(', ')}`);
 
       // Reject origin
       return callback(new Error(`CORS: Origin "${origin}" is not allowed`));

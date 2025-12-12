@@ -5,7 +5,6 @@ import { ConfigService } from '@/config/config.service';
 @Injectable()
 export class RedisService implements OnModuleInit, OnModuleDestroy {
   private client: Redis | null = null;
-  private hasLoggedConnection = false;
 
   constructor(private readonly configService: ConfigService) {}
 
@@ -38,14 +37,6 @@ export class RedisService implements OnModuleInit, OnModuleDestroy {
 
     this.client.on('error', (error) => {
       console.error('Redis connection error:', error);
-    });
-
-    this.client.on('connect', () => {
-      // Only log the first successful connection to avoid duplicate logs
-      if (!this.hasLoggedConnection) {
-        console.log('Redis connected successfully');
-        this.hasLoggedConnection = true;
-      }
     });
 
     // Wait for the connection to be ready
