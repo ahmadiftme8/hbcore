@@ -34,7 +34,13 @@ function AuthPageContent() {
 
   // Show loading state while checking auth
   if (loading) {
-    return <AuthLoadingState />;
+    return (
+      <div className="auth-page">
+        <div className="auth-page__container">
+          <div>{t.auth.signingIn}</div>
+        </div>
+      </div>
+    );
   }
 
   // Don't render auth form if already authenticated (redirect will happen)

@@ -79,17 +79,5 @@ export function getFirebaseConfig() {
     config.measurementId = measurementId;
   }
 
-  // Log configuration (without sensitive data) for debugging
-  if (typeof window !== 'undefined' && window.location.hostname === 'localhost') {
-    console.log('Firebase Config Loaded:', {
-      projectId: config.projectId,
-      authDomain: config.authDomain,
-      hasApiKey: !!config.apiKey,
-      hasAppId: !!config.appId,
-      currentDomain: window.location.hostname,
-      currentOrigin: window.location.origin,
-    });
-  }
-
   return config;
 }

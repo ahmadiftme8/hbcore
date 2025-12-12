@@ -22,11 +22,6 @@ export class AuthRepository {
    * Request OTP for phone authentication
    */
   async requestOtp(phone: string, turnstileToken: string): Promise<string> {
-    console.log('📞 AuthRepository.requestOtp called', {
-      endpoint: API_ENDPOINTS.AUTH.PHONE.REQUEST_OTP,
-      phone,
-      turnstileToken: turnstileToken ? 'present' : 'missing',
-    });
     const response = await apiClient.post<PhoneOtpRequestResponse>(
       API_ENDPOINTS.AUTH.PHONE.REQUEST_OTP,
       {
@@ -37,7 +32,6 @@ export class AuthRepository {
         timeout: 30000, // 30 second timeout for OTP requests (includes Turnstile verification and Redis operations)
       },
     );
-    console.log('✅ AuthRepository.requestOtp response:', response);
     return response.data.message;
   }
 
