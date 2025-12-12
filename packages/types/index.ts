@@ -1,6 +1,6 @@
 // Domain types
 
-export type { AuthCredential, AuthResult, FirebaseAuthCredential } from './domain/auth/index.js';
+export type { AuthCredential, AuthResult, FirebaseAuthCredential, PhoneAuthCredential } from './domain/auth/index.js';
 export { AuthProvider } from './domain/auth/index.js';
 export type { User, UserInfo } from './domain/user.js';
 
@@ -18,6 +18,8 @@ export {
   FirebaseUserMetadataIdSchema,
   type Phone,
   PhoneSchema,
+  type PhoneAuthCredentialId,
+  PhoneAuthCredentialIdSchema,
   type ProviderUid,
   ProviderUidSchema,
   type UserId,

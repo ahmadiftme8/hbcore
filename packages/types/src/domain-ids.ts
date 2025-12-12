@@ -21,6 +21,9 @@ export type FirebaseUserMetadataId = z.infer<typeof FirebaseUserMetadataIdSchema
 export const FirebaseCustomClaimsIdSchema = z.number().brand('FirebaseCustomClaimsId');
 export type FirebaseCustomClaimsId = z.infer<typeof FirebaseCustomClaimsIdSchema>;
 
+export const PhoneAuthCredentialIdSchema = z.number().brand('PhoneAuthCredentialId');
+export type PhoneAuthCredentialId = z.infer<typeof PhoneAuthCredentialIdSchema>;
+
 // String Identifiers
 export const EmailSchema = z.string().email().brand('Email');
 export type Email = z.infer<typeof EmailSchema>;
