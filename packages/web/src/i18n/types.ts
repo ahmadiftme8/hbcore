@@ -27,6 +27,29 @@ export interface TranslationSchema {
     signingIn: string;
     signInWithGoogle: string;
     signOut: string;
+    or: string;
+    sendCode: string;
+    sending: string;
+    enterOtpCode: string;
+    verify: string;
+    verifying: string;
+    back: string;
+    turnstileSiteKeyNotConfigured: string;
+    errors: {
+      invalidPhone: string;
+      completeSecurityVerification: string;
+      invalidOtpCode: string;
+      invalidCode: string;
+      failedToSendOtp: string;
+      turnstileVerificationFailed: string;
+      failedToLoadSecurity: string;
+      signInFailed: string;
+      unauthorizedDomain: string;
+      operationNotAllowed: string;
+      popupBlocked: string;
+      networkError: string;
+      configurationNotFound: string;
+    };
   };
   hero: {
     title: string;

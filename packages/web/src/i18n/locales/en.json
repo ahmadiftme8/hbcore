@@ -26,7 +26,30 @@
     "signInDescription": "Sign in to your account to continue",
     "signingIn": "Signing in...",
     "signInWithGoogle": "Sign in with Google",
-    "signOut": "Sign Out"
+    "signOut": "Sign Out",
+    "or": "or",
+    "sendCode": "Send Code",
+    "sending": "Sending...",
+    "enterOtpCode": "Enter the 6-digit code sent to your phone",
+    "verify": "Verify",
+    "verifying": "Verifying...",
+    "back": "Back",
+    "turnstileSiteKeyNotConfigured": "Turnstile site key not configured",
+    "errors": {
+      "invalidPhone": "Please enter a valid phone number",
+      "completeSecurityVerification": "Please complete the security verification",
+      "invalidOtpCode": "Please enter the 6-digit code",
+      "invalidCode": "Invalid code. Please try again.",
+      "failedToSendOtp": "Failed to send OTP. Please try again.",
+      "turnstileVerificationFailed": "Turnstile verification failed. Please try again.",
+      "failedToLoadSecurity": "Failed to load security verification. Please refresh the page.",
+      "signInFailed": "Sign in failed. Please try again.",
+      "unauthorizedDomain": "Firebase configuration error: Unauthorized domain. Please ensure your domain is added to authorized domains in Firebase Console.",
+      "operationNotAllowed": "Firebase configuration error: Sign-in method not enabled. Please enable Google Sign-In in Firebase Console.",
+      "popupBlocked": "Popup blocked by browser. Please allow popups for this site and try again.",
+      "networkError": "Network error. Please check your internet connection and try again.",
+      "configurationNotFound": "Firebase configuration error: Configuration not found. Please check your Firebase environment variables and domain authorization."
+    }
   },
   "hero": {
     "title": "From Board Games to Team Building",

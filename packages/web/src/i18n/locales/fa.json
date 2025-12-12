@@ -26,7 +26,30 @@
     "signInDescription": "برای ادامه وارد حساب کاربری خود شوید",
     "signingIn": "در حال ورود...",
     "signInWithGoogle": "ورود با گوگل",
-    "signOut": "خروج"
+    "signOut": "خروج",
+    "or": "یا",
+    "sendCode": "ارسال کد",
+    "sending": "در حال ارسال...",
+    "enterOtpCode": "کد ۶ رقمی ارسال شده به شماره تلفن خود را وارد کنید",
+    "verify": "تایید",
+    "verifying": "در حال تایید...",
+    "back": "بازگشت",
+    "turnstileSiteKeyNotConfigured": "کلید سایت Turnstile پیکربندی نشده است",
+    "errors": {
+      "invalidPhone": "لطفاً شماره تلفن معتبری وارد کنید",
+      "completeSecurityVerification": "لطفاً تایید امنیتی را تکمیل کنید",
+      "invalidOtpCode": "لطفاً کد ۶ رقمی را وارد کنید",
+      "invalidCode": "کد نامعتبر است. لطفاً دوباره تلاش کنید.",
+      "failedToSendOtp": "ارسال کد با خطا مواجه شد. لطفاً دوباره تلاش کنید.",
+      "turnstileVerificationFailed": "تایید Turnstile با خطا مواجه شد. لطفاً دوباره تلاش کنید.",
+      "failedToLoadSecurity": "بارگذاری تایید امنیتی با خطا مواجه شد. لطفاً صفحه را رفرش کنید.",
+      "signInFailed": "ورود با خطا مواجه شد. لطفاً دوباره تلاش کنید.",
+      "unauthorizedDomain": "خطای پیکربندی Firebase: دامنه غیرمجاز. لطفاً اطمینان حاصل کنید که دامنه شما به دامنه‌های مجاز در Firebase Console اضافه شده است.",
+      "operationNotAllowed": "خطای پیکربندی Firebase: روش ورود فعال نشده است. لطفاً ورود با گوگل را در Firebase Console فعال کنید.",
+      "popupBlocked": "پاپ‌آپ توسط مرورگر مسدود شده است. لطفاً پاپ‌آپ‌ها را برای این سایت مجاز کنید و دوباره تلاش کنید.",
+      "networkError": "خطای شبکه. لطفاً اتصال اینترنت خود را بررسی کنید و دوباره تلاش کنید.",
+      "configurationNotFound": "خطای پیکربندی Firebase: پیکربندی یافت نشد. لطفاً متغیرهای محیطی Firebase و مجوز دامنه را بررسی کنید."
+    }
   },
   "hero": {
     "title": "از بردگیم تا تیم‌سازی",
