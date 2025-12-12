@@ -24,6 +24,7 @@ export function PhoneSignInButton() {
   const [otp, setOtp] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [storedNormalizedPhone, setStoredNormalizedPhone] = useState<string | null>(null);
 
   const { handleError } = useErrorHandler({
     defaultMessage: t.auth.errors.failedToSendOtp,
@@ -47,21 +48,12 @@ export function PhoneSignInButton() {
   }, [phone, rawPhoneInput]);
 
   const handleRequestOTP = async () => {
-    console.log('🔵 handleRequestOTP called', {
-      normalizedPhone,
-      turnstileToken: turnstile.token,
-      phone,
-      rawPhoneInput,
-    });
-
     if (!normalizedPhone) {
-      console.log('❌ No normalized phone');
       setError(t.auth.errors.invalidPhone);
       return;
     }
 
     if (!turnstile.token) {
-      console.log('❌ No Turnstile token');
       setError(t.auth.errors.completeSecurityVerification);
       return;
     }
@@ -70,17 +62,13 @@ export function PhoneSignInButton() {
       setLoading(true);
       setError(null);
 
-      console.log('🚀 Making OTP request:', {
-        phone: normalizedPhone,
-        turnstileToken: turnstile.token,
-      });
       logger.info('Sending OTP request with phone:', phone, 'Normalized:', normalizedPhone);
 
       await authService.requestOtp(normalizedPhone, turnstile.token);
-      console.log('✅ OTP request successful');
+      // Store the normalized phone to ensure consistency during verification
+      setStoredNormalizedPhone(normalizedPhone);
       setStep('otp');
     } catch (err) {
-      console.error('❌ Request OTP failed:', err);
       logger.error('Request OTP failed:', err);
       const errorMessage = handleError(err);
       setError(errorMessage);
@@ -96,7 +84,9 @@ export function PhoneSignInButton() {
       return;
     }
 
-    if (!normalizedPhone) {
+    // Use stored normalized phone to ensure consistency with the OTP request
+    const phoneToVerify = storedNormalizedPhone || normalizedPhone;
+    if (!phoneToVerify) {
       setError(t.auth.errors.invalidPhone);
       return;
     }
@@ -104,7 +94,7 @@ export function PhoneSignInButton() {
     try {
       setLoading(true);
       setError(null);
-      await signInWithPhone(normalizedPhone, otp);
+      await signInWithPhone(phoneToVerify, otp);
     } catch (err) {
       logger.error('Verify OTP failed:', err);
       setError(handleError(err));
@@ -117,6 +107,7 @@ export function PhoneSignInButton() {
     setStep('phone');
     setOtp('');
     setError(null);
+    setStoredNormalizedPhone(null);
     turnstile.reset();
   };
 
