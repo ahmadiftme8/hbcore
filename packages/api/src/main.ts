@@ -85,9 +85,47 @@ async function bootstrap() {
     maxAge: 86400, // 24 hours - cache preflight requests
   });
 
-  await app.listen(port);
+  // Listen on all interfaces (0.0.0.0) to allow connections from localhost and other interfaces
+  await app.listen(port, '0.0.0.0');
   console.log(`🚀 Application is running on: http://localhost:${port}`);
   console.log(`🌐 CORS enabled for origins: ${allowedOrigins.join(', ')}`);
+  console.log(`📡 Server listening on: 0.0.0.0:${port}`);
 }
 
-bootstrap();
+bootstrap().catch((error) => {
+  // Write to stderr to ensure it's not buffered/truncated
+  const errorOutput = process.stderr;
+
+  errorOutput.write('\n');
+  errorOutput.write('═══════════════════════════════════════════════════════════\n');
+  errorOutput.write('💥 FATAL ERROR DURING APPLICATION STARTUP\n');
+  errorOutput.write('═══════════════════════════════════════════════════════════\n');
+  errorOutput.write('\n');
+
+  if (error instanceof Error) {
+    errorOutput.write(`Error Name: ${error.name}\n`);
+    errorOutput.write(`Error Message: ${error.message}\n`);
+    errorOutput.write('\n');
+    errorOutput.write('Stack Trace:\n');
+    errorOutput.write(error.stack || 'No stack trace available\n');
+  } else {
+    errorOutput.write('Error Object:\n');
+    errorOutput.write(JSON.stringify(error, null, 2));
+    errorOutput.write('\n');
+  }
+
+  errorOutput.write('\n');
+  errorOutput.write('═══════════════════════════════════════════════════════════\n');
+  errorOutput.write('\n');
+
+  // Also log to console for Bun's output capture
+  console.error('💥 Fatal error during application startup:');
+  console.error(error);
+  if (error instanceof Error) {
+    console.error('Error name:', error.name);
+    console.error('Error message:', error.message);
+    console.error('Error stack:', error.stack);
+  }
+
+  process.exit(1);
+});

@@ -7,6 +7,8 @@ import {
   FirebaseCustomClaimsRepository,
   FirebaseUserMetadataEntity,
   FirebaseUserMetadataRepository,
+  PhoneAuthCredentialEntity,
+  PhoneAuthCredentialRepository,
   UserEntity,
   UserProfileEntity,
   UserProfileRepository,
@@ -27,6 +29,7 @@ export class DatabaseService implements OnModuleInit, OnModuleDestroy {
   public readonly firebaseAuthCredentialRepository: FirebaseAuthCredentialRepository;
   public readonly firebaseUserMetadataRepository: FirebaseUserMetadataRepository;
   public readonly firebaseCustomClaimsRepository: FirebaseCustomClaimsRepository;
+  public readonly phoneAuthCredentialRepository: PhoneAuthCredentialRepository;
 
   constructor(private readonly configService: ConfigService) {
     // Initialize DataSource with entities passed directly for better compatibility
@@ -46,6 +49,7 @@ export class DatabaseService implements OnModuleInit, OnModuleDestroy {
           FirebaseAuthCredentialEntity,
           FirebaseUserMetadataEntity,
           FirebaseCustomClaimsEntity,
+          PhoneAuthCredentialEntity,
         ],
       },
     );
@@ -56,11 +60,32 @@ export class DatabaseService implements OnModuleInit, OnModuleDestroy {
     this.firebaseAuthCredentialRepository = new FirebaseAuthCredentialRepository(this.dataSource);
     this.firebaseUserMetadataRepository = new FirebaseUserMetadataRepository(this.dataSource);
     this.firebaseCustomClaimsRepository = new FirebaseCustomClaimsRepository(this.dataSource);
+    this.phoneAuthCredentialRepository = new PhoneAuthCredentialRepository(this.dataSource);
   }
 
   async onModuleInit() {
     if (!this.dataSource?.isInitialized) {
-      await this.dataSource?.initialize();
+      try {
+        await this.dataSource?.initialize();
+        console.log('✅ Database connection established');
+      } catch (error) {
+        console.error('💥 Failed to initialize database connection:');
+        if (error instanceof Error) {
+          console.error('Error name:', error.name);
+          console.error('Error message:', error.message);
+          console.error('Error stack:', error.stack);
+        } else {
+          console.error('Error:', error);
+        }
+        const config = this.configService.e;
+        console.error('Database configuration:');
+        console.error(`  Host: ${config.POSTGRES_HOST}`);
+        console.error(`  Port: ${config.POSTGRES_PORT}`);
+        console.error(`  Database: ${config.POSTGRES_NAME}`);
+        console.error(`  User: ${config.POSTGRES_USER}`);
+        console.error(`  SSL: ${config.POSTGRES_SSL}`);
+        throw error;
+      }
     }
   }
 

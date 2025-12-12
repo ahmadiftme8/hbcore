@@ -1,6 +1,7 @@
 import {
   FirebaseAuthCredentialEntity,
   FirebaseAuthCredentialRepository,
+  PhoneAuthCredentialRepository,
   UserEntity,
   UserProfileRepository,
   UserRepository,
@@ -22,6 +23,7 @@ export class UsersService {
     private readonly userRepository: UserRepository,
     private readonly userProfileRepository: UserProfileRepository,
     private readonly firebaseCredentialRepository: FirebaseAuthCredentialRepository,
+    private readonly phoneCredentialRepository: PhoneAuthCredentialRepository,
   ) {}
 
   /**
@@ -236,6 +238,58 @@ export class UsersService {
 
     // Create Firebase credential
     await this.upsertFirebaseCredential(user.id, parsedFirebaseUid);
+
+    // Return user with profile
+    const result = await this.findById(user.id);
+    if (!result) {
+      throw new Error('Failed to retrieve created user');
+    }
+    return result;
+  }
+
+  /**
+   * Create or update phone authentication credential for a user
+   */
+  async upsertPhoneCredential(userId: UserId, phone: string): Promise<void> {
+    // Parse phone from external input
+    const parsedPhone = PhoneSchema.parse(phone);
+    const existing = await this.phoneCredentialRepository.findByUserId(userId);
+
+    if (existing) {
+      existing.phone = parsedPhone;
+      await this.phoneCredentialRepository.save(existing);
+    } else {
+      await this.phoneCredentialRepository.create({
+        userId,
+        provider: AuthProvider.PHONE,
+        phone: parsedPhone,
+      });
+    }
+  }
+
+  /**
+   * Find or create a user by phone number
+   * If user exists with the phone credential, return it
+   * Otherwise, create a new user and credential
+   */
+  async findOrCreateByPhone(phone: string, userData: Partial<User & UserInfo>): Promise<User & UserInfo> {
+    // Parse phone from external input
+    const parsedPhone = PhoneSchema.parse(phone);
+    // First, try to find by phone
+    const existing = await this.findByPhone(parsedPhone);
+    if (existing) {
+      // Update user data if provided
+      if (Object.keys(userData).length > 0) {
+        return this.update(existing.id, userData);
+      }
+      return existing;
+    }
+
+    // Create new user
+    const user = await this.create(userData);
+
+    // Create phone credential
+    await this.upsertPhoneCredential(user.id, parsedPhone);
 
     // Return user with profile
     const result = await this.findById(user.id);
