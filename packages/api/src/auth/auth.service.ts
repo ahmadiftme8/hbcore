@@ -6,7 +6,7 @@ import { ConfigService } from '@/config/config.service';
 import { FingerprintingService } from '@/fingerprinting/fingerprinting.service';
 import { OtpService } from '@/otp/otp.service';
 import { PhoneValidationService } from '@/phone-validation/phone-validation.service';
-import { RateLimitingService, RateLimitType } from '@/rate-limiting/rate-limiting.service';
+import { RateLimitingService } from '@/rate-limiting/rate-limiting.service';
 import type { SmsStrategy } from '@/sms/sms-strategy.interface';
 import { TurnstileService } from '@/turnstile/turnstile.service';
 import { UsersService } from '@/users/users.service';
@@ -49,11 +49,12 @@ export class AuthService {
     // Validate phone number
     const validatedPhone = this.phoneValidationService.validatePhone(phone);
 
-    // Check rate limits (per IP and per phone)
-    await this.rateLimitingService.checkOTPRateLimit(ip, validatedPhone);
-
     // Verify Turnstile token
     await this.turnstileService.verifyToken(turnstileToken, ip);
+
+    // Check rate limits (per IP and per phone)
+    // Intentionally after Turnstile verification so invalid Turnstile tokens don't burn rate-limit quotas.
+    await this.rateLimitingService.checkOTPRateLimit(ip, validatedPhone);
 
     // Check if fingerprint is suspicious
     const isSuspicious = await this.fingerprintingService.isSuspicious(fingerprint);
@@ -63,18 +64,11 @@ export class AuthService {
     }
 
     // Generate OTP
-    const otpCode = await this.otpService.generateOTP(validatedPhone);
-
-    // Log OTP code to console (for development)
-    console.log(`OTP Code for ${validatedPhone}: ${otpCode}`);
+    await this.otpService.generateOTP(validatedPhone);
 
     // Send SMS (mock implementation) - disabled for now
     // const message = `Your verification code is: ${otpCode}`;
     // await this.smsStrategy.sendSMS(validatedPhone, message);
-
-    // Increment rate limit counters
-    await this.rateLimitingService.incrementCounter(ip, RateLimitType.IP);
-    await this.rateLimitingService.incrementCounter(validatedPhone, RateLimitType.PHONE);
   }
 
   /**
