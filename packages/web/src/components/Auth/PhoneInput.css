@@ -1,0 +1,78 @@
+/* Force country selector to appear on the left */
+.PhoneInput {
+  display: flex;
+  flex-direction: row;
+}
+
+/* Reverse the order: if library renders [input] [country],
+   make it display as [country] [input] */
+.PhoneInput > *:first-child {
+  order: 2;
+}
+
+.PhoneInput > *:last-child {
+  order: 1;
+}
+
+/* Force input field text to be LTR (left-to-right) and left-aligned */
+.PhoneInput input[type="tel"],
+.PhoneInput input[type="text"],
+.PhoneInput input {
+  direction: ltr;
+  text-align: left;
+}
+
+/* Ensure LTR even if parent has RTL */
+.PhoneInput input[dir="ltr"] {
+  direction: ltr;
+  text-align: left;
+}
+
+/* 
+ * Apply Vazirmatn font for Persian digits display
+ * The component handles conversion from Latin to Persian digits for display,
+ * while keeping the actual data in Latin digits (0-9)
+ */
+.phone-input-persian {
+  font-family: var(--font-vazirmatn), "Tahoma", "Arial", "Segoe UI", sans-serif;
+}
+
+/* Wrapper for phone input with overlay technique */
+.phone-input-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+/* Actual input with Latin digits (transparent text, normal background) */
+.phone-input-actual {
+  position: relative;
+  z-index: 2;
+  /* Keep normal background, only make text transparent */
+}
+
+/* Overlay showing Persian digits */
+.phone-input-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  padding-left: 0.75rem; /* px-3 - matches Input component */
+  padding-right: 0.75rem;
+  padding-top: 0.25rem; /* py-1 - matches Input component */
+  padding-bottom: 0.25rem;
+  border: none; /* Input already has border */
+  border-radius: inherit;
+  font-size: 0.875rem; /* text-sm - matches Input component */
+  line-height: 1.5;
+  color: hsl(var(--foreground)); /* Match input text color */
+  white-space: nowrap;
+  overflow: hidden;
+  text-align: left;
+  direction: ltr;
+  background: transparent; /* Don't block input background */
+}

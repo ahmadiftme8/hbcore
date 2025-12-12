@@ -1,0 +1,19 @@
+.otp-input-container {
+  display: flex;
+  gap: 0.5rem;
+  width: 100%;
+  justify-content: center;
+}
+
+.otp-input {
+  width: 3rem;
+  height: 3rem;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+/* Apply Persian font for OTP digits display */
+.otp-input-persian {
+  font-family: var(--font-vazirmatn), "Tahoma", "Arial", "Segoe UI", sans-serif;
+}

@@ -34,3 +34,23 @@
   flex-direction: column;
   gap: 1rem;
 }
+
+.auth-page__divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 0.5rem 0;
+}
+
+.auth-page__divider::before,
+.auth-page__divider::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid var(--border, #e5e7eb);
+}
+
+.auth-page__divider span {
+  padding: 0 1rem;
+  color: var(--muted-foreground, #6b7280);
+  font-size: 0.875rem;
+}

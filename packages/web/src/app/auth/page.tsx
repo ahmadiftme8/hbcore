@@ -3,9 +3,21 @@
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense, useEffect } from 'react';
 import { GoogleSignInButton } from '@/components/Auth/GoogleSignInButton';
+import { PhoneSignInButton } from '@/components/Auth/PhoneSignInButton';
 import { useAuth } from '@/contexts/AuthContext/AuthContext';
 import { useTranslation } from '@/i18n/useTranslation';
 import './auth.css';
+
+function AuthLoadingState() {
+  const { t } = useTranslation();
+  return (
+    <div className="auth-page">
+      <div className="auth-page__container">
+        <div>{t.auth.signingIn}</div>
+      </div>
+    </div>
+  );
+}
 
 function AuthPageContent() {
   const { t } = useTranslation();
@@ -23,13 +35,7 @@ function AuthPageContent() {
 
   // Show loading state while checking auth
   if (loading) {
-    return (
-      <div className="auth-page">
-        <div className="auth-page__container">
-          <div>Loading...</div>
-        </div>
-      </div>
-    );
+    return <AuthLoadingState />;
   }
 
   // Don't render auth form if already authenticated (redirect will happen)
@@ -44,6 +50,10 @@ function AuthPageContent() {
         <p className="auth-page__description">{t.auth.signInDescription}</p>
         <div className="auth-page__actions">
           <GoogleSignInButton />
+          <div className="auth-page__divider">
+            <span>{t.auth.or}</span>
+          </div>
+          <PhoneSignInButton />
         </div>
       </div>
     </div>
@@ -52,15 +62,7 @@ function AuthPageContent() {
 
 export default function AuthPage() {
   return (
-    <Suspense
-      fallback={
-        <div className="auth-page">
-          <div className="auth-page__container">
-            <div>Loading...</div>
-          </div>
-        </div>
-      }
-    >
+    <Suspense fallback={<AuthLoadingState />}>
       <AuthPageContent />
     </Suspense>
   );
