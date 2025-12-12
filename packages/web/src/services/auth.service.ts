@@ -1,5 +1,5 @@
 import type { User, UserInfo } from '@hbcore/types';
-import { authRepository } from '../repositories/auth.repository';
+import { authRepository } from '@/repositories/auth.repository';
 import { storageService } from './storage.service';
 
 /**
