@@ -3,6 +3,7 @@
   gap: 0.5rem;
   width: 100%;
   justify-content: center;
+  direction: ltr; /* Always LTR for OTP input */
 }
 
 .otp-input {
@@ -11,6 +12,7 @@
   text-align: center;
   font-size: 1.5rem;
   font-weight: 600;
+  direction: ltr; /* Always LTR for individual OTP inputs */
 }
 
 /* Apply Persian font for OTP digits display */

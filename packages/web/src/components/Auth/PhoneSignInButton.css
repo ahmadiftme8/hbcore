@@ -12,6 +12,11 @@
   width: 100%;
 }
 
+/* Ensure OTP input section is always LTR */
+.phone-signin-otp .otp-input-container {
+  direction: ltr;
+}
+
 .phone-signin-instruction {
   text-align: center;
   color: var(--muted-foreground);
