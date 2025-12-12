@@ -15,10 +15,24 @@ export const envSchema = z.object({
   POSTGRES_USER: z.string().min(1, 'POSTGRES_USER is required'),
   POSTGRES_PASSWORD: z.string().min(1, 'POSTGRES_PASSWORD is required'),
   POSTGRES_NAME: z.string().min(1, 'POSTGRES_NAME is required'),
+  POSTGRES_SSL: z
+    .string()
+    .default('true')
+    .transform((val) => val === 'true'),
   // Firebase
   FIREBASE_PROJECT_ID: z.string().min(1, 'FIREBASE_PROJECT_ID is required'),
   FIREBASE_CLIENT_EMAIL: z.string().min(1, 'FIREBASE_CLIENT_EMAIL is required'),
   FIREBASE_PRIVATE_KEY: z.string().min(1, 'FIREBASE_PRIVATE_KEY is required'),
+  // Redis
+  REDIS_URL: z.string().min(1, 'REDIS_URL is required'),
+  // Turnstile
+  TURNSTILE_SECRET_KEY: z.string().min(1, 'TURNSTILE_SECRET_KEY is required'),
+  // OTP
+  OTP_LENGTH: z.string().default('6').transform(Number),
+  OTP_EXPIRY_MINUTES: z.string().default('2').transform(Number),
+  // JWT
+  JWT_SECRET: z.string().min(1, 'JWT_SECRET is required'),
+  JWT_EXPIRY_HOURS: z.string().default('24').transform(Number),
 });
 
 export type EnvSchema = z.infer<typeof envSchema>;
