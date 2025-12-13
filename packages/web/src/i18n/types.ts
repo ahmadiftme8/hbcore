@@ -131,6 +131,40 @@ export interface TranslationSchema {
       };
     };
   };
+  about: {
+    title: string;
+    description: string;
+    team: {
+      title: string;
+      subtitle: string;
+      members: {
+        amirhosseinMoshki: {
+          name: string;
+          role: string;
+          education: string;
+          bio: string;
+        };
+        alirezaJafartash: {
+          name: string;
+          role: string;
+          education: string;
+          bio: string;
+        };
+        hadiEsfandiarpour: {
+          name: string;
+          role: string;
+          education: string;
+          bio: string;
+        };
+        melikaEslami: {
+          name: string;
+          role: string;
+          education: string;
+          bio: string;
+        };
+      };
+    };
+  };
   footer: {
     brand: {
       name: string;

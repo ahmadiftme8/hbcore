@@ -131,6 +131,40 @@
       }
     }
   },
+  "about": {
+    "title": "About Us",
+    "description": "Hambazi Event is an innovative platform that transforms team building and learning into an exciting experience through board games. We believe that the best way to learn and connect is through practical and interactive experiences.",
+    "team": {
+      "title": "Our Team",
+      "subtitle": "The people behind Hambazi Event",
+      "members": {
+        "amirhosseinMoshki": {
+          "name": "Amirhossein Moshki",
+          "role": "Founder",
+          "education": "MSc. Mechatronic Engineering",
+          "bio": "Focused on user experience and product design, creates unique experiences."
+        },
+        "alirezaJafartash": {
+          "name": "Alireza Jafartash",
+          "role": "Chief Technology Officer",
+          "education": "MSc. Computer Engineering",
+          "bio": "Expert in software development and scalable system architecture."
+        },
+        "hadiEsfandiarpour": {
+          "name": "Hadi Esfandiarpour",
+          "role": "Game Master & Executive Team",
+          "education": "MSc. Mechatronic Engineering",
+          "bio": "Orchestrates engaging game experiences and coordinates event execution, bringing innovative board game concepts to life."
+        },
+        "melikaEslami": {
+          "name": "Melika Eslami",
+          "role": "Game Master & Executive Team",
+          "education": "MSc. Electric and Electronic Engineering",
+          "bio": "Facilitates immersive game sessions and manages operational logistics, ensuring memorable experiences for all participants."
+        }
+      }
+    }
+  },
   "footer": {
     "brand": {
       "name": "Hambazi Event",
