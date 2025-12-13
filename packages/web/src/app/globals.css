@@ -177,6 +177,8 @@
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-vazirmatn), "Tahoma", "Arial", "Segoe UI", sans-serif;
+    background-image: var(--pattern-jigsaw);
+    background-attachment: fixed;
   }
 
   h1,

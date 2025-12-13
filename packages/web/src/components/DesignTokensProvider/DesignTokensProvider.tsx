@@ -28,6 +28,11 @@ export function DesignTokensProvider() {
     scaleKeys.forEach((scale) => {
       root.style.setProperty(`--neutral-${scale}`, designTokens.colors.neutral[scale]);
     });
+
+    // Inject patterns
+    Object.entries(designTokens.patterns).forEach(([name, value]) => {
+      root.style.setProperty(`--pattern-${name}`, value);
+    });
   }, []);
 
   return null;
