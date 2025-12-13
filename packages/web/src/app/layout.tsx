@@ -3,7 +3,6 @@ import { cookies } from 'next/headers';
 import { ThemeProvider } from 'next-themes';
 import { DesignTokensProvider } from '@/components/DesignTokensProvider/DesignTokensProvider';
 import { Footer } from '@/components/Footer/Footer';
-import { LanguageAttributes } from '@/components/LanguageAttributes/LanguageAttributes';
 import { Navbar1 } from '@/components/Navigation/Navbar1';
 import { AuthProvider } from '@/contexts/AuthContext/AuthProvider';
 import enTranslations from '@/i18n/locales/en.json';
@@ -37,13 +36,17 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const cookieStore = await cookies();
+  const language = (cookieStore.get('hbcore-language')?.value || 'fa') as Language;
+  const dir = language === 'fa' ? 'rtl' : 'ltr';
+
   return (
-    <html lang="fa" dir="rtl" suppressHydrationWarning>
+    <html lang={language} dir={dir} suppressHydrationWarning>
       <body className={`${rubik.variable} ${vazirmatn.variable} ${geistMono.variable} antialiased`}>
         <ThemeProvider
           attribute="class"
@@ -55,7 +58,6 @@ export default function RootLayout({
           <DesignTokensProvider />
           <AuthProvider>
             <TranslationProvider>
-              <LanguageAttributes />
               <Navbar1 />
               <main>{children}</main>
               <Footer />
