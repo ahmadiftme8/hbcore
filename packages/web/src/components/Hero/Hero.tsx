@@ -1,19 +1,18 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import { GradientText } from '@/components/ui/gradient-text';
 import type { TranslationSchema } from '@/i18n/types';
+import { HeroSlideshow } from './HeroSlideshow';
 import './Hero.css';
 
 interface HeroProps {
-  imagePath?: string;
   translations: TranslationSchema['hero'];
 }
 
-export function Hero({ imagePath = '/images/hero/hero_1.jpg', translations }: HeroProps) {
+export function Hero({ translations }: HeroProps) {
   return (
     <section id="hero" className="hero">
       <div className="hero-background">
-        <Image src={imagePath} alt="Hero background" fill priority className="hero-image" sizes="100vw" quality={85} />
+        <HeroSlideshow />
         <div className="hero-overlay" />
       </div>
       <div className="hero-content">
