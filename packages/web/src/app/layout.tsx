@@ -50,7 +50,7 @@ export default async function RootLayout({
       <body className={`${rubik.variable} ${vazirmatn.variable} ${geistMono.variable} antialiased`}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark"
+          defaultTheme="light"
           enableSystem={false}
           storageKey="hbcore-theme"
           disableTransitionOnChange={false}

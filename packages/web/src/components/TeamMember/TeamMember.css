@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  background: var(--color-brand-900);
+  background: var(--card);
   border-radius: 0.75rem;
   padding: 1.5rem;
   transition:
@@ -12,7 +12,7 @@
 
 .team-member:hover {
   transform: translateY(-0.25rem);
-  box-shadow: 0 10px 25px -5px rgba(107, 45, 94, 0.3);
+  box-shadow: 0 10px 25px -5px color-mix(in srgb, var(--primary) 30%, transparent);
 }
 
 .team-member__image-wrapper {
@@ -21,7 +21,7 @@
   aspect-ratio: 1;
   border-radius: 0.5rem;
   overflow: hidden;
-  background: var(--color-brand-800);
+  background: var(--muted);
 }
 
 .team-member__image {
@@ -37,21 +37,21 @@
 .team-member__name {
   font-size: 1.25rem;
   font-weight: 700;
-  color: var(--color-neutral-50);
+  color: var(--card-foreground);
   margin: 0;
 }
 
 .team-member__role {
   font-size: 0.875rem;
   font-weight: 600;
-  color: var(--color-accent-400);
+  color: var(--accent);
   margin: 0;
 }
 
 .team-member__education {
   font-size: 0.75rem;
   font-weight: 400;
-  color: var(--color-neutral-400);
+  color: var(--muted-foreground);
   margin: 0;
   font-style: italic;
 }
@@ -59,7 +59,7 @@
 .team-member__bio {
   font-size: 0.875rem;
   line-height: 1.6;
-  color: var(--color-neutral-300);
+  color: var(--muted-foreground);
   margin: 0;
   margin-top: 0.25rem;
 }

@@ -2,7 +2,6 @@
 
 import { motion, type Transition } from 'motion/react';
 import * as React from 'react';
-import { designTokens } from '@/lib/design-tokens';
 import { cn } from '@/lib/utils';
 
 type GradientTextProps = React.ComponentProps<'span'> & {
@@ -12,8 +11,10 @@ type GradientTextProps = React.ComponentProps<'span'> & {
   transition?: Transition;
 };
 
-// Default gradient using design system colors: light and dark versions of main brand color
-const defaultGradient = `linear-gradient(90deg, ${designTokens.colors.brand[400]} 0%, ${designTokens.colors.brand[200]} 50%, ${designTokens.colors.brand[400]} 100%)`;
+// Default gradient using theme-aware CSS variables
+// In light mode: uses brand-400 and brand-200
+// In dark mode: uses lighter brand colors (brand-300 and brand-100) for better contrast
+const defaultGradient = `linear-gradient(90deg, var(--brand-400) 0%, var(--brand-200) 50%, var(--brand-400) 100%)`;
 
 function GradientText({
   text,

@@ -87,7 +87,7 @@ const Navbar1 = ({
   return (
     <section
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-brand-950/80 backdrop-blur-md border-b border-brand-700 py-3 shadow-md' : 'bg-transparent py-5'
+        isScrolled ? 'bg-background/80 backdrop-blur-md border-b border-border py-3 shadow-md' : 'bg-transparent py-5'
       }`}
     >
       <div className="container mx-auto px-4">
@@ -105,17 +105,21 @@ const Navbar1 = ({
                   alt={logo.alt}
                 />
               )}
-              <span className="text-lg font-semibold tracking-tighter">{logo.title}</span>
+              <span
+                className={`text-lg font-semibold tracking-tighter ${isScrolled ? 'text-foreground' : 'text-white'}`}
+              >
+                {logo.title}
+              </span>
             </Link>
             <div className="flex items-center">
               <NavigationMenu>
-                <NavigationMenuList>{menuItems.map((item) => renderMenuItem(item))}</NavigationMenuList>
+                <NavigationMenuList>{menuItems.map((item) => renderMenuItem(item, isScrolled))}</NavigationMenuList>
               </NavigationMenu>
             </div>
           </div>
           <div className="flex gap-2">
             {authLoading ? (
-              <div className="text-sm text-muted-foreground">Loading...</div>
+              <div className={`text-sm ${isScrolled ? 'text-muted-foreground' : 'text-white/80'}`}>Loading...</div>
             ) : user ? (
               <UserProfile />
             ) : (
@@ -140,7 +144,13 @@ const Navbar1 = ({
                   alt={logo.alt}
                 />
               )}
-              {!logo.src && <span className="text-lg font-semibold tracking-tighter">{logo.title}</span>}
+              {!logo.src && (
+                <span
+                  className={`text-lg font-semibold tracking-tighter ${isScrolled ? 'text-foreground' : 'text-white'}`}
+                >
+                  {logo.title}
+                </span>
+              )}
             </Link>
             <div className={isRTL ? 'order-1' : 'order-2'}>
               <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
@@ -192,11 +202,16 @@ const Navbar1 = ({
   );
 };
 
-const renderMenuItem = (item: MenuItem) => {
+const renderMenuItem = (item: MenuItem, isScrolled: boolean) => {
+  const textColorClass = isScrolled ? 'text-foreground' : 'text-white';
+  const hoverTextColorClass = isScrolled ? 'hover:text-primary' : 'hover:text-primary';
+
   if (item.items) {
     return (
       <NavigationMenuItem key={item.title}>
-        <NavigationMenuTrigger className="bg-transparent! hover:bg-transparent! hover:text-brand-400 hover:[text-shadow:0_0_15px_rgba(163,51,131,0.8)] focus:bg-transparent! data-[state=open]:bg-transparent!">
+        <NavigationMenuTrigger
+          className={`bg-transparent! hover:bg-transparent! ${textColorClass} ${hoverTextColorClass} hover:[text-shadow:0_0_15px_var(--primary)/0.8] focus:bg-transparent! focus:text-primary focus-visible:ring-ring/50 focus-visible:ring-[3px] focus-visible:outline-1 data-[state=open]:bg-transparent! data-[state=open]:text-primary`}
+        >
           {item.title}
         </NavigationMenuTrigger>
         <NavigationMenuContent className="bg-popover text-popover-foreground">
@@ -214,7 +229,7 @@ const renderMenuItem = (item: MenuItem) => {
       <NavigationMenuLink asChild>
         <Link
           href={item.url}
-          className="group inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-all hover:bg-transparent! hover:text-brand-400 hover:[text-shadow:0_0_15px_rgba(163,51,131,0.8)] focus:bg-transparent! data-[active=true]:bg-transparent!"
+          className={`group inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-all ${textColorClass} ${hoverTextColorClass} !hover:bg-transparent hover:[text-shadow:0_0_15px_var(--primary)/0.8] !focus:bg-transparent focus:text-primary focus-visible:ring-ring/50 focus-visible:ring-[3px] focus-visible:outline-1 !data-[active=true]:bg-transparent data-[active=true]:text-primary`}
         >
           {item.title}
         </Link>

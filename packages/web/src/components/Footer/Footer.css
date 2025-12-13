@@ -88,8 +88,8 @@
 }
 
 .footer-menu-link:hover {
-  color: var(--brand-400);
-  text-shadow: 0 0 15px rgba(163, 51, 131, 0.8);
+  color: var(--primary);
+  text-shadow: 0 0 15px color-mix(in srgb, var(--primary) 80%, transparent);
 }
 
 .footer-bottom {
@@ -122,8 +122,8 @@
 }
 
 .footer-legal-link:hover {
-  color: var(--brand-400);
-  text-shadow: 0 0 15px rgba(163, 51, 131, 0.8);
+  color: var(--primary);
+  text-shadow: 0 0 15px color-mix(in srgb, var(--primary) 80%, transparent);
 }
 
 /* RTL Support */

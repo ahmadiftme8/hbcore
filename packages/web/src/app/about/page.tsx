@@ -47,7 +47,7 @@ export default async function AboutPage() {
       </section>
 
       {/* Description Section */}
-      <section className="w-full py-12 px-8 bg-brand-800">
+      <section className="w-full py-12 px-8 bg-card">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             {/* Image on Left */}

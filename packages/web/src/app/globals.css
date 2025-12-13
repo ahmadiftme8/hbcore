@@ -39,6 +39,8 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
+  --color-overlay: var(--overlay);
+  --color-destructive-foreground: var(--destructive-foreground);
   /* Custom brand color scale */
   --color-brand-50: var(--brand-50);
   --color-brand-100: var(--brand-100);
@@ -105,6 +107,8 @@
   --accent: var(--accent-400); /* Medium pale green */
   --accent-foreground: var(--neutral-50);
   --destructive: var(--brand-600);
+  --destructive-foreground: var(--neutral-50);
+  --overlay: var(--neutral-950);
   --border: var(--neutral-200);
   --input: var(--neutral-200);
   --ring: var(--brand-500);
@@ -146,6 +150,8 @@
   --accent: var(--accent-400); /* Medium pale green */
   --accent-foreground: var(--neutral-50);
   --destructive: var(--brand-600);
+  --destructive-foreground: var(--neutral-50);
+  --overlay: var(--neutral-50);
   --border: var(--neutral-700);
   --input: var(--neutral-700);
   --ring: var(--brand-400);
