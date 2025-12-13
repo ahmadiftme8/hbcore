@@ -83,12 +83,13 @@
   font-size: var(--font-size-sm);
   color: var(--muted-foreground);
   text-decoration: none;
-  transition: color 0.2s;
+  transition: all 0.3s;
   display: inline-block;
 }
 
 .footer-menu-link:hover {
-  color: var(--foreground);
+  color: var(--brand-400);
+  text-shadow: 0 0 15px rgba(163, 51, 131, 0.8);
 }
 
 .footer-bottom {
@@ -117,11 +118,12 @@
   font-size: var(--font-size-sm);
   color: var(--muted-foreground);
   text-decoration: none;
-  transition: color 0.2s;
+  transition: all 0.3s;
 }
 
 .footer-legal-link:hover {
-  color: var(--foreground);
+  color: var(--brand-400);
+  text-shadow: 0 0 15px rgba(163, 51, 131, 0.8);
 }
 
 /* RTL Support */
