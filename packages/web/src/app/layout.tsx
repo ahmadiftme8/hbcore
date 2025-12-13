@@ -61,7 +61,7 @@ export default async function RootLayout({
           <AuthProvider>
             <TranslationProvider>
               <Navbar1 />
-              <main>{children}</main>
+              <main className="pt-20">{children}</main>
               <Footer />
             </TranslationProvider>
           </AuthProvider>

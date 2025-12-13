@@ -3,7 +3,7 @@
 import { Menu } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { UserProfile } from '@/components/Auth/UserProfile';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Button } from '@/components/ui/button';
@@ -53,19 +53,7 @@ const Navbar1 = ({
 }: Navbar1Props) => {
   const { t, isRTL } = useTranslation();
   const { user, loading: authLoading } = useAuth();
-  const [isScrolled, setIsScrolled] = useState(false);
   const [isSheetOpen, setIsSheetOpen] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY;
-      setIsScrolled(scrollPosition > 50);
-    };
-
-    handleScroll();
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   // Map existing navigation items to menu structure
   const defaultMenu: MenuItem[] = [
@@ -85,11 +73,7 @@ const Navbar1 = ({
   const authItem = auth || defaultAuth;
 
   return (
-    <section
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-background/80 backdrop-blur-md border-b border-border py-3 shadow-md' : 'bg-transparent py-5'
-      }`}
-    >
+    <section className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-background/80 backdrop-blur-md border-b border-border py-5 shadow-md">
       <div className="container mx-auto px-4">
         {/* Desktop Menu */}
         <nav className="hidden items-center justify-between lg:flex">
@@ -105,21 +89,17 @@ const Navbar1 = ({
                   alt={logo.alt}
                 />
               )}
-              <span
-                className={`text-lg font-semibold tracking-tighter ${isScrolled ? 'text-foreground' : 'text-white'}`}
-              >
-                {logo.title}
-              </span>
+              <span className="text-lg font-semibold tracking-tighter text-foreground">{logo.title}</span>
             </Link>
             <div className="flex items-center">
               <NavigationMenu>
-                <NavigationMenuList>{menuItems.map((item) => renderMenuItem(item, isScrolled))}</NavigationMenuList>
+                <NavigationMenuList>{menuItems.map((item) => renderMenuItem(item))}</NavigationMenuList>
               </NavigationMenu>
             </div>
           </div>
           <div className="flex gap-2">
             {authLoading ? (
-              <div className={`text-sm ${isScrolled ? 'text-muted-foreground' : 'text-white/80'}`}>Loading...</div>
+              <div className="text-sm text-muted-foreground">Loading...</div>
             ) : user ? (
               <UserProfile />
             ) : (
@@ -145,11 +125,7 @@ const Navbar1 = ({
                 />
               )}
               {!logo.src && (
-                <span
-                  className={`text-lg font-semibold tracking-tighter ${isScrolled ? 'text-foreground' : 'text-white'}`}
-                >
-                  {logo.title}
-                </span>
+                <span className="text-lg font-semibold tracking-tighter text-foreground">{logo.title}</span>
               )}
             </Link>
             <div className={isRTL ? 'order-1' : 'order-2'}>
@@ -202,9 +178,9 @@ const Navbar1 = ({
   );
 };
 
-const renderMenuItem = (item: MenuItem, isScrolled: boolean) => {
-  const textColorClass = isScrolled ? 'text-foreground' : 'text-white';
-  const hoverTextColorClass = isScrolled ? 'hover:text-primary' : 'hover:text-primary';
+const renderMenuItem = (item: MenuItem) => {
+  const textColorClass = 'text-foreground';
+  const hoverTextColorClass = 'hover:text-primary';
 
   if (item.items) {
     return (
