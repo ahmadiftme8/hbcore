@@ -4,6 +4,7 @@ import { ThemeProvider } from 'next-themes';
 import { DesignTokensProvider } from '@/components/DesignTokensProvider/DesignTokensProvider';
 import { Footer } from '@/components/Footer/Footer';
 import { Navbar1 } from '@/components/Navigation/Navbar1';
+import { ScrollPatternAnimator } from '@/components/ScrollPatternAnimator/ScrollPatternAnimator';
 import { AuthProvider } from '@/contexts/AuthContext/AuthProvider';
 import enTranslations from '@/i18n/locales/en.json';
 import faTranslations from '@/i18n/locales/fa.json';
@@ -56,6 +57,7 @@ export default async function RootLayout({
           disableTransitionOnChange={false}
         >
           <DesignTokensProvider />
+          <ScrollPatternAnimator />
           <AuthProvider>
             <TranslationProvider>
               <Navbar1 />
