@@ -4,6 +4,9 @@
   "scripts": {
     "web:build": "bun run --bun --filter='@hbcore/web' build",
     "web:dev": "bun run --bun --filter='@hbcore/web' dev",
+    "admin:dev": "bun run --bun --filter='admin' dev",
+    "admin:build": "bun run --bun --filter='admin' build",
+    "admin:start": "bun run --bun --filter='admin' start",
     "api:build": "bun run --bun --filter='@hbcore/api' build",
     "api:dev": "bun run --bun --filter='@hbcore/api' dev",
     "api:start": "bun run --bun --filter='@hbcore/api' start",
