@@ -64,7 +64,10 @@ export class AuthService {
     }
 
     // Generate OTP
-    await this.otpService.generateOTP(validatedPhone);
+    const otpCode = await this.otpService.generateOTP(validatedPhone);
+
+    // TODO: Remove this temporary logger after development
+    console.log(`\n🔐 OTP Generated for ${validatedPhone}: ${otpCode}\n`);
 
     // Send SMS (mock implementation) - disabled for now
     // const message = `Your verification code is: ${otpCode}`;
