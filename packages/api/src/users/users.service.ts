@@ -39,7 +39,6 @@ export class UsersService {
       name: profile?.name ?? null,
       firstname: profile?.firstname ?? null,
       lastname: profile?.lastname ?? null,
-      photoUrl: profile?.photoUrl ?? null,
     };
   }
 
@@ -123,7 +122,7 @@ export class UsersService {
    * Create a new user
    */
   async create(userData: Partial<User & UserInfo>): Promise<User & UserInfo> {
-    const { email, phone, name, firstname, lastname, photoUrl, ...rest } = userData;
+    const { email, phone, name, firstname, lastname, ...rest } = userData;
     const savedUser = await this.userRepository.create(rest);
 
     // Create profile if profile data is provided
@@ -132,8 +131,7 @@ export class UsersService {
       phone !== undefined ||
       name !== undefined ||
       firstname !== undefined ||
-      lastname !== undefined ||
-      photoUrl !== undefined
+      lastname !== undefined
     ) {
       // Parse email and phone if provided (they may come from external input)
       const parsedEmail = email !== undefined && email !== null ? EmailSchema.parse(email) : null;
@@ -146,7 +144,6 @@ export class UsersService {
         name: name ?? null,
         firstname: firstname ?? null,
         lastname: lastname ?? null,
-        photoUrl: photoUrl ?? null,
       });
     }
 
@@ -157,7 +154,7 @@ export class UsersService {
    * Update a user
    */
   async update(id: UserId, userData: Partial<User & UserInfo>): Promise<User & UserInfo> {
-    const { email, phone, name, firstname, lastname, photoUrl, ...rest } = userData;
+    const { email, phone, name, firstname, lastname, ...rest } = userData;
 
     // Update user entity if there are non-profile fields
     if (Object.keys(rest).length > 0) {
@@ -170,8 +167,7 @@ export class UsersService {
       phone !== undefined ||
       name !== undefined ||
       firstname !== undefined ||
-      lastname !== undefined ||
-      photoUrl !== undefined
+      lastname !== undefined
     ) {
       // Parse email and phone if provided (they may come from external input)
       const parsedEmail = email !== undefined && email !== null ? EmailSchema.parse(email) : null;
@@ -185,7 +181,6 @@ export class UsersService {
         existingProfile.name = name ?? existingProfile.name ?? null;
         existingProfile.firstname = firstname ?? existingProfile.firstname ?? null;
         existingProfile.lastname = lastname ?? existingProfile.lastname ?? null;
-        existingProfile.photoUrl = photoUrl ?? existingProfile.photoUrl ?? null;
         await this.userProfileRepository.save(existingProfile);
       } else {
         await this.userProfileRepository.create({
@@ -195,7 +190,6 @@ export class UsersService {
           name: name ?? null,
           firstname: firstname ?? null,
           lastname: lastname ?? null,
-          photoUrl: photoUrl ?? null,
         });
       }
     }

@@ -13,7 +13,7 @@ import { UserEntity } from './user.entity';
 
 /**
  * User profile entity.
- * Stores user profile information (email, phone, name, photoUrl) separately from the core User entity.
+ * Stores user profile information (email, phone, name) separately from the core User entity.
  */
 @Entity('user_profiles')
 export class UserProfileEntity implements UserInfo {
@@ -49,10 +49,6 @@ export class UserProfileEntity implements UserInfo {
   /** User last name */
   @Column({ type: 'varchar', length: 255, nullable: true })
   lastname?: string | null;
-
-  /** User profile photo URL */
-  @Column({ type: 'varchar', length: 512, nullable: true, name: 'photo_url' })
-  photoUrl?: string | null;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt!: Date;

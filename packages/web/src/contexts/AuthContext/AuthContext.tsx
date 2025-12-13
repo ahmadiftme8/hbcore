@@ -8,9 +8,9 @@ import { createContext, useContext } from 'react';
  *
  * The `user` field is typed as `User & UserInfo` because:
  * - `User` is the minimal domain type containing only `{ id: number }`
- * - `UserInfo` contains profile data: `{ email, phone, name, photoUrl }`
+ * - `UserInfo` contains profile data: `{ email, phone, name, firstname, lastname }`
  * - The intersection type `User & UserInfo` gives us the complete user object:
- *   `{ id: number, email?: string, phone?: string, name?: string, photoUrl?: string }`
+ *   `{ id: number, email?: string, phone?: string, name?: string, firstname?: string, lastname?: string }`
  *
  * This design separates identity (User) from profile data (UserInfo), allowing
  * the User entity to remain minimal while still providing full user data to the frontend.

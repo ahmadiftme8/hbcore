@@ -56,7 +56,6 @@ export class FirebaseStrategy implements AuthStrategy {
       }
 
       const name = decodedToken.name || null;
-      const photoUrl = decodedToken.picture || null;
 
       // Extract firstname and lastname
       // Check if given_name and family_name are available in custom claims or token
@@ -95,7 +94,6 @@ export class FirebaseStrategy implements AuthStrategy {
         name,
         firstname,
         lastname,
-        photoUrl,
       });
 
       // Validate provider UID

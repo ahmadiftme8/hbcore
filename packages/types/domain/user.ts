@@ -25,6 +25,4 @@ export interface UserInfo {
   firstname?: string | null;
   /** User last name */
   lastname?: string | null;
-  /** User profile photo URL */
-  photoUrl?: string | null;
 }

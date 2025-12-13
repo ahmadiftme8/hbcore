@@ -53,7 +53,6 @@ export class AuthService {
     const cache = {
       firstname: user.firstname ?? null,
       lastname: user.lastname ?? null,
-      photoUrl: user.photoUrl ?? null,
     };
     storageService.setCachedProfile(cache);
   }
