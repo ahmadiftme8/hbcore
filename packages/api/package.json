@@ -30,6 +30,7 @@
     "@nestjs/core": "^11.0.1",
     "@nestjs/platform-express": "^11.0.1",
     "@nestjs/typeorm": "^11.0.0",
+    "axios": "^1.13.2",
     "firebase-admin": "^13.6.0",
     "ioredis": "^5.8.2",
     "jsonwebtoken": "^9.0.3",

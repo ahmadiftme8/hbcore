@@ -106,17 +106,18 @@
       "dependencies": {
         "@hbcore/db": "workspace:*",
         "@hbcore/types": "workspace:*",
-        "@hbcore/unleash": "workspace:*",
         "@nestjs/common": "^11.0.1",
         "@nestjs/core": "^11.0.1",
         "@nestjs/platform-express": "^11.0.1",
         "@nestjs/typeorm": "^11.0.0",
+        "axios": "^1.13.2",
         "firebase-admin": "^13.6.0",
         "ioredis": "^5.8.2",
         "jsonwebtoken": "^9.0.3",
         "reflect-metadata": "^0.2.2",
         "rxjs": "^7.8.1",
         "typeorm": "^0.3.27",
+        "unleash-client": "^6.9.0",
         "zod": "^4.1.12",
       },
       "devDependencies": {
@@ -189,7 +190,6 @@
       "version": "0.1.0",
       "dependencies": {
         "@hbcore/types": "workspace:*",
-        "@hbcore/unleash": "workspace:*",
         "@radix-ui/react-accordion": "^1.2.12",
         "@radix-ui/react-avatar": "^1.1.11",
         "@radix-ui/react-dialog": "^1.1.15",
@@ -213,7 +213,6 @@
         "react-dom": "^19.2.3",
         "react-phone-number-input": "^3.4.14",
         "tailwind-merge": "^3.4.0",
-        "unleash-client": "^6.9.0",
       },
       "devDependencies": {
         "@tailwindcss/postcss": "^4.1.17",
