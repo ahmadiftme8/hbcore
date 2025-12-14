@@ -164,6 +164,12 @@ export interface TranslationSchema {
           education: string;
           bio: string;
         };
+        ghazaleVakili: {
+          name: string;
+          role: string;
+          education: string;
+          bio: string;
+        };
       };
     };
   };
