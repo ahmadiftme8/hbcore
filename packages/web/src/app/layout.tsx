@@ -6,6 +6,7 @@ import { Footer } from '@/components/Footer/Footer';
 import { Navbar1 } from '@/components/Navigation/Navbar1';
 import { ScrollPatternAnimator } from '@/components/ScrollPatternAnimator/ScrollPatternAnimator';
 import { AuthProvider } from '@/contexts/AuthContext/AuthProvider';
+import { FeatureFlagProvider } from '@/contexts/FeatureFlagContext/FeatureFlagProvider';
 import enTranslations from '@/i18n/locales/en.json';
 import faTranslations from '@/i18n/locales/fa.json';
 import type { Language } from '@/i18n/TranslationProvider';
@@ -58,13 +59,15 @@ export default async function RootLayout({
         >
           <DesignTokensProvider />
           <ScrollPatternAnimator />
-          <AuthProvider>
-            <TranslationProvider>
-              <Navbar1 />
-              <main className="pt-20 bg-white">{children}</main>
-              <Footer />
-            </TranslationProvider>
-          </AuthProvider>
+          <FeatureFlagProvider>
+            <AuthProvider>
+              <TranslationProvider>
+                <Navbar1 />
+                <main className="pt-20 bg-white">{children}</main>
+                <Footer />
+              </TranslationProvider>
+            </AuthProvider>
+          </FeatureFlagProvider>
         </ThemeProvider>
       </body>
     </html>

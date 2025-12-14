@@ -1,5 +1,6 @@
 'use client';
 
+import { FeatureFlag } from '@hbcore/types';
 import { Menu } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -18,6 +19,7 @@ import {
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { Spinner } from '@/components/ui/spinner';
 import { useAuth } from '@/contexts/AuthContext/AuthContext';
+import { useFeatureFlag } from '@/hooks/useFeatureFlag';
 import { useTranslation } from '@/i18n/useTranslation';
 import './Navbar1.css';
 
@@ -56,6 +58,7 @@ const Navbar1 = ({
   const { t, isRTL } = useTranslation();
   const { user, loading: authLoading } = useAuth();
   const [isSheetOpen, setIsSheetOpen] = useState(false);
+  const isAuthEnabled = useFeatureFlag(FeatureFlag.AUTH);
 
   // Map existing navigation items to menu structure
   const defaultMenu: MenuItem[] = [
@@ -111,9 +114,20 @@ const Navbar1 = ({
             ) : user ? (
               <UserProfile />
             ) : (
-              <Button asChild size="sm" disabled className="navbar-auth-button-disabled">
-                <Link href={authItem.url} aria-disabled="true" tabIndex={-1} onClick={(e) => e.preventDefault()}>
-                  {authItem.title} ({t.common.comingSoon})
+              <Button
+                asChild
+                size="sm"
+                disabled={!isAuthEnabled}
+                className={!isAuthEnabled ? 'navbar-auth-button-disabled' : ''}
+              >
+                <Link
+                  href={authItem.url}
+                  aria-disabled={!isAuthEnabled}
+                  tabIndex={!isAuthEnabled ? -1 : undefined}
+                  onClick={!isAuthEnabled ? (e) => e.preventDefault() : undefined}
+                >
+                  {authItem.title}
+                  {!isAuthEnabled && ` (${t.common.comingSoon})`}
                 </Link>
               </Button>
             )}
@@ -176,9 +190,19 @@ const Navbar1 = ({
                       ) : user ? (
                         <UserProfile />
                       ) : (
-                        <Button asChild disabled className="navbar-auth-button-disabled">
-                          <Link href={authItem.url} aria-disabled="true" tabIndex={-1} onClick={(e) => e.preventDefault()}>
-                            {authItem.title} ({t.common.comingSoon})
+                        <Button
+                          asChild
+                          disabled={!isAuthEnabled}
+                          className={!isAuthEnabled ? 'navbar-auth-button-disabled' : ''}
+                        >
+                          <Link
+                            href={authItem.url}
+                            aria-disabled={!isAuthEnabled}
+                            tabIndex={!isAuthEnabled ? -1 : undefined}
+                            onClick={!isAuthEnabled ? (e) => e.preventDefault() : undefined}
+                          >
+                            {authItem.title}
+                            {!isAuthEnabled && ` (${t.common.comingSoon})`}
                           </Link>
                         </Button>
                       )}
