@@ -19,7 +19,6 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/co
 import { useAuth } from '@/contexts/AuthContext/AuthContext';
 import { useTranslation } from '@/i18n/useTranslation';
 import './Navbar1.css';
-import './Navbar1.css';
 
 interface MenuItem {
   title: string;
@@ -82,6 +81,7 @@ const Navbar1 = ({
           <div className="flex items-center gap-6">
             {/* Logo */}
             <Link href={logo.url} className="flex items-center gap-2">
+              <span className="text-lg font-semibold tracking-tighter text-foreground">{logo.title}</span>
               {logo.src && (
                 <Image
                   src={logo.src}
@@ -91,7 +91,6 @@ const Navbar1 = ({
                   alt={logo.alt}
                 />
               )}
-              <span className="text-lg font-semibold tracking-tighter text-foreground">{logo.title}</span>
             </Link>
             <div className="flex items-center">
               <NavigationMenu>
@@ -117,6 +116,7 @@ const Navbar1 = ({
           <div className="flex items-center justify-between">
             {/* Logo */}
             <Link href={logo.url} className={`flex items-center gap-2 ${isRTL ? 'order-2' : 'order-1'}`}>
+              <span className="text-lg font-semibold tracking-tighter text-foreground">{logo.title}</span>
               {logo.src && (
                 <Image
                   src={logo.src}
@@ -125,9 +125,6 @@ const Navbar1 = ({
                   className="h-10 w-10 rounded-lg object-contain"
                   alt={logo.alt}
                 />
-              )}
-              {!logo.src && (
-                <span className="text-lg font-semibold tracking-tighter text-foreground">{logo.title}</span>
               )}
             </Link>
             <div className={isRTL ? 'order-1' : 'order-2'}>
@@ -141,6 +138,7 @@ const Navbar1 = ({
                   <SheetHeader>
                     <SheetTitle>
                       <Link href={logo.url} className="flex items-center gap-2">
+                        {!logo.src && <span className="text-lg font-semibold">{logo.title}</span>}
                         {logo.src && (
                           <Image
                             src={logo.src}
@@ -150,7 +148,6 @@ const Navbar1 = ({
                             alt={logo.alt}
                           />
                         )}
-                        {!logo.src && <span className="text-lg font-semibold">{logo.title}</span>}
                       </Link>
                     </SheetTitle>
                   </SheetHeader>
