@@ -1,5 +1,6 @@
 import { Global, Module } from '@nestjs/common';
 import { ConfigModule } from '@/config/config.module';
+import { FeatureFlagGuard } from './guards/feature-flag.guard';
 import { UnleashService } from './unleash.service';
 
 /**
@@ -9,7 +10,7 @@ import { UnleashService } from './unleash.service';
 @Global()
 @Module({
   imports: [ConfigModule],
-  providers: [UnleashService],
-  exports: [UnleashService],
+  providers: [UnleashService, FeatureFlagGuard],
+  exports: [UnleashService, FeatureFlagGuard],
 })
 export class UnleashModule {}

@@ -4,4 +4,5 @@
  */
 export enum FeatureFlag {
   PING_PONG = 'ping-pong',
+  AUTH = 'auth',
 }
