@@ -1,5 +1,5 @@
+import { FeatureFlag } from '@hbcore/types';
 import { Controller, Get } from '@nestjs/common';
-import { FeatureFlag } from '@/unleash/feature-flags.enum';
 import { UnleashService } from '@/unleash/unleash.service';
 import { AppService } from './app.service';
 

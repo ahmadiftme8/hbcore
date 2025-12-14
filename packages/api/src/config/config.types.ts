@@ -38,7 +38,7 @@ export const envSchema = z.object({
   // Unleash
   UNLEASH_URL: z.string().default('http://localhost:4242/api'),
   UNLEASH_APP_NAME: z.string().min(1, 'UNLEASH_APP_NAME is required'),
-  UNLEASH_API_TOKEN: z.string().min(1, 'UNLEASH_API_TOKEN is required'),
+  UNLEASH_BACKEND_API_TOKEN: z.string().min(1, 'UNLEASH_BACKEND_API_TOKEN is required'),
   UNLEASH_REFRESH_INTERVAL: z.string().default('15000').transform(Number),
   UNLEASH_METRICS_INTERVAL: z.string().default('60000').transform(Number),
 });

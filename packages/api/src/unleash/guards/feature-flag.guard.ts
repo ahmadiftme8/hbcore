@@ -1,7 +1,7 @@
+import { FeatureFlag } from '@hbcore/types';
 import { CanActivate, ExecutionContext, ForbiddenException, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { FEATURE_FLAG_KEY } from '../decorators/feature-flag.decorator';
-import { FeatureFlag } from '../feature-flags.enum';
 import { UnleashService } from '../unleash.service';
 
 /**

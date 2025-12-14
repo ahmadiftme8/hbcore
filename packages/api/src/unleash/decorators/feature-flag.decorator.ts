@@ -1,5 +1,5 @@
+import { FeatureFlag } from '@hbcore/types';
 import { SetMetadata } from '@nestjs/common';
-import { FeatureFlag } from '../feature-flags.enum';
 
 export const FEATURE_FLAG_KEY = 'featureFlag';
 

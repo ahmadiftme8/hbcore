@@ -1,9 +1,9 @@
 import type { User, UserInfo } from '@hbcore/types';
+import { FeatureFlag } from '@hbcore/types';
 import { Body, Controller, Get, Logger, Post, Req, UseGuards } from '@nestjs/common';
 import type { Request } from 'express';
 import { FingerprintingService } from '@/fingerprinting/fingerprinting.service';
 import { RequireFeatureFlag } from '@/unleash/decorators/feature-flag.decorator';
-import { FeatureFlag } from '@/unleash/feature-flags.enum';
 import { FeatureFlagGuard } from '@/unleash/guards/feature-flag.guard';
 import { AuthService } from './auth.service';
 import { CurrentUser } from './decorators/current-user.decorator';
