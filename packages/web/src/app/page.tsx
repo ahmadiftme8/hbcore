@@ -1,5 +1,6 @@
 import { Suspense } from 'react';
 import { Benefits } from '@/components/Benefits/Benefits';
+import { BenefitsSkeleton } from '@/components/Benefits/BenefitsSkeleton';
 import { Hero } from '@/components/Hero/Hero';
 import { ShapeDivider } from '@/components/ShapeDivider/ShapeDivider';
 import { getServerTranslations } from '@/i18n/server';
@@ -15,13 +16,7 @@ export default async function Home() {
       <Hero translations={translations.hero} />
       <ShapeDivider />
       {/* <Features translations={translations.features} /> */}
-      <Suspense
-        fallback={
-          <section id="benefits" className="benefits-section">
-            <div>Loading...</div>
-          </section>
-        }
-      >
+      <Suspense fallback={<BenefitsSkeleton />}>
         <Benefits translations={translations.benefits} />
       </Suspense>
       {/* <SocialProof /> */}
