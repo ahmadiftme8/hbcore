@@ -2,3 +2,35 @@
   text-shadow: 0 0 8px rgb(from var(--primary) r g b / 0.8);
 }
 
+.navbar-auth-button-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+  position: relative;
+  filter: grayscale(0.3);
+  transition: opacity 0.2s ease, filter 0.2s ease;
+}
+
+.navbar-auth-button-disabled::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    135deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+.navbar-auth-button-disabled:hover {
+  opacity: 0.5;
+  filter: grayscale(0.3);
+}
+
+.navbar-auth-button-disabled:active {
+  transform: none;
+}
+

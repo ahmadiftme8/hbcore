@@ -16,6 +16,7 @@ import {
   NavigationMenuTrigger,
 } from '@/components/ui/navigation-menu';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
+import { Spinner } from '@/components/ui/spinner';
 import { useAuth } from '@/contexts/AuthContext/AuthContext';
 import { useTranslation } from '@/i18n/useTranslation';
 import './Navbar1.css';
@@ -99,13 +100,21 @@ const Navbar1 = ({
             </div>
           </div>
           <div className="flex gap-2">
+            <Button asChild size="sm" variant="default">
+              <Link href="/events">{t.navigation.events}</Link>
+            </Button>
             {authLoading ? (
-              <div className="text-sm text-muted-foreground">Loading...</div>
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <Spinner size="sm" />
+                <span>{t.common.loading}</span>
+              </div>
             ) : user ? (
               <UserProfile />
             ) : (
-              <Button asChild size="sm">
-                <Link href={authItem.url}>{authItem.title}</Link>
+              <Button asChild size="sm" disabled className="navbar-auth-button-disabled">
+                <Link href={authItem.url} aria-disabled="true" tabIndex={-1} onClick={(e) => e.preventDefault()}>
+                  {authItem.title} ({t.common.comingSoon})
+                </Link>
               </Button>
             )}
           </div>
@@ -156,13 +165,21 @@ const Navbar1 = ({
                       {menuItems.map((item) => renderMobileMenuItem(item, () => setIsSheetOpen(false)))}
                     </Accordion>
                     <div className="flex flex-col gap-3">
+                      <Button asChild onClick={() => setIsSheetOpen(false)} variant="default">
+                        <Link href="/events">{t.navigation.events}</Link>
+                      </Button>
                       {authLoading ? (
-                        <div className="text-sm text-muted-foreground">Loading...</div>
+                        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                          <Spinner size="sm" />
+                          <span>{t.common.loading}</span>
+                        </div>
                       ) : user ? (
                         <UserProfile />
                       ) : (
-                        <Button asChild onClick={() => setIsSheetOpen(false)}>
-                          <Link href={authItem.url}>{authItem.title}</Link>
+                        <Button asChild disabled className="navbar-auth-button-disabled">
+                          <Link href={authItem.url} aria-disabled="true" tabIndex={-1} onClick={(e) => e.preventDefault()}>
+                            {authItem.title} ({t.common.comingSoon})
+                          </Link>
                         </Button>
                       )}
                     </div>

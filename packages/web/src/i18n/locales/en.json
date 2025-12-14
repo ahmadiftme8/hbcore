@@ -19,7 +19,9 @@
   "common": {
     "login": "Log in",
     "auth": "Login / Sign up",
-    "user": "User"
+    "user": "User",
+    "comingSoon": "Coming Soon",
+    "loading": "Loading..."
   },
   "auth": {
     "signIn": "Sign In",
@@ -55,7 +57,7 @@
   "hero": {
     "title": "From Board Games to Team Building",
     "subtitle": "Play to know, build a team to win! From friendly banter to the serious battle of ideas.",
-    "ctaPrimary": "Sign up",
+    "ctaPrimary": "Events",
     "ctaSecondary": "Over 500 people have participated in Hambazi events so far."
   },
   "features": {

@@ -19,7 +19,7 @@ export function Hero({ translations }: HeroProps) {
         <GradientText text={translations.title} className="hero-title" />
         <p className="hero-subtitle">{translations.subtitle}</p>
         <div className="hero-ctas">
-          <Link href="#" className="hero-cta-primary">
+          <Link href="/events" className="hero-cta-primary">
             {translations.ctaPrimary}
           </Link>
           <div className="hero-cta-secondary">{translations.ctaSecondary}</div>

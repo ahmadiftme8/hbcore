@@ -20,6 +20,8 @@ export interface TranslationSchema {
     login: string;
     auth: string;
     user: string;
+    comingSoon: string;
+    loading: string;
   };
   auth: {
     signIn: string;
