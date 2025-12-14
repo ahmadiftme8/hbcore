@@ -1,4 +1,5 @@
 import { Controller, Get } from '@nestjs/common';
+import { FeatureFlag } from '@/unleash/feature-flags.enum';
 import { UnleashService } from '@/unleash/unleash.service';
 import { AppService } from './app.service';
 
@@ -21,7 +22,7 @@ export class AppController {
 
   @Get('ping')
   ping(): { message: string } {
-    const isEnabled = this.unleashService.isEnabled('ping-pong');
+    const isEnabled = this.unleashService.isEnabled(FeatureFlag.PING_PONG);
     return { message: isEnabled ? 'pong' : 'ping' };
   }
 }

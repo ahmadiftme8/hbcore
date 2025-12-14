@@ -1,6 +1,7 @@
 import { Injectable, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
 import { Unleash, type UnleashConfig } from 'unleash-client';
 import { ConfigService } from '@/config/config.service';
+import { FeatureFlag } from './feature-flags.enum';
 
 @Injectable()
 export class UnleashService implements OnModuleInit, OnModuleDestroy {
@@ -74,7 +75,7 @@ export class UnleashService implements OnModuleInit, OnModuleDestroy {
    * @param context - Optional context for targeting (userId, sessionId, etc.)
    * @returns true if feature is enabled, false otherwise
    */
-  isEnabled(flagName: string, context?: Record<string, string>): boolean {
+  isEnabled(flagName: FeatureFlag, context?: Record<string, string>): boolean {
     if (!this.client) {
       console.warn('Unleash client not initialized, returning false');
       return false;
@@ -94,7 +95,7 @@ export class UnleashService implements OnModuleInit, OnModuleDestroy {
    * @param context - Optional context for targeting
    * @returns Variant object
    */
-  getVariant(flagName: string, context?: Record<string, string>) {
+  getVariant(flagName: FeatureFlag, context?: Record<string, string>) {
     if (!this.client) {
       return { enabled: false, name: 'disabled' };
     }

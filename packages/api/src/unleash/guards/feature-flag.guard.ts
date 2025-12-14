@@ -1,6 +1,7 @@
 import { CanActivate, ExecutionContext, ForbiddenException, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { FEATURE_FLAG_KEY } from '../decorators/feature-flag.decorator';
+import { FeatureFlag } from '../feature-flags.enum';
 import { UnleashService } from '../unleash.service';
 
 /**
@@ -15,7 +16,7 @@ export class FeatureFlagGuard implements CanActivate {
   ) {}
 
   canActivate(context: ExecutionContext): boolean {
-    const flagName = this.reflector.getAllAndOverride<string>(FEATURE_FLAG_KEY, [
+    const flagName = this.reflector.getAllAndOverride<FeatureFlag>(FEATURE_FLAG_KEY, [
       context.getHandler(),
       context.getClass(),
     ]);
