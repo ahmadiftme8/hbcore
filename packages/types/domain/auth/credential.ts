@@ -1,5 +1,5 @@
-import type { UserId } from '../../src/domain-ids.js';
-import { AuthProvider } from './provider.js';
+import type { UserId } from '../../src/domain-ids';
+import { AuthProvider } from './provider';
 
 /**
  * Base interface for authentication credentials

@@ -1,5 +1,5 @@
-import type { ProviderUid } from '../../src/domain-ids.js';
-import type { User, UserInfo } from '../user.js';
+import type { ProviderUid } from '../../src/domain-ids';
+import type { User, UserInfo } from '../user';
 
 /**
  * Result of an authentication attempt

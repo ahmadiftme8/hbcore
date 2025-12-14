@@ -1,5 +1,5 @@
-export type { AuthCredential } from './credential.js';
-export type { FirebaseAuthCredential } from './firebase-credential.js';
-export type { PhoneAuthCredential } from './phone-credential.js';
-export { AuthProvider } from './provider.js';
-export type { AuthResult } from './result.js';
+export type { AuthCredential } from './credential';
+export type { FirebaseAuthCredential } from './firebase-credential';
+export type { PhoneAuthCredential } from './phone-credential';
+export { AuthProvider } from './provider';
+export type { AuthResult } from './result';

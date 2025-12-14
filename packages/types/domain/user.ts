@@ -1,4 +1,4 @@
-import type { Email, Phone, UserId } from '../src/domain-ids.js';
+import type { Email, Phone, UserId } from '../src/domain-ids';
 
 /**
  * User domain type

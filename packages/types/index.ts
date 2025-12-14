@@ -1,8 +1,8 @@
 // Domain types
 
-export type { AuthCredential, AuthResult, FirebaseAuthCredential, PhoneAuthCredential } from './domain/auth/index.js';
-export { AuthProvider } from './domain/auth/index.js';
-export type { User, UserInfo } from './domain/user.js';
+export type { AuthCredential, AuthResult, FirebaseAuthCredential, PhoneAuthCredential } from './domain/auth/index';
+export { AuthProvider } from './domain/auth/index';
+export type { User, UserInfo } from './domain/user';
 
 // Branded types
 export {
@@ -17,13 +17,17 @@ export {
   type FirebaseUserMetadataId,
   FirebaseUserMetadataIdSchema,
   type Phone,
-  PhoneSchema,
   type PhoneAuthCredentialId,
   PhoneAuthCredentialIdSchema,
+  PhoneSchema,
   type ProviderUid,
   ProviderUidSchema,
   type UserId,
   UserIdSchema,
   type UserProfileId,
   UserProfileIdSchema,
-} from './src/domain-ids.js';
+} from './src/domain-ids';
+
+// Feature flags
+export { FeatureFlag } from './src/unleash/feature-flags.enum';
+export type { UnleashClientConfig, UnleashContext } from './src/unleash/types';

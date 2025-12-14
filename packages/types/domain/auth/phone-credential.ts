@@ -1,6 +1,6 @@
-import type { Phone } from '../../src/domain-ids.js';
-import type { AuthCredential } from './credential.js';
-import { AuthProvider } from './provider.js';
+import type { Phone } from '../../src/domain-ids';
+import type { AuthCredential } from './credential';
+import { AuthProvider } from './provider';
 
 /**
  * Phone-specific authentication credential

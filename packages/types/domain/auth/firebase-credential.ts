@@ -1,6 +1,6 @@
-import type { FirebaseUid } from '../../src/domain-ids.js';
-import type { AuthCredential } from './credential.js';
-import { AuthProvider } from './provider.js';
+import type { FirebaseUid } from '../../src/domain-ids';
+import type { AuthCredential } from './credential';
+import { AuthProvider } from './provider';
 
 /**
  * Firebase-specific authentication credential
