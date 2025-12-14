@@ -35,6 +35,12 @@ export const envSchema = z.object({
   // JWT
   JWT_SECRET: z.string().min(1, 'JWT_SECRET is required'),
   JWT_EXPIRY_HOURS: z.string().default('72').transform(Number),
+  // Unleash
+  UNLEASH_URL: z.string().default('http://localhost:4242/api'),
+  UNLEASH_APP_NAME: z.string().min(1, 'UNLEASH_APP_NAME is required'),
+  UNLEASH_API_TOKEN: z.string().min(1, 'UNLEASH_API_TOKEN is required'),
+  UNLEASH_REFRESH_INTERVAL: z.string().default('15000').transform(Number),
+  UNLEASH_METRICS_INTERVAL: z.string().default('60000').transform(Number),
 });
 
 export type EnvSchema = z.infer<typeof envSchema>;
