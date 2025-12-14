@@ -19,8 +19,8 @@ WORKDIR /app
 ENV NODE_ENV=production
 
 # Create non-root user
-RUN addgroup --system --gid 1001 nodejs && \
-    adduser --system --uid 1001 dbuser
+RUN groupadd --system --gid 1001 nodejs && \
+    useradd --system --uid 1001 --gid 1001 dbuser
 
 # Copy workspace dependencies
 COPY --from=deps /app/node_modules ./node_modules
