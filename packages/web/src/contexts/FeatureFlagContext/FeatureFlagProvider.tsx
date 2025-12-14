@@ -2,6 +2,7 @@
 
 import type { FeatureFlag } from '@hbcore/types';
 import { type ReactNode, useCallback, useEffect, useRef, useState } from 'react';
+import { logger } from '@/lib/utils/logger';
 import { apiClient } from '@/repositories/api-client';
 import { FeatureFlagContext, type FeatureFlagContextType } from './FeatureFlagContext';
 
@@ -41,7 +42,12 @@ export function FeatureFlagProvider({ children }: FeatureFlagProviderProps) {
       flagCache.current.set(flag, enabled);
       return enabled;
     } catch (error) {
-      console.error(`Failed to fetch feature flag "${flag}":`, error);
+      // Log as warning since error is handled gracefully (fail closed)
+      // Detailed error is already logged by HttpClientProxy
+      logger.warn(`Feature flag "${flag}" fetch failed, defaulting to disabled`, {
+        flag,
+        error: error instanceof Error ? error.message : String(error),
+      });
       // Fail closed - return false on error
       return false;
     }

@@ -1,3 +1,5 @@
+export type Language = 'fa' | 'en';
+
 export interface TranslationSchema {
   metadata: {
     title: string;

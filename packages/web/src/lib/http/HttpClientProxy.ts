@@ -189,11 +189,64 @@ export class HttpClientProxy implements IHttpClient {
 
       return this.createResponse<T>(response);
     } catch (error) {
-      logger.error(`❌ ${method.toUpperCase()} request failed`, {
+      // Extract detailed error information - ensure we always have useful data
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      const errorName = error instanceof Error ? error.name : typeof error;
+      
+      const errorDetails: Record<string, unknown> = {
         url: fullUrl,
-        error: error instanceof Error ? error.message : String(error),
-        errorName: error instanceof Error ? error.name : 'Unknown',
-      });
+        method: method.toUpperCase(),
+        errorName,
+        errorMessage,
+      };
+
+      // Add Error instance details
+      if (error instanceof Error) {
+        if (error.stack) {
+          errorDetails.errorStack = error.stack;
+        }
+        if ('cause' in error && error.cause) {
+          errorDetails.errorCause = error.cause;
+        }
+      } else {
+        // For non-Error objects, try to stringify
+        try {
+          errorDetails.errorValue = JSON.stringify(error);
+        } catch {
+          errorDetails.errorValue = String(error);
+        }
+      }
+
+      // Add axios-specific error details
+      if (axios.isAxiosError(error)) {
+        errorDetails.axiosError = true;
+        if (error.code) {
+          errorDetails.errorCode = error.code;
+        }
+        if (error.response) {
+          errorDetails.responseStatus = error.response.status;
+          errorDetails.responseStatusText = error.response.statusText;
+          errorDetails.responseData = error.response.data;
+        } else if (error.request) {
+          errorDetails.hasRequest = true;
+          errorDetails.noResponse = true;
+          // Include request details if available
+          if (error.config) {
+            errorDetails.requestUrl = error.config.url;
+            errorDetails.requestMethod = error.config.method;
+            errorDetails.requestBaseURL = error.config.baseURL;
+          }
+        }
+        // Axios errors have a message property
+        if (error.message && error.message !== errorMessage) {
+          errorDetails.axiosMessage = error.message;
+        }
+      }
+
+      // Log error with clear message first
+      logger.error(`❌ ${method.toUpperCase()} request failed to ${fullUrl}`);
+      logger.error(`Error: ${errorName} - ${errorMessage}`);
+      logger.error(`Details:`, errorDetails);
       // Use centralized error handler
       await handleHttpError(error, method, normalizedUrl, normalizedBaseURL);
       // This will never be reached, but TypeScript needs it

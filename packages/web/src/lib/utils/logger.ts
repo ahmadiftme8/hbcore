@@ -33,4 +33,3 @@ export const logger: Logger = {
   warn: createLogger('warn', isDevelopment),
   error: createLogger('error', true), // Always log errors
 };
-
