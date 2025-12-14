@@ -2,10 +2,11 @@ import type { TranslationSchema } from '@/i18n/types';
 import { Benefit } from './Benefit';
 import './Benefits.css';
 
-const analyticsIllustration = '/components/FeaturesAndBenefits/illustrations/undraw_analytics-setup_ptrz.svg';
-const mindfulnessIllustration = '/components/FeaturesAndBenefits/illustrations/undraw_mindfulness_d853.svg';
-const halloweenIcon = '/components/FeaturesAndBenefits/illustrations/undraw_halloween-2025_o47f.svg';
-const eatingTogetherIllustration = '/components/FeaturesAndBenefits/illustrations/undraw_eating-together_mr7m.svg';
+const boardgamesIllustration = '/vectors/two_people_playing_boardgames_on_table.svg';
+const analyticsIllustration = '/vectors/undraw_analytics-setup_ptrz.svg';
+const networkingIllustration = '/vectors/people_networking.svg';
+const halloweenIcon = '/vectors/undraw_halloween-2025_o47f.svg';
+const eatingTogetherIllustration = '/vectors/undraw_eating-together_mr7m.svg';
 
 interface BenefitsProps {
   translations: TranslationSchema['benefits'];
@@ -15,7 +16,7 @@ export function Benefits({ translations }: BenefitsProps) {
   return (
     <section id="benefits" className="benefits-section">
       <Benefit
-        illustrationSrc={analyticsIllustration}
+        illustrationSrc={boardgamesIllustration}
         illustrationAlt="Analytics Setup"
         headline={translations.benefit1.headline}
         paragraph={translations.benefit1.paragraph}
@@ -28,8 +29,8 @@ export function Benefits({ translations }: BenefitsProps) {
         imagePosition="right"
       />
       <Benefit
-        illustrationSrc={mindfulnessIllustration}
-        illustrationAlt="Mindfulness"
+        illustrationSrc={networkingIllustration}
+        illustrationAlt="Networking"
         headline={translations.benefit2.headline}
         paragraph={translations.benefit2.paragraph}
         bullets={[

@@ -2,10 +2,10 @@ import type { TranslationSchema } from '@/i18n/types';
 import { Feature } from './Feature';
 import './Features.css';
 
-const analyticsSetupIcon = '/components/FeaturesAndBenefits/illustrations/undraw_analytics-setup_ptrz.svg';
-const mindfulnessIcon = '/components/FeaturesAndBenefits/illustrations/undraw_mindfulness_d853.svg';
-const halloweenIcon = '/components/FeaturesAndBenefits/illustrations/undraw_halloween-2025_o47f.svg';
-const eatingTogetherIcon = '/components/FeaturesAndBenefits/illustrations/undraw_eating-together_mr7m.svg';
+const analyticsSetupIcon = '/vectors/undraw_analytics-setup_ptrz.svg';
+const mindfulnessIcon = '/vectors/undraw_mindfulness_d853.svg';
+const halloweenIcon = '/vectors/undraw_halloween-2025_o47f.svg';
+const eatingTogetherIcon = '/vectors/undraw_eating-together_mr7m.svg';
 
 interface FeaturesProps {
   translations: TranslationSchema['features'];
