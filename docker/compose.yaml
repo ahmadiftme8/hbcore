@@ -31,6 +31,24 @@ services:
       retries: 5
     restart: unless-stopped
 
+  unleash-postgres:
+    image: postgres:18.0-bookworm
+    container_name: hbcore-unleash-postgres
+    environment:
+      POSTGRES_USER: ${UNLEASH_POSTGRES_USER:-unleash}
+      POSTGRES_PASSWORD: ${UNLEASH_POSTGRES_PASSWORD:-unleash}
+      POSTGRES_DB: ${UNLEASH_POSTGRES_NAME:-unleash}
+    ports:
+      - "${UNLEASH_POSTGRES_PORT:-5433}:5432"
+    volumes:
+      - unleash_postgres_data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${UNLEASH_POSTGRES_USER:-unleash}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
   migrations:
     build:
       context: ..
@@ -113,7 +131,36 @@ services:
       - api
     restart: unless-stopped
 
+  unleash:
+    image: unleashorg/unleash-server:7.4
+    container_name: hbcore-unleash
+    ports:
+      - "4242:4242"
+    environment:
+      # This points Unleash to its backing database (unleash-postgres service)
+      DATABASE_URL: postgresql://${UNLEASH_POSTGRES_USER:-unleash}:${UNLEASH_POSTGRES_PASSWORD:-unleash}@unleash-postgres:5432/${UNLEASH_POSTGRES_NAME:-unleash}
+      # Disable SSL for local database connections
+      DATABASE_SSL: "false"
+      # Changing log levels:
+      LOG_LEVEL: "warn"
+      INIT_FRONTEND_API_TOKENS: "default:development.unleash-insecure-frontend-api-token"
+      # The default API token is insecure and should not be used in production.
+      INIT_BACKEND_API_TOKENS: "default:development.unleash-insecure-api-token"
+    depends_on:
+      unleash-postgres:
+        condition: service_healthy
+    healthcheck:
+      test: wget --no-verbose --tries=1 --spider http://localhost:4242/health || exit 1
+      interval: 1s
+      timeout: 1m
+      retries: 5
+      start_period: 15s
+    restart: unless-stopped
+    
+
+
 volumes:
   postgres_data:
   redis_data:
+  unleash_postgres_data:
 
