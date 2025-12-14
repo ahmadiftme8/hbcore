@@ -12,7 +12,6 @@ export class CreateUserProfile1764766000000 implements MigrationInterface {
         "email" VARCHAR(255),
         "phone" VARCHAR(20),
         "name" VARCHAR(255),
-        "photo_url" VARCHAR(512),
         "created_at" TIMESTAMP NOT NULL DEFAULT now(),
         "updated_at" TIMESTAMP NOT NULL DEFAULT now(),
         "deleted_at" TIMESTAMP,
