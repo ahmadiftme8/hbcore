@@ -86,6 +86,9 @@ services:
       FIREBASE_PROJECT_ID: ${FIREBASE_PROJECT_ID}
       FIREBASE_CLIENT_EMAIL: ${FIREBASE_CLIENT_EMAIL}
       FIREBASE_PRIVATE_KEY: ${FIREBASE_PRIVATE_KEY}
+      UNLEASH_URL: ${UNLEASH_URL}
+      UNLEASH_APP_NAME: ${UNLEASH_APP_NAME}
+      UNLEASH_BACKEND_API_TOKEN: ${UNLEASH_BACKEND_API_TOKEN}
     depends_on:
       postgres:
         condition: service_healthy
@@ -143,8 +146,8 @@ services:
       DATABASE_SSL: "false"
       # Changing log levels:
       LOG_LEVEL: "warn"
-      INIT_FRONTEND_API_TOKENS: "default:development.unleash-insecure-frontend-api-token"
-      INIT_BACKEND_API_TOKENS: "default:development.unleash-insecure-api-token"
+      INIT_FRONTEND_API_TOKENS: ${UNLEASH_FRONTEND_API_TOKEN}
+      INIT_BACKEND_API_TOKENS: ${UNLEASH_BACKEND_API_TOKEN}
     depends_on:
       unleash-postgres:
         condition: service_healthy
