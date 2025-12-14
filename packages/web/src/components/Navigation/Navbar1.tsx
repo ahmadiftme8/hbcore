@@ -18,6 +18,8 @@ import {
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { useAuth } from '@/contexts/AuthContext/AuthContext';
 import { useTranslation } from '@/i18n/useTranslation';
+import './Navbar1.css';
+import './Navbar1.css';
 
 interface MenuItem {
   title: string;
@@ -186,7 +188,7 @@ const renderMenuItem = (item: MenuItem) => {
     return (
       <NavigationMenuItem key={item.title}>
         <NavigationMenuTrigger
-          className={`bg-transparent! hover:bg-transparent! ${textColorClass} ${hoverTextColorClass} hover:[text-shadow:0_0_15px_var(--primary)/0.8] focus:bg-transparent! focus:text-primary focus-visible:ring-ring/50 focus-visible:ring-[3px] focus-visible:outline-1 data-[state=open]:bg-transparent! data-[state=open]:text-primary`}
+          className={`navbar-menu-link bg-transparent! hover:bg-transparent! ${textColorClass} ${hoverTextColorClass} focus:bg-transparent! focus:text-primary focus-visible:ring-ring/50 focus-visible:ring-[3px] focus-visible:outline-1 data-[state=open]:bg-transparent! data-[state=open]:text-primary`}
         >
           {item.title}
         </NavigationMenuTrigger>
@@ -205,7 +207,7 @@ const renderMenuItem = (item: MenuItem) => {
       <NavigationMenuLink asChild>
         <Link
           href={item.url}
-          className={`group inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-all ${textColorClass} ${hoverTextColorClass} !hover:bg-transparent hover:[text-shadow:0_0_15px_var(--primary)/0.8] !focus:bg-transparent focus:text-primary focus-visible:ring-ring/50 focus-visible:ring-[3px] focus-visible:outline-1 !data-[active=true]:bg-transparent data-[active=true]:text-primary`}
+          className={`navbar-menu-link group inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-all ${textColorClass} ${hoverTextColorClass} !hover:bg-transparent !focus:bg-transparent focus:text-primary focus-visible:ring-ring/50 focus-visible:ring-[3px] focus-visible:outline-1 !data-[active=true]:bg-transparent data-[active=true]:text-primary`}
         >
           {item.title}
         </Link>

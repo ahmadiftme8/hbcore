@@ -89,7 +89,7 @@
 
 .footer-menu-link:hover {
   color: var(--primary);
-  text-shadow: 0 0 15px color-mix(in srgb, var(--primary) 80%, transparent);
+  text-shadow: 0 0 8px rgb(from var(--primary) r g b / 0.8);
 }
 
 .footer-bottom {

@@ -1,0 +1,4 @@
+.navbar-menu-link:hover {
+  text-shadow: 0 0 8px rgb(from var(--primary) r g b / 0.8);
+}
+
