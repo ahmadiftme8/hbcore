@@ -1,4 +1,4 @@
-import { type AuthResult, PhoneSchema, ProviderUidSchema } from '@hbcore/types';
+import { type AuthResult, PhoneSchema, type ProviderUid, ProviderUidSchema } from '@hbcore/types';
 import { Injectable, Logger, UnauthorizedException } from '@nestjs/common';
 import jwt from 'jsonwebtoken';
 import { ConfigService } from '@/config/config.service';
@@ -35,7 +35,7 @@ export class PhoneStrategy implements AuthStrategy {
       let phone: string;
       try {
         phone = PhoneSchema.parse(decoded.phone);
-      } catch (validationError) {
+      } catch (_) {
         this.logger.warn('Invalid phone format in token', { phone: decoded.phone });
         throw new UnauthorizedException('Invalid token: phone format is invalid');
       }
@@ -48,7 +48,7 @@ export class PhoneStrategy implements AuthStrategy {
       }
 
       // Validate provider UID
-      let providerUid: string;
+      let providerUid: ProviderUid;
       try {
         providerUid = ProviderUidSchema.parse(phone);
       } catch (validationError) {

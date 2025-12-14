@@ -1,10 +1,10 @@
 'use client';
 
+import { FeatureFlag } from '@hbcore/types';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense, useContext, useEffect, useState } from 'react';
 import { PhoneSignInButton } from '@/components/Auth/PhoneSignInButton';
 import { useAuth } from '@/contexts/AuthContext/AuthContext';
-import { FeatureFlag } from '@hbcore/types';
 import { FeatureFlagContext } from '@/contexts/FeatureFlagContext/FeatureFlagContext';
 import { useTranslation } from '@/i18n/useTranslation';
 import './auth.css';
