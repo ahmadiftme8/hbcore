@@ -6,8 +6,6 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_NAME}
-    ports:
-      - "${POSTGRES_PORT:-5432}:5432"
     volumes:
       - postgres_data:/var/lib/postgresql
     healthcheck:
@@ -152,8 +150,6 @@ services:
       POSTGRES_USER: ${UNLEASH_POSTGRES_USER:-unleash}
       POSTGRES_PASSWORD: ${UNLEASH_POSTGRES_PASSWORD:-unleash}
       POSTGRES_DB: ${UNLEASH_POSTGRES_NAME:-unleash}
-    ports:
-      - "${UNLEASH_POSTGRES_PORT:-5433}:5432"
     volumes:
       - unleash_postgres_data:/var/lib/postgresql
     healthcheck:
