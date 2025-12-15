@@ -9,6 +9,7 @@ COPY package.json bun.lock* ./
 COPY packages/api/package.json ./packages/api/
 COPY packages/db/package.json ./packages/db/
 COPY packages/types/package.json ./packages/types/
+COPY packages/unleash/package.json ./packages/unleash/
 
 # Install dependencies
 # Remove --frozen-lockfile to allow lockfile updates if needed
@@ -29,6 +30,7 @@ COPY tsconfig.json ./
 # Copy workspace packages needed for build
 COPY packages/types ./packages/types
 COPY packages/db ./packages/db
+COPY packages/unleash ./packages/unleash
 COPY packages/api ./packages/api
 
 # Build API application
@@ -52,6 +54,7 @@ COPY --from=deps /app/node_modules ./node_modules
 # Types and db packages are TypeScript-only, so copy source files
 COPY --from=builder --chown=nestjs:nodejs /app/packages/types ./packages/types
 COPY --from=builder --chown=nestjs:nodejs /app/packages/db ./packages/db
+COPY --from=builder --chown=nestjs:nodejs /app/packages/unleash ./packages/unleash
 # Copy built API application
 COPY --from=builder --chown=nestjs:nodejs /app/packages/api/dist ./packages/api/dist
 COPY --from=builder --chown=nestjs:nodejs /app/packages/api/package.json ./packages/api/
