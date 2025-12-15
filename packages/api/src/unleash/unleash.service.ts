@@ -1,7 +1,7 @@
 import type { FeatureFlag, UnleashClientConfig } from '@hbcore/types';
+import { UnleashClient } from '@hbcore/unleash';
 import { Injectable, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
 import { ConfigService } from '@/config/config.service';
-import { UnleashClient } from './unleash-client';
 
 @Injectable()
 export class UnleashService implements OnModuleInit, OnModuleDestroy {
