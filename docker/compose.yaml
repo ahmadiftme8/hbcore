@@ -31,24 +31,6 @@ services:
       retries: 5
     restart: unless-stopped
 
-  unleash-postgres:
-    image: postgres:18.0-bookworm
-    container_name: hbcore-unleash-postgres
-    environment:
-      POSTGRES_USER: ${UNLEASH_POSTGRES_USER:-unleash}
-      POSTGRES_PASSWORD: ${UNLEASH_POSTGRES_PASSWORD:-unleash}
-      POSTGRES_DB: ${UNLEASH_POSTGRES_NAME:-unleash}
-    ports:
-      - "${UNLEASH_POSTGRES_PORT:-5433}:5432"
-    volumes:
-      - unleash_postgres_data:/var/lib/postgresql
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${UNLEASH_POSTGRES_USER:-unleash}"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-    restart: unless-stopped
-
   migrations:
     build:
       context: ..
@@ -133,6 +115,7 @@ services:
       LOG_LEVEL: "warn"
       INIT_FRONTEND_API_TOKENS: ${UNLEASH_FRONTEND_API_TOKEN:-${INIT_FRONTEND_API_TOKENS:-}}
       INIT_BACKEND_API_TOKENS: ${UNLEASH_BACKEND_API_TOKEN:-${INIT_BACKEND_API_TOKENS:-${UNLEASH_API_TOKEN:-}}}
+      UNLEASH_DEFAULT_ADMIN_USERNAME: ${UNLEASH_DEFAULT_ADMIN_USERNAME:-}
       UNLEASH_DEFAULT_ADMIN_PASSWORD: ${UNLEASH_DEFAULT_ADMIN_PASSWORD:-}
     depends_on:
       unleash-postgres:
@@ -145,6 +128,23 @@ services:
       start_period: 15s
     restart: unless-stopped
     
+  unleash-postgres:
+    image: postgres:18.0-bookworm
+    container_name: hbcore-unleash-postgres
+    environment:
+      POSTGRES_USER: ${UNLEASH_POSTGRES_USER:-unleash}
+      POSTGRES_PASSWORD: ${UNLEASH_POSTGRES_PASSWORD:-unleash}
+      POSTGRES_DB: ${UNLEASH_POSTGRES_NAME:-unleash}
+    ports:
+      - "${UNLEASH_POSTGRES_PORT:-5433}:5432"
+    volumes:
+      - unleash_postgres_data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${UNLEASH_POSTGRES_USER:-unleash}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
 
 
 volumes:
