@@ -16,6 +16,8 @@ services:
       timeout: 5s
       retries: 5
     restart: unless-stopped
+    networks:
+      - hbcore-network
 
   redis:
     image: redis:8.2.2-bookworm
@@ -30,6 +32,8 @@ services:
       timeout: 3s
       retries: 5
     restart: unless-stopped
+    networks:
+      - hbcore-network
 
   migrations:
     build:
@@ -48,6 +52,8 @@ services:
       postgres:
         condition: service_healthy
     restart: "no"
+    networks:
+      - hbcore-network
 
   api:
     build:
@@ -78,6 +84,8 @@ services:
       migrations:
         condition: service_completed_successfully
     restart: unless-stopped
+    networks:
+      - hbcore-network
 
   web:
     build:
@@ -100,6 +108,8 @@ services:
     depends_on:
       - api
     restart: unless-stopped
+    networks:
+      - hbcore-network
 
   unleash:
     image: unleashorg/unleash-server:7.4
@@ -151,4 +161,8 @@ volumes:
   postgres_data:
   redis_data:
   unleash_postgres_data:
+
+networks:
+  hbcore-network:
+    driver: bridge
 

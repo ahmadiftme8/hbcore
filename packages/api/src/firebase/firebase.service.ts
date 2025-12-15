@@ -12,6 +12,11 @@ export class FirebaseService implements OnModuleInit {
   onModuleInit() {
     const config = this.configService.e;
 
+    // Skip initialization if Firebase credentials are not provided
+    if (!config.FIREBASE_PROJECT_ID || !config.FIREBASE_CLIENT_EMAIL || !config.FIREBASE_PRIVATE_KEY) {
+      return;
+    }
+
     // Initialize Firebase Admin SDK if not already initialized
     try {
       // Try to get the default app first
