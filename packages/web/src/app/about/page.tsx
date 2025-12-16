@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { TeamMember } from '@/components/TeamMember/TeamMember';
 import { getServerTranslations } from '@/i18n/server';
+import { getAssetUrl } from '@/utils/get-asset';
 import '@/components/TeamMember/TeamMember.css';
 
 export default async function AboutPage() {
@@ -12,35 +13,35 @@ export default async function AboutPage() {
       role: translations.about.team.members.amirhosseinMoshki.role,
       education: translations.about.team.members.amirhosseinMoshki.education,
       bio: translations.about.team.members.amirhosseinMoshki.bio,
-      imagePath: '/images/personally/AmirhosseinMoshki.png',
+      imagePath: getAssetUrl('/images/personally/AmirhosseinMoshki.webp'),
     },
     {
       name: translations.about.team.members.alirezaJafartash.name,
       role: translations.about.team.members.alirezaJafartash.role,
       education: translations.about.team.members.alirezaJafartash.education,
       bio: translations.about.team.members.alirezaJafartash.bio,
-      imagePath: '/images/personally/AlirezaJafartash.png',
+      imagePath: getAssetUrl('/images/personally/AlirezaJafartash.webp'),
     },
     {
       name: translations.about.team.members.hadiEsfandiarpour.name,
       role: translations.about.team.members.hadiEsfandiarpour.role,
       education: translations.about.team.members.hadiEsfandiarpour.education,
       bio: translations.about.team.members.hadiEsfandiarpour.bio,
-      imagePath: '/images/personally/HadiEspandiarpour.png',
+      imagePath: getAssetUrl('/images/personally/HadiEspandiarpour.webp'),
     },
     {
       name: translations.about.team.members.melikaEslami.name,
       role: translations.about.team.members.melikaEslami.role,
       education: translations.about.team.members.melikaEslami.education,
       bio: translations.about.team.members.melikaEslami.bio,
-      imagePath: '/images/personally/MelikaEslami.png',
+      imagePath: getAssetUrl('/images/personally/MelikaEslami.webp'),
     },
     {
       name: translations.about.team.members.ghazaleVakili.name,
       role: translations.about.team.members.ghazaleVakili.role,
       education: translations.about.team.members.ghazaleVakili.education,
       bio: translations.about.team.members.ghazaleVakili.bio,
-      imagePath: '/images/personally/GhazaleVakili.png',
+      imagePath: getAssetUrl('/images/personally/GhazaleVakili.webp'),
     },
   ];
 
@@ -60,7 +61,7 @@ export default async function AboutPage() {
             {/* Image on Left */}
             <div className="relative w-full aspect-video rounded-lg overflow-hidden [dir:ltr]">
               <Image
-                src="/images/hero/hero_8.jpg"
+                src={getAssetUrl('/images/hero/hero_8.jpg')}
                 alt={translations.about.title}
                 fill
                 className="object-cover"
