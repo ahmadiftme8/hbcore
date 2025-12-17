@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import { TeamMember } from '@/components/TeamMember/TeamMember';
 import { getServerTranslations } from '@/i18n/server';
-import { getAssetUrl } from '@/utils/get-asset';
 import '@/components/TeamMember/TeamMember.css';
+import { getAssetUrl } from '@/utils/get-asset';
 
 export default async function AboutPage() {
   const translations = await getServerTranslations();
