@@ -104,7 +104,7 @@ const Navbar1 = ({
           </div>
           <div className="flex gap-2">
             <Button asChild size="sm" variant="default">
-              <Link href="/events">{t.navigation.events}</Link>
+              <a href="https://t.me/+YsDCb0h7lK4yNDJk" target="_blank" rel="noopener noreferrer">{t.navigation.events}</a>
             </Button>
             {authLoading ? (
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
@@ -180,7 +180,7 @@ const Navbar1 = ({
                     </Accordion>
                     <div className="flex flex-col gap-3">
                       <Button asChild onClick={() => setIsSheetOpen(false)} variant="default">
-                        <Link href="/events">{t.navigation.events}</Link>
+                        <a href="https://t.me/+YsDCb0h7lK4yNDJk" target="_blank" rel="noopener noreferrer">{t.navigation.events}</a>
                       </Button>
                       {authLoading ? (
                         <div className="flex items-center gap-2 text-sm text-muted-foreground">
